@@ -17,7 +17,7 @@ public class HdrPenjualanDaoImpl extends MyHibernateDaoSupport implements HdrPen
 
 	@Override
 	public void save(HdrPenjualan domain, String user) {
-		// TODO Auto-generated method stub
+		getHibernateTemplate().saveOrUpdate(domain);
 		
 	}
 
