@@ -1,5 +1,6 @@
 *.class
-
+*.setting
+*.snv
 # Package Files #
 *.jar
 *.war
