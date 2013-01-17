@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- Database dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		
+	    <!-- <property name="hibernate.hbm2ddl.auto">create</property>  -->
+	    <!-- <property name="hibernate.hbm2ddl.auto">update</property>  -->
+	    <property name="hibernate.hbm2ddl.auto">update</property>
+		<!-- mapping resources h000 -->
+		
+		<mapping class="com.saifiahmada.model.HdrPenjualan"/>
+		<mapping class="com.saifiahmada.model.DtlPenjualan"/>
+		<mapping class="com.saifiahmada.model.MstBarang"/>
+		<mapping class="com.saifiahmada.model.MstCustomer"/> 
+		
+	</session-factory>
+</hibernate-configuration>
