@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.saifiahmada.dao.HdrPenjualanDao;
 import com.saifiahmada.model.DtlPenjualan;
 import com.saifiahmada.model.HdrPenjualan;
+import com.saifiahmada.model.MstCustomer;
 
 /** @author Saifi Ahmada Jan 16, 2013 4:26:24 PM  **/
 
@@ -25,7 +26,8 @@ public static void main (String [] args){
 		HdrPenjualan hdr = new HdrPenjualan(idPenjualan);
 		
 		hdr.setDtlPenjualans(new HashSet<DtlPenjualan>());
-		hdr.setIdKonsumen("Saifi Ahmada");
+		MstCustomer mCust = new MstCustomer("IDC001");
+		hdr.setMstCustomer(mCust);
 		hdr.setTglJual(new Date());
 		
 		DtlPenjualan dtl = new DtlPenjualan(idPenjualan, "IDB001");

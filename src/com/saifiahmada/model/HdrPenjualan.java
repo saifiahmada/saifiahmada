@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,8 +30,9 @@ public class HdrPenjualan implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date tglJual;
 	
-	@Column(name="ID_KONSUMEN")
-	private String idKonsumen;
+	@ManyToOne
+	@JoinColumn(name="ID_CUSTOMER", referencedColumnName="ID_CUSTOMER")
+	private MstCustomer mstCustomer;
 	
 	@OneToMany(mappedBy="hdrPenjualan", cascade = CascadeType.ALL)
 	private Set<DtlPenjualan> dtlPenjualans;
@@ -58,12 +61,12 @@ public class HdrPenjualan implements Serializable {
 		this.tglJual = tglJual;
 	}
 
-	public String getIdKonsumen() {
-		return idKonsumen;
+	public MstCustomer getMstCustomer() {
+		return mstCustomer;
 	}
 
-	public void setIdKonsumen(String idKonsumen) {
-		this.idKonsumen = idKonsumen;
+	public void setMstCustomer(MstCustomer mstCustomer) {
+		this.mstCustomer = mstCustomer;
 	}
 
 	public Set<DtlPenjualan> getDtlPenjualans() {

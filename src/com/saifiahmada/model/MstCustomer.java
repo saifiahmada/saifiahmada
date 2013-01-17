@@ -1,10 +1,13 @@
 package com.saifiahmada.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /** @author Saifi Ahmada Jan 16, 2013 4:49:04 PM  **/
@@ -24,10 +27,21 @@ public class MstCustomer implements Serializable{
 	@Column(name="NO_KONTAK" , length=15)
 	private String noKontak;
 	
+	@OneToMany(mappedBy="mstCustomer")
+	private Set<HdrPenjualan> hdrPejualans;
+	
 	public MstCustomer() {
 	
 	}
 	
+	public Set<HdrPenjualan> getHdrPejualans() {
+		return hdrPejualans;
+	}
+
+	public void setHdrPejualans(Set<HdrPenjualan> hdrPejualans) {
+		this.hdrPejualans = hdrPejualans;
+	}
+
 	public MstCustomer(String idCustomer) {
 		this.mstCustomerPK = new MstCustomerPK(idCustomer);
 	}

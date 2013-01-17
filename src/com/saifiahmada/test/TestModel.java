@@ -28,8 +28,7 @@ public class TestModel {
 
 		MstBarang barang = new MstBarang("IDB003");
 		barang.setHarga(3000);
-		barang.setNamaBarang("Pantene");
-
+		barang.setNamaBarang("Pepsodent");
 		dao.save(barang, "user");
 
 		System.out.println("end");
