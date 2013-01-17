@@ -1,8 +1,0 @@
-<?page title="" contentType="text/html;charset=UTF-8"?>
-<zk>
-	
-
-		<menubar id="mb" apply="com.trio.view.ctrl.MenuBar" />
-	
-	
-</zk>

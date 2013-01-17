@@ -1,8 +1,0 @@
-package com.trio.dao.h100;
-
-import com.trio.bean.h100.HondaH100Gudangs;
-import com.trio.hibernate.TrioGenericDao;
-
-public interface HondaH100GudangsDao extends TrioGenericDao<HondaH100Gudangs> { 
-
-}

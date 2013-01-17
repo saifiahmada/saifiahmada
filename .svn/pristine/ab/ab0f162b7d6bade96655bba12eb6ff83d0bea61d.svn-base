@@ -1,9 +1,0 @@
-<?page title="test boy" contentType="text/html;charset=UTF-8"?>
-<zk>
-<window title="test boy" border="normal" apply="com.trio.view.ctrl.Testing">
-
-	Intbox 1<intbox id="int1" constraint="no empty, no zero" />
-	<button id="btnSubmit" label="Submit" />
-	
-</window>
-</zk>

@@ -1,4 +1,0 @@
-jdbc.driverClass=oracle.jdbc.driver.OracleDriver
-jdbc.jdbcUrl=jdbc:oracle:thin:@192.168.56.2:1521:dbmd
-jdbc.user=usermd
-jdbc.password=honda

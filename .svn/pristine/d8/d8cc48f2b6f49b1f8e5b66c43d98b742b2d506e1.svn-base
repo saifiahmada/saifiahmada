@@ -1,7 +1,0 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
-<zk>
-
-	<window title="Access Denied" border="normal">
-		<label value="Akses Ditolak, klik disini untuk kembali ke halaman index"/>
-	</window>
-</zk>

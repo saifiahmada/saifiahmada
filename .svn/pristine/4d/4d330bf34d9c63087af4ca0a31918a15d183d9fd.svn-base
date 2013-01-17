@@ -1,6 +1,0 @@
-<?page title="Test Menu" contentType="text/html;charset=UTF-8"?>
-<zk>
-<window id="win">
-	<menubar id="menubar" apply="com.trio.test.MenubarCtrl" autodrop="true" />
-</window> 
-</zk>
