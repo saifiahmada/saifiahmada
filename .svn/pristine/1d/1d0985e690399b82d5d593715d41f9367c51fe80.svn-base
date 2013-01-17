@@ -1,0 +1,63 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import com.trio.bean.h100.HondaH100Hargas;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 12, 2012
+ */
+public class HondaH100HargasDaoImpl extends TrioHibernateDaoSupport implements HondaH100HargasDao {
+
+	@Override
+	public void saveOrUpdate(HondaH100Hargas domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(HondaH100Hargas domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<HondaH100Hargas> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Hargas> findByExample(HondaH100Hargas domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Hargas> findByCriteria(HondaH100Hargas domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(HondaH100Hargas domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(HondaH100Hargas domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HondaH100Hargas findByPrimaryKey(HondaH100Hargas domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

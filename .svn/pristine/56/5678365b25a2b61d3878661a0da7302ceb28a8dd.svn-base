@@ -1,0 +1,42 @@
+package com.trio.view.ctrl;
+
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.SuspendNotAllowedException;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Window;
+
+public class ParentCtrl extends GenericForwardComposer {
+	
+	private Button btnTest;
+	
+	//private boolean isShowModal = false;
+	
+	public void setBtnTest(Button btnTest) {
+		this.btnTest = btnTest;
+		btnTest.addEventListener("onClick", new EventListener() {
+		@Override
+		public void onEvent(Event arg0) throws Exception {
+		Window popupWin = (Window) Executions.getCurrent().createComponents("/child.zul", self, arg);
+		try {
+		popupWin.doModal();
+		} catch (SuspendNotAllowedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		}
+		});
+		}
+	
+	public void onClick$btnTest(){
+		
+	//	isShowModal = true;
+		
+	}
+
+}

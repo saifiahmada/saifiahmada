@@ -1,0 +1,18 @@
+package com.trio.dao.h100;
+
+import com.trio.bean.h100.TrioH100Kecamatans;
+import com.trio.hibernate.TrioGenericDao;
+
+public interface TrioH100KecamatansDao extends TrioGenericDao<TrioH100Kecamatans> { 
+	
+//	public void saveOrUpdate(Kecamatan kecamatan);
+//	
+//	public void delete(Kecamatan kecamatan);
+//	
+//	public List<Kecamatan> findAll();
+//	
+//	public List<Kecamatan> getKecamatanByCriteria(Kecamatan kecamatan);
+//	
+//	public List<Kecamatan> findByExample(Kecamatan kecamatan);
+	
+}

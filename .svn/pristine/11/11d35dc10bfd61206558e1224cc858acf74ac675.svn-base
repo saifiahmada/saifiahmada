@@ -1,0 +1,156 @@
+package com.trio.dao.h100;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.TrioH100PelangWils;
+import com.trio.bean.h100.TrioH100Stdetails;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+import com.trio.util.TrioDateConv;
+import com.trio.util.TrioDateUtil;
+import com.trio.util.TrioStringUtil;
+
+public class TrioH100PelangWilsDaoImpl extends TrioHibernateDaoSupport implements TrioH100PelangWilsDao {
+	
+	@Transactional(readOnly = false)
+	public void saveOrUpdate(TrioH100PelangWils pelangWils, String user){
+		
+	}
+	
+	@Transactional(readOnly = false)
+	public String saveTransaction(TrioH100PelangWils pelangWils, String user){
+		
+		Set<TrioH100Stdetails> setStdetail = new HashSet<TrioH100Stdetails>(); 
+		setStdetail = pelangWils.getStDetails();
+		
+		if (setStdetail.size() < 1){
+			return "Error tidak ada data detail";
+		}
+		
+		//TH1_PELANGWIL
+		
+		int totalPw = 0;
+		String str = getMasterFacade().getHondaH000SetupsDao().getRunningNumber("TH1_PELANGWIL", TrioDateConv.format(new Date(),"yyyy"), user);
+        String noApproval = TrioStringUtil.getFormattedRunno("APW", Integer.valueOf(str));
+        pelangWils.setNoApprovalPw(noApproval);
+        System.out.println("No Approval = "+noApproval);
+		
+		for (TrioH100Stdetails st : setStdetail){
+			st.setStatusPw("B");
+			st.setNoApprovalPw(noApproval);
+			st.getUserTrailing().setVmodiby(user);
+			st.getUserTrailing().setDmodi(TrioDateUtil.getLongSysDateOracle());
+			totalPw += st.getNilaiPw();
+			getHibernateTemplate().saveOrUpdate(st);
+		}
+		pelangWils.setTglApprovalPw(TrioDateUtil.getLongSysDateOracle());
+		pelangWils.setApprovedBy(user);
+		pelangWils.setTotalNilaiPw(totalPw);
+		pelangWils.getUserTrailing().setVcreaby(user);
+		pelangWils.getUserTrailing().setDcrea(TrioDateUtil.getLongSysDateOracle());
+		getHibernateTemplate().saveOrUpdate(pelangWils);//jgn lupada update di balikin ke saveorUpdate
+		return noApproval;
+	}
+	
+	@Transactional
+	public void delete(TrioH100PelangWils pelangWils) throws DataAccessException {
+		getHibernateTemplate().delete(pelangWils);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<TrioH100PelangWils> findAll(Class<TrioH100PelangWils> clazz) throws DataAccessException {
+		List<TrioH100PelangWils> list = getHibernateTemplate().find("from " + clazz.getName());
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<TrioH100PelangWils> getPelangWilByCriteria(TrioH100PelangWils clazz, final int firstResult, final int maxResults) throws DataAccessException {
+		DetachedCriteria criteria = DetachedCriteria.forClass(TrioH100PelangWils.class);
+		
+		List<TrioH100PelangWils> list = getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<TrioH100PelangWils> getPelangWilByCriteria(TrioH100PelangWils pelangWils) throws DataAccessException {
+		DetachedCriteria criteria = DetachedCriteria.forClass(TrioH100PelangWils.class);
+		if (pelangWils.getNoApprovalPw() != null){
+			criteria = criteria.add(Restrictions.eq("noApprovalPw", pelangWils.getNoApprovalPw()));
+		}
+		if (pelangWils.getKdDlr() != null){
+			criteria = criteria.add(Restrictions.eq("kdDlr", pelangWils.getKdDlr()));
+		}
+		if (pelangWils.getTotalNilaiPw() != null){
+			criteria = criteria.add(Restrictions.eq("totalNilaiPw", pelangWils.getTotalNilaiPw()));
+		}
+		List<TrioH100PelangWils> list = getHibernateTemplate().findByCriteria(criteria);
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<TrioH100PelangWils> findByExample(TrioH100PelangWils pelangWils) throws DataAccessException {
+		System.out.println("dao = "+pelangWils.getKdDlr());
+		List<TrioH100PelangWils> list = getHibernateTemplate().findByExample(pelangWils);
+		
+		return list;
+	}
+
+
+	@Override
+	public List<TrioH100PelangWils> findAll() {
+		String str = "from TrioH100PelangWils";
+		List<TrioH100PelangWils> lists = getHibernateTemplate().find(str);
+		return lists;
+	}
+
+	@Override
+	public List<TrioH100PelangWils> findByCriteria(TrioH100PelangWils domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	@Transactional(readOnly = false)
+	public void updateTransaction (TrioH100PelangWils pelangWils, String user){
+		
+		Set<TrioH100Stdetails> setStDetail = new HashSet<TrioH100Stdetails>();
+		setStDetail = pelangWils.getStDetails();
+		
+		if(setStDetail.size() < 1){
+			System.out.println("Error tidak ada detail");
+		}
+		
+		int totalPw = 0;
+		
+		for(TrioH100Stdetails st : setStDetail){
+			
+			st.getUserTrailing().setVmodiby(user);
+			st.getUserTrailing().setDmodi(TrioDateUtil.getLongSysDateOracle());
+			totalPw += st.getNilaiPw();
+			getHibernateTemplate().update(st);
+		}
+		
+		pelangWils.setTglApprovalPw(TrioDateUtil.getLongSysDateOracle());
+		pelangWils.setTotalNilaiPw(totalPw);
+		pelangWils.setApprovedBy(user);
+		pelangWils.getUserTrailing().setVcreaby(user);
+		pelangWils.getUserTrailing().setDcrea(TrioDateUtil.getLongSysDateOracle());
+		getHibernateTemplate().update(pelangWils);
+		
+	}
+	
+	
+}

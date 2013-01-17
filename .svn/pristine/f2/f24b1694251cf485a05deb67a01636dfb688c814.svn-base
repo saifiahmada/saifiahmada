@@ -1,0 +1,99 @@
+package com.trio.dao.h100;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.HondaH100Fakdos;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class HondaH100FakdosDaoImpl extends TrioHibernateDaoSupport implements HondaH100FakdosDao {
+
+	@Override
+	public void saveOrUpdate(HondaH100Fakdos domain , String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(HondaH100Fakdos domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<HondaH100Fakdos> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Fakdos> findByExample(HondaH100Fakdos domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Fakdos> findByCriteria(HondaH100Fakdos domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unused" })
+	@Transactional(readOnly = true)
+	public List getDataStnk(String noMesin){
+		String str = "SELECT D.NO_MESIN, A.KD_DLR, B.DLR_NAMA, F.TGL_FAKTUR, F.NAMA1 || ' ' || F.NAMA2 AS NAMA, F.ALAMAT1 || ' ' || F.ALAMAT2 AS ALAMAT, F.KELURAHAN || ' ' || F.KECAMATAN AS KEL_KEC, " +
+				"  F.VNOKTP, G.VDESKRIPSI AS KOTA, H.FINANCE_COMPANY , F.KELURAHAN, F.KECAMATAN, H.STATUS_PW, H.NO_APPROVAL_PW , " +
+				" CASE " +
+				" WHEN (I.VNORANGKA1 IS NULL) THEN " +
+				" CASE WHEN (SUBSTR(I.KD_TIPE,1,2) = 'FA' OR SUBSTR(I.KD_TIPE,1,2) = 'DG' OR SUBSTR(I.KD_TIPE,1,2) = 'DH' OR SUBSTR(I.KD_TIPE,1,2) = 'DJ') THEN 'MLH'|| '' || D.NO_RANGKA " +
+				" ELSE 'MH1'|| '' || D.NO_RANGKA END " +
+				" ELSE I.VNORANGKA1 || '' || D.NO_RANGKA " +
+				" END AS NOMERRANGKA " +
+				" FROM HONDA_H100_FAKDOS A, " +
+				" HONDA_H000_DEALERS B, " +
+				" HONDA_H100_SJALANS C, " +
+				" HONDA_H100_DTLSJALANS D, " +
+				" HONDA_H100_ITEMCUSTS E, " +
+				" HONDA_H100_CUSTOMERS F, " +
+				" HONDA_H000_PROPINS G, " +
+				" TRIO_H100_STDETAILS H, " +
+				" HONDA_H100_DTLSHIPLISTS I " +
+				" WHERE " +
+				" D.NO_MESIN = H.NO_MESIN AND " +
+				" F.KOTA = G.VKODE AND " +
+				" E.CUST_KONSUMEN_ID = F.KONSUMEN_ID AND " +
+				" D.NO_MESIN = E.NO_MESIN AND " +
+				" C.NO_SJ = D.SJALAN_NO_SJ AND " +
+				" A.NO_DO = C.NO_DO AND " +
+				" A.KD_DLR = B.KD_DLR AND " +
+				" A.STATUS <> 'X' AND " +
+				" C.STATUS <> 'X' AND " +
+				" D.NO_MESIN = I.NO_MESIN AND " +
+				" D.NO_MESIN = 'JBB1E1310298'";
+		
+		List list = new ArrayList();
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(str);
+		
+		return q.list();
+	}
+	
+	@Transactional(readOnly=true) 
+	public BigDecimal getSumHargaDOLogistisByKdDlr(String kdDlr){
+		String str = "select sum(harga) from HondaH100Fakdos where status = 'N' and hondaH000Dealers.kdDlr = :kdDlr";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("kdDlr", kdDlr);
+		Object obj = q.uniqueResult();
+		BigDecimal sumHarga = null;
+		if (obj == null){
+			sumHarga = new BigDecimal(0);
+		}else{
+			sumHarga = (BigDecimal) obj; 
+		}
+		return sumHarga;
+	}
+	
+}

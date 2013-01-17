@@ -1,0 +1,26 @@
+package com.trio.view.ctrl.renderer;
+
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.ListitemRenderer;
+
+import com.trio.bean.h000.HondaH000Dealers;
+import com.trio.bean.h100.HondaH100Mstpodlrs;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 15, 2012
+ */
+public class MstpodlrRenderer implements ListitemRenderer{
+
+	@Override
+	public void render(Listitem item, Object data) throws Exception {
+		HondaH000Dealers dealer = (HondaH000Dealers) data;
+		item.setValue(dealer);
+		new Listcell(dealer.getKdDlr()).setParent(item);
+		new Listcell(dealer.getDlrNama()).setParent(item);
+		
+	}
+
+}

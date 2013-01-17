@@ -1,0 +1,108 @@
+package com.trio.view.ctrl;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
+
+import com.trio.base.TrioBasePage;
+import com.trio.bean.h000.TrioH000Mstmenu;
+import com.trio.view.ctrl.renderer.MenuListRenderer;
+
+public class MenuCtrl extends TrioBasePage {
+
+	private static final long serialVersionUID = 1L;
+	private AnnotateDataBinder binder;
+	private Listbox menuList;
+	private Grid editMenuGrid;
+	private Button createMenu;
+	private Button searchMenu;
+	
+	private Combobox cbVparent;
+	
+	private TrioH000Mstmenu menu;
+
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		binder = (AnnotateDataBinder) page.getAttribute("binder");
+		menu = new TrioH000Mstmenu();
+		menuList.setModel(new ListModelList(
+				getMasterFacade().getTrioH000MstmenuDao().findAll()));
+		menuList.setItemRenderer(new MenuListRenderer());
+	}
+	
+	private ListModelList getModel() {
+		return (ListModelList) menuList.getModel();
+	}
+	
+	public void onClick$resetMenu() {
+		reset();
+	}
+	
+	public void reset(){
+		menuList.clearSelection();
+		menuList.setModel(new ListModelList(getMasterFacade().getTrioH000MstmenuDao().findAll()));
+		menu = new TrioH000Mstmenu();
+		binder.loadComponent(editMenuGrid);
+	}
+	
+	//set selection to edit data
+	public void onSelect$menuList() {
+		menu = (TrioH000Mstmenu) menuList.getSelectedItem().getValue();
+		binder.loadComponent(editMenuGrid);
+		
+	}
+	
+	public void onClick$createMenu() throws InterruptedException {
+		if (menu.getVmenuid() == null ||  menu.getVtitle() == null
+				|| menu.getVparent() == null || menu.getVlocation() == null
+				|| menu.getVimage() == null ) {
+			Messagebox.show("Data belum lengkap");
+		} else {
+			getMasterFacade().getTrioH000MstmenuDao().saveOrUpdate(menu, getUserSession());
+			getModel().add(menu);
+		}
+		reset();
+	}
+	
+	public void onClick$deleteMenu() throws InterruptedException {
+		Messagebox.show("Are you sure to delete?", null, Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+			public void onEvent(Event event) throws Exception {
+				if(event.getName().equals("onYes")) {
+					getModel().remove(menu);
+					getMasterFacade().getTrioH000MstmenuDao().delete(menu);
+				}
+			}
+		});
+	}
+	
+	public void onClick$searchMenu() throws InterruptedException {
+		TrioH000Mstmenu d = new TrioH000Mstmenu();
+		d.setVmenuid(menu.getVmenuid());
+		d.setVtitle(menu.getVtitle());
+		d.setVparent(menu.getVparent());
+		d.setVlocation(menu.getVlocation());
+		d.setVimage(menu.getVimage());
+		
+		menuList.setModel(new ListModelList(getMasterFacade().getTrioH000MstmenuDao().findByCriteria(d)));
+		
+	}
+	
+	public TrioH000Mstmenu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(TrioH000Mstmenu menu) {
+		this.menu = menu;
+	}
+
+	
+	
+}

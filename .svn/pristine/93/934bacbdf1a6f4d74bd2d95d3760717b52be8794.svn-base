@@ -1,0 +1,188 @@
+package com.trio.bean.h100;
+
+import java.io.Serializable;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.trio.bean.h000.HondaH000Items;
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="HONDA_H100_DTLSUBLOKASI")
+public class HondaH100Dtlsublokasi extends TrioEntityUserTrail implements Serializable {
+  
+	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Basic(optional=false)
+	@Column(name="VSUBLOKASI", nullable=false, length=20)
+	private String vsublokasi;
+
+	@Id
+	@Basic(optional=false)
+	@Column(name="VKODELOKASI", nullable=false, length=4)
+	private String vkodelokasi;
+
+	@Id
+	@Basic(optional=false)
+	@Column(name="VSEL", nullable=false, length=6)
+	private String vsel;
+
+  @Column(name="NQTY")
+  private Long nqty;
+
+  @Column(name="NQTYREPAIR")
+  private Long nqtyrepair;
+
+  @Column(name="VSTATUS", length=1)
+  private String vstatus;
+
+  @Column(name="VNOMESIN", length=30)
+  private String vnomesin;
+
+  @JoinColumns({@JoinColumn(name="VSUBLOKASI", referencedColumnName="VSUBLOKASI", nullable=false, insertable=false, updatable=false), @JoinColumn(name="VKODELOKASI", referencedColumnName="VKODELOKASI", nullable=false, insertable=false, updatable=false)})
+  @ManyToOne(optional=false)
+  private HondaH100Hdrsublokasi hondaH100Hdrsublokasi;
+
+  @JoinColumn(name="VKODEITEM", referencedColumnName="KD_ITEM")
+  @ManyToOne
+  private HondaH000Items hondaH000Items;
+
+  public HondaH100Dtlsublokasi() {
+    
+  }
+
+  public HondaH100Dtlsublokasi(String vsublokasi, String vkodelokasi, String vsel) {
+    this.vsublokasi = vsublokasi;
+    this.vkodelokasi = vkodelokasi;
+    this.vsel = vsel;
+  }
+
+	public String getVsublokasi() {
+		return vsublokasi;
+	}
+	
+	public void setVsublokasi(String vsublokasi) {
+		this.vsublokasi = vsublokasi;
+	}
+	
+	public String getVkodelokasi() {
+		return vkodelokasi;
+	}
+	
+	public void setVkodelokasi(String vkodelokasi) {
+		this.vkodelokasi = vkodelokasi;
+	}
+	
+	public String getVsel() {
+		return vsel;
+	}
+	
+	public void setVsel(String vsel) {
+		this.vsel = vsel;
+	}
+	
+	public Long getNqty() {
+		return nqty;
+	}
+	
+	public void setNqty(Long nqty) {
+		this.nqty = nqty;
+	}
+	
+	public Long getNqtyrepair() {
+		return nqtyrepair;
+	}
+	
+	public void setNqtyrepair(Long nqtyrepair) {
+		this.nqtyrepair = nqtyrepair;
+	}
+	
+	public String getVstatus() {
+		return vstatus;
+	}
+	
+	public void setVstatus(String vstatus) {
+		this.vstatus = vstatus;
+	}
+	
+	public String getVnomesin() {
+		return vnomesin;
+	}
+	
+	public void setVnomesin(String vnomesin) {
+		this.vnomesin = vnomesin;
+	}
+	
+	public HondaH100Hdrsublokasi getHondaH100Hdrsublokasi() {
+		return hondaH100Hdrsublokasi;
+	}
+	
+	public void setHondaH100Hdrsublokasi(HondaH100Hdrsublokasi hondaH100Hdrsublokasi) {
+		this.hondaH100Hdrsublokasi = hondaH100Hdrsublokasi;
+	}
+	
+	
+
+	public HondaH000Items getHondaH000Items() {
+		return hondaH000Items;
+	}
+
+	public void setHondaH000Items(HondaH000Items hondaH000Items) {
+		this.hondaH000Items = hondaH000Items;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((vkodelokasi == null) ? 0 : vkodelokasi.hashCode());
+		result = prime * result + ((vsel == null) ? 0 : vsel.hashCode());
+		result = prime * result
+				+ ((vsublokasi == null) ? 0 : vsublokasi.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HondaH100Dtlsublokasi other = (HondaH100Dtlsublokasi) obj;
+		if (vkodelokasi == null) {
+			if (other.vkodelokasi != null)
+				return false;
+		} else if (!vkodelokasi.equals(other.vkodelokasi))
+			return false;
+		if (vsel == null) {
+			if (other.vsel != null)
+				return false;
+		} else if (!vsel.equals(other.vsel))
+			return false;
+		if (vsublokasi == null) {
+			if (other.vsublokasi != null)
+				return false;
+		} else if (!vsublokasi.equals(other.vsublokasi))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "HondaH100Dtlsublokasi [vsublokasi=" + vsublokasi
+				+ ", vkodelokasi=" + vkodelokasi + ", vsel=" + vsel + "]";
+	}
+	
+}

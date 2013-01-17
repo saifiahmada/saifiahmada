@@ -1,0 +1,45 @@
+package com.trio.dao.bsc;
+
+import java.util.List;
+
+import com.trio.bean.bsc.AhmdsbscHdrsetting;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 19, 2012
+ */
+public class AhmdsbscHdrsettingDaoImpl extends TrioHibernateDaoSupport implements AhmdsbscHdrsettingDao {
+
+	@Override
+	public void saveOrUpdate(AhmdsbscHdrsetting domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(AhmdsbscHdrsetting domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<AhmdsbscHdrsetting> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AhmdsbscHdrsetting> findByExample(AhmdsbscHdrsetting domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AhmdsbscHdrsetting> findByCriteria(AhmdsbscHdrsetting domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

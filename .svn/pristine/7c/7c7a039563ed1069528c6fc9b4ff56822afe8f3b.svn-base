@@ -1,0 +1,29 @@
+package com.trio.view.ctrl.renderer;
+
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.ListitemRenderer;
+
+import com.trio.bean.h000.TrioH000Mstroleaccess;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Nov 2, 2012
+ */
+public class RoleListRenderer implements ListitemRenderer {
+
+	@Override
+	public void render(Listitem item, Object data) throws Exception {
+		
+		TrioH000Mstroleaccess mra = (TrioH000Mstroleaccess) data;
+		
+		item.setValue(mra);
+		
+		new Listcell(mra.getVroleid()).setParent(item);
+		new Listcell(mra.getVmenuid()).setParent(item);
+		new Listcell(mra.getVstatus()).setParent(item);
+		
+	}
+
+}

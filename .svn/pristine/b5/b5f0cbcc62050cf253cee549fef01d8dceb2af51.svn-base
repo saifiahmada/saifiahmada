@@ -1,0 +1,152 @@
+package com.trio.bean.h100;
+
+import java.io.Serializable;
+import java.math.BigInteger;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.trio.bean.h000.HondaH000Items;
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="HONDA_H100_DTLPICKLISTS")
+public class HondaH100Dtlpicklists extends TrioEntityUserTrail implements Serializable {
+  private static final long serialVersionUID = 1L;
+
+  @Basic(optional=false)
+  @Id
+  @Column(name="VNOPICKLIST", nullable=false, length=30)
+  private String vnopicklist;
+
+  @Basic(optional=false)
+  @Id
+  @Column(name="VNOMESIN", nullable=false, length=30)
+  private String vnomesin;
+
+  @Column(name="NQTY")
+  private BigInteger nqty;
+
+  @JoinColumn(name="VNOPICKLIST", referencedColumnName="VNOPICKLIST", nullable=false, insertable=false, updatable=false)
+  @ManyToOne(optional=false)
+  private HondaH100Hdrpicklists hondaH100Hdrpicklists;
+
+  @JoinColumn(name="VKODEITEM", referencedColumnName="KD_ITEM", nullable=false)
+  @ManyToOne(optional=false)
+  private HondaH000Items hondaH000Items;
+
+  @Column(name="VSEL", length=20)
+  private String vsel;
+
+  @Column(name="VSTATUS", length=1)
+  private String vstatus;
+
+  public HondaH100Dtlpicklists()  {
+    
+  }
+
+  public HondaH100Dtlpicklists(String vnopicklist, String vnomesin) {
+    this.vnopicklist = vnopicklist;
+    this.vnomesin = vnomesin;
+  }
+
+	public String getVnopicklist() {
+		return vnopicklist;
+	}
+	
+	public void setVnopicklist(String vnopicklist) {
+		this.vnopicklist = vnopicklist;
+	}
+	
+	public String getVnomesin() {
+		return vnomesin;
+	}
+	
+	public void setVnomesin(String vnomesin) {
+		this.vnomesin = vnomesin;
+	}
+	
+	public BigInteger getNqty() {
+		return nqty;
+	}
+	
+	public void setNqty(BigInteger nqty) {
+		this.nqty = nqty;
+	}
+	
+	public HondaH100Hdrpicklists getHondaH100Hdrpicklists() {
+		return hondaH100Hdrpicklists;
+	}
+	
+	public void setHondaH100Hdrpicklists(HondaH100Hdrpicklists hondaH100Hdrpicklists) {
+		this.hondaH100Hdrpicklists = hondaH100Hdrpicklists;
+	}
+	
+	public HondaH000Items getHondaH000Items() {
+		return hondaH000Items;
+	}
+	
+	public void setHondaH000Items(HondaH000Items hondaH000Items) {
+		this.hondaH000Items = hondaH000Items;
+	}
+	
+	public String getVsel() {
+		return vsel;
+	}
+	
+	public void setVsel(String vsel) {
+		this.vsel = vsel;
+	}
+	
+	public String getVstatus() {
+		return vstatus;
+	}
+	
+	public void setVstatus(String vstatus) {
+		this.vstatus = vstatus;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((vnomesin == null) ? 0 : vnomesin.hashCode());
+		result = prime * result
+				+ ((vnopicklist == null) ? 0 : vnopicklist.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HondaH100Dtlpicklists other = (HondaH100Dtlpicklists) obj;
+		if (vnomesin == null) {
+			if (other.vnomesin != null)
+				return false;
+		} else if (!vnomesin.equals(other.vnomesin))
+			return false;
+		if (vnopicklist == null) {
+			if (other.vnopicklist != null)
+				return false;
+		} else if (!vnopicklist.equals(other.vnopicklist))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "HondaH100Dtlpicklists [vnopicklist=" + vnopicklist
+				+ ", vnomesin=" + vnomesin + "]";
+	}
+}

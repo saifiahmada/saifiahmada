@@ -1,0 +1,269 @@
+package com.trio.view.ctrl;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Checkbox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Label;
+import org.zkoss.zul.ListModel;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Popup;
+import org.zkoss.zul.Radio;
+import org.zkoss.zul.Radiogroup;
+import org.zkoss.zul.Textbox;
+
+import com.trio.base.TrioBasePage;
+import com.trio.bean.bsc.DbaRolePrivs;
+import com.trio.bean.h000.HondaH000Dealers;
+import com.trio.bean.h100.TrioH100DtlAreaDealers;
+import com.trio.bean.h100.TrioH100PelangWils;
+import com.trio.bean.h100.TrioH100Stdetails;
+import com.trio.dao.bsc.DbaRolePrivsDao;
+import com.trio.view.ctrl.renderer.DealerListRenderer;
+import com.trio.view.ctrl.renderer.StdetailListRenderer;
+import com.trio.view.ctrl.renderer.StdetailListRenderer2;
+import com.trio.view.ctrl.renderer.StdetailListRendererSpv;
+
+public class PelangwilCtrl extends TrioBasePage {
+
+	private static final long serialVersionUID = 20111130143824L;
+	private AnnotateDataBinder binder;
+	
+	private Textbox kdDlr;
+	private Button LOV;
+	private Button tampil;
+	private Popup popDealer;
+	private Listbox popDealerList;
+	
+	private Listbox dealerList;
+	private Grid editDealerGrid;
+	
+	private TrioH100DtlAreaDealers _dealer;
+	
+	private Listbox stDetailList;
+	
+	private Radiogroup radioApprove;
+	private Radio r1;
+	private Radio r2;
+	
+	private Button simpan;
+	private Button reset;
+	private Button close;
+	
+	private String nilaiPwConfig;
+	private String noApproval;
+	private Label lblNoApproval;
+	
+	private HondaH000Dealers popObject;
+	private Textbox popKdDlr;
+	private Textbox popDlrNama;
+	
+	private Button popSearch;
+	private Button popReset;
+	
+	private boolean isMgr;
+	private List<DbaRolePrivs> isMgr2;
+	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		binder = (AnnotateDataBinder) page.getAttribute("binder");
+		_dealer = new TrioH100DtlAreaDealers();
+		simpan.setDisabled(true);
+		nilaiPwConfig = getMasterFacade().getHondaH000SetupsDao().findByValIdValTag("H1_CONFIG", "NOMINAL_PELANG_WIL").getValChar();
+		popObject = new HondaH000Dealers();
+		
+		this.isMgr2 =  getMasterFacade().getDbaRolePrivsDao().getRoleByGrantee(getUserSession());
+//		this.isMgr = getMasterFacade().getDbaRolePrivsDao().isManagerByUserSession(getUserSession());
+		
+	}
+	
+	private ListModelList getModel() {
+		return (ListModelList) dealerList.getModel();
+	}
+	
+	public TrioH100DtlAreaDealers getDealer() {
+		return _dealer;
+	}
+	
+	public void setDealer(TrioH100DtlAreaDealers dealer) {
+		_dealer = dealer;
+	}
+	
+	public void onClick$tampil() throws InterruptedException {
+		
+		TrioH100Stdetails st = new TrioH100Stdetails();
+		st.setKdDlr(_dealer.getKdDlr().toUpperCase());
+		String statusPw = radioApprove.getSelectedItem().getValue();
+		st.setStatusPw(statusPw);
+		if (statusPw.equalsIgnoreCase("A")){
+			
+			if (isMgr2.contains("H1_MKT_MGR")){
+				stDetailList.setModel(new ListModelList(getMasterFacade().getTrioH100StdetailsDao().findByExample(st)));
+				stDetailList.setItemRenderer(new StdetailListRenderer());
+				System.out.println("manager login ");
+			}else{
+				stDetailList.setModel(new ListModelList(getMasterFacade().getTrioH100StdetailsDao().findByExample(st)));
+				stDetailList.setItemRenderer(new StdetailListRendererSpv());
+				System.out.println("supervisor login ");
+			}
+			simpan.setDisabled(false);
+		}else {
+			//stDetailList.setModel(new ListModelList(getMasterFacade().getStdetailDao().getStdetailByCriteria(st))); 
+			stDetailList.setModel(new ListModelList(getMasterFacade().getTrioH100StdetailsDao().findByExample(st)));
+			stDetailList.setItemRenderer(new StdetailListRenderer2());
+			simpan.setDisabled(true);
+		}
+		lblNoApproval.setValue(null);
+		
+	}
+	
+	public void onClick$simpan() throws InterruptedException{ 
+		System.out.println("This is simpan");
+		
+		int check = 0;
+		
+		TrioH100PelangWils pw = new TrioH100PelangWils();
+		Set<TrioH100Stdetails> setStdetail = new HashSet<TrioH100Stdetails>();
+		String nilaiPw = "";
+		
+		Listbox box = (Listbox) stDetailList.getFellow("win").getFellow("stDetailList");
+		List<Listitem> item = box.getItems();
+		ListModel model = box.getModel();
+		
+		for (Listitem listItem : item){
+			TrioH100Stdetails st = (TrioH100Stdetails)listItem.getValue();
+			
+			List<Component> com = listItem.getChildren();
+			for (Component compCell : com){	
+				Listcell list = (Listcell) compCell;
+				if (isMgr2.contains("H1_MKT_MGR")){
+					if (list.getFirstChild() instanceof Intbox){
+						Intbox ib = (Intbox) list.getFirstChild();
+						nilaiPw = ib.getValue().toString();
+					}
+				}else{
+					if (list.getColumnIndex()== 12){
+						nilaiPw = (String) list.getLabel();
+						System.out.println("label column index 12 = "+nilaiPw);
+						if (nilaiPw.contains(".")){
+							nilaiPw = nilaiPw.replaceAll("\\.", "");
+						}
+					}
+				}
+				
+				if (list.getFirstChild() instanceof Checkbox){
+					Checkbox cb = (Checkbox) list.getFirstChild();
+					if (cb.isChecked()){
+						check++;
+						if (nilaiPw == null || nilaiPw.equalsIgnoreCase("")){
+							Messagebox.show("Nilai pelanggaran masih kosong");
+							return;
+						}
+						if (Integer.valueOf(nilaiPw) < 0){
+							Messagebox.show("Nilai pelanggaran wilayah kurang dari 0");
+							return;
+						}
+						st.setNilaiPw(Integer.valueOf(nilaiPw));	
+						setStdetail.add(st);
+						 
+					}
+					
+				}
+			}
+		}
+		if (check < 1){
+			Messagebox.show("Data tidak ada yang dipilih");
+			return;
+		}
+		
+		pw.setKdDlr(kdDlr.getValue());
+		pw.setStDetails(setStdetail);
+		String noApproval =  getMasterFacade().getTrioH100PelangWilsDao().saveTransaction(pw, getUserSession());
+		lblNoApproval.setValue("No Approval "+noApproval);
+		Messagebox.show("Transaksi berhasil dengan No Approval :"+noApproval);
+		
+		TrioH100Stdetails st = new TrioH100Stdetails();
+		st.setKdDlr(_dealer.getKdDlr().toUpperCase());
+		st.setStatusPw("A");
+		
+		if (isMgr2.contains("H1_MKT_MGR")){
+			stDetailList.setModel(new ListModelList(getMasterFacade().getTrioH100StdetailsDao().findByExample(st)));
+			stDetailList.setItemRenderer(new StdetailListRenderer());
+			System.out.println("manager login ");
+		}else {
+			stDetailList.setModel(new ListModelList(getMasterFacade().getTrioH100StdetailsDao().findByExample(st)));
+			stDetailList.setItemRenderer(new StdetailListRendererSpv());
+			System.out.println("supervisor login ");
+		}
+		
+	}
+	
+	public void onClick$reset(){
+		simpan.setDisabled(true);
+		kdDlr.setValue(null);
+		r1.setSelected(true);
+		stDetailList.setModel(new ListModelList());
+		stDetailList.clearSelection();
+		lblNoApproval.setValue(null);
+		kdDlr.setDisabled(false);
+	}
+	
+	public void onClick$close(){
+		
+	}
+
+	//START OF LOV AREA
+	public void onClick$LOV() throws InterruptedException {
+		popDealerList.setModel(new ListModelList(getMasterFacade().getHondaH000DealersDao().findAll()));
+		popDealerList.setItemRenderer(new DealerListRenderer());
+	}
+	
+	public void onSelect$popDealerList(){
+		HondaH000Dealers dlr = (HondaH000Dealers) popDealerList.getSelectedItem().getValue();
+		System.out.println("Kd dler = "+dlr.getKdDlr());
+		_dealer.setKdDlr(dlr.getKdDlr());
+		binder.loadComponent(kdDlr);
+		popDealer.close();
+		kdDlr.setDisabled(true);
+	}
+	
+	public void onClick$popSearch() throws InterruptedException {
+		
+		HondaH000Dealers d = new HondaH000Dealers();
+		d.setDlrNama(popKdDlr.getValue());
+		popDealerList.setModel(new ListModelList(getMasterFacade().getHondaH000DealersDao().findByCriteria(d)));
+		popDealerList.setItemRenderer(new DealerListRenderer());
+	}
+	
+	public void onClick$popReset() throws InterruptedException {
+		System.out.println("klik pop reset");
+		List<HondaH000Dealers> listDealer = getMasterFacade().getHondaH000DealersDao().findAll();
+		popDealerList.setModel(new ListModelList(listDealer));
+		popDealerList.setItemRenderer(new DealerListRenderer());
+		popKdDlr.setValue(null);
+		popDlrNama.setValue(null);
+		popObject = new HondaH000Dealers();
+	}
+
+	//END OF LOV AREA
+	
+	public String getNilaiPwConfig() {
+		return nilaiPwConfig;
+	}
+
+	public void setNilaiPwConfig(String nilaiPwConfig) {
+		this.nilaiPwConfig = nilaiPwConfig;
+	}
+	
+}

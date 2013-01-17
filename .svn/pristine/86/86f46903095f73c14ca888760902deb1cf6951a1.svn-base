@@ -1,0 +1,192 @@
+package com.trio.view.ctrl;
+
+import java.io.ObjectInputStream.GetField;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.zkoss.zhtml.Messagebox;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Checkbox;
+import org.zkoss.zul.Intbox;
+import org.zkoss.zul.ListModel;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Popup;
+import org.zkoss.zul.Textbox;
+import org.zkoss.zul.api.Listcell;
+import org.zkoss.zul.event.ListDataListener;
+
+import com.lowagie.text.ListItem;
+import com.trio.base.TrioBasePage;
+import com.trio.bean.h100.HondaH100Stdetails;
+import com.trio.bean.h100.TrioH100PelangWils;
+import com.trio.bean.h100.TrioH100Stdetails;
+import com.trio.view.ctrl.renderer.KoreksiPelangWilRenderer;
+import com.trio.view.ctrl.renderer.LovKoreksiRenderer;
+import com.trio.view.ctrl.renderer.StdetailListRenderer;
+
+public class KoreksiPwCtrl extends TrioBasePage {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4942150652519104128L;
+
+	private AnnotateDataBinder binder;
+
+	private TrioH100Stdetails _details;
+
+	private Textbox noApprovalPw;
+	private Textbox noKdDlr;
+	private String noApproval;
+	private Button btLov;
+	private Button btTampil;
+	private Button btSimpan;
+	private Button btBersihkan;
+	private Listbox lbPelangWil;
+
+	private Popup popNoApproval;
+	private Listbox lbPopNoApproval;
+
+	private Intbox ibox = new Intbox();
+	private Checkbox cbox = new Checkbox();
+
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		binder = (AnnotateDataBinder) page.getAttribute("binder");
+		_details = new TrioH100Stdetails();
+		btSimpan.setDisabled(true);
+	}
+
+	public void onClick$btTampil(){
+
+		TrioH100Stdetails details = new TrioH100Stdetails();
+		details.setNoApprovalPw(noApprovalPw.getValue());
+		lbPelangWil.setModel(new ListModelList(getMasterFacade()
+				.getTrioH100StdetailsDao().findByExample(details)));
+		lbPelangWil.setItemRenderer(new KoreksiPelangWilRenderer());
+		btSimpan.setDisabled(false);
+
+		if (cbox.isChecked()){
+			ibox.setDisabled(false);
+		}else {
+			ibox.setDisabled(true);
+		}
+
+	}
+
+	public void onClick$btSimpan() throws InterruptedException{
+
+		TrioH100PelangWils pelang = new TrioH100PelangWils();
+		Set<TrioH100Stdetails> setStDetails = new HashSet<TrioH100Stdetails>();
+
+		String nilaiPw = "";
+		String nilaiPwAwal = "";
+		int check = 0;
+
+		Listbox box  = (Listbox) lbPelangWil.getFellow("win").getFellow("lbPelangWil");
+		List<Listitem> item = box.getItems();
+		ListModel model = box.getModel();
+
+		for (Listitem currentItem : item){
+			TrioH100Stdetails st = (TrioH100Stdetails) currentItem.getValue();
+			List<Component> com = currentItem.getChildren();
+			for(Component currentCom : com){
+				Listcell list = (Listcell) currentCom;
+				
+				if(list.getFirstChild() instanceof Intbox) {
+					
+					Intbox ib = (Intbox)list.getFirstChild();
+					ibox = ib;
+					nilaiPw = ib.getValue().toString();
+					
+				}
+				
+				if(list.getColumnIndex()==3){
+					nilaiPwAwal = list.getLabel();
+					if(nilaiPwAwal.contains(".")){
+						nilaiPwAwal = nilaiPwAwal.replaceAll("\\.", "");
+					}
+				}
+
+				if(list.getFirstChild() instanceof Checkbox){
+					Checkbox cb = (Checkbox) list.getFirstChild();
+					cbox = cb;
+					if(cb.isChecked()){
+						check++;
+						if(nilaiPw == null || nilaiPw.equalsIgnoreCase("")){
+							Messagebox.show("Nilai Koreksi Tidak Boleh Kosong");
+							return;
+						}
+						
+						if(Integer.valueOf(nilaiPw) < 0){
+							Messagebox.show("Nilai koreksi tidak boleh kurang dari nol");
+							return;
+						}
+					}else{
+						if(!nilaiPw.equalsIgnoreCase(nilaiPwAwal)){
+							Messagebox.show("Anda merubah nilai, silahkan centang atau kembalikan ke nilai awal" +
+									"untuk simpan nilai");
+							return;
+						}
+					}
+					
+					st.setNilaiPw(Integer.valueOf(nilaiPw));
+					setStDetails.add(st);
+				}
+			}
+		}
+		
+		
+		if(check < 1 ){
+			Messagebox.show("Tidak ada data yang dipilih");
+			return;
+		}
+		
+		pelang.setNoApprovalPw(noApprovalPw.getValue());
+		pelang.setKdDlr(noKdDlr.getValue());
+		pelang.setStDetails(setStDetails);
+		getMasterFacade().getTrioH100PelangWilsDao().updateTransaction(pelang, getUserSession());
+		alert("Berhasil Koreksi Nilai");
+		onClick$btBersihkan();
+
+		//		String noApproval = getMasterFacade().getTrioH100PelangWilsDao().saveTransaction(pelang, getUserSession());
+		//		alert("Oeayachhh!");
+	}
+
+	public void onClick$btBersihkan(){
+		noApprovalPw.setValue(null);
+		noKdDlr.setValue(null);
+		lbPelangWil.setModel(new ListModelList());
+		lbPelangWil.clearSelection();
+	}
+
+	//LOV AREA
+
+	public void onClick$btLov() throws InterruptedException{
+		lbPopNoApproval.setModel(new ListModelList(getMasterFacade()
+				.getTrioH100PelangWilsDao().findAll()));
+		lbPopNoApproval.setItemRenderer(new LovKoreksiRenderer());
+	}
+
+	public void onClick$lbPopNoApproval(){
+
+		//		TrioH100Stdetails det = (TrioH100Stdetails) lbPopNoApproval.getSelectedItem().getValue();
+		//		_details.setNoApprovalPw(det.getNoApprovalPw());
+		//		binder.loadComponent(noApprovalPw);
+		//		popNoApproval.close();
+
+		TrioH100PelangWils pelang = (TrioH100PelangWils) lbPopNoApproval.getSelectedItem()
+				.getValue();
+		noApprovalPw.setValue(pelang.getNoApprovalPw());
+		noKdDlr.setValue(pelang.getKdDlr());
+		popNoApproval.close();
+	}
+}

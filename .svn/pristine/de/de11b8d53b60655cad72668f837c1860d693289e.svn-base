@@ -1,0 +1,192 @@
+package com.trio.dao.h100;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.HondaH100Dtlfakdos;
+import com.trio.bean.h100.HondaH100Fakdos;
+import com.trio.bean.h100.HondaH100Stglobals;
+import com.trio.bean.h100.TrioH100Dologs;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+import com.trio.usertrail.TrioUserTrailing;
+import com.trio.util.TrioDateConv;
+import com.trio.util.TrioDateUtil;
+import com.trio.util.TrioStringUtil;
+
+public class HondaH100FakdosDaoImpl extends TrioHibernateDaoSupport implements HondaH100FakdosDao {
+
+	@Override
+	public void saveOrUpdate(HondaH100Fakdos domain , String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(HondaH100Fakdos domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<HondaH100Fakdos> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Fakdos> findByExample(HondaH100Fakdos domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Fakdos> findByCriteria(HondaH100Fakdos domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unused" })
+	@Transactional(readOnly = true)
+	public List getDataStnk(String noMesin){
+		String str = "SELECT D.NO_MESIN, A.KD_DLR, B.DLR_NAMA, F.TGL_FAKTUR, F.NAMA1 || ' ' || F.NAMA2 AS NAMA, F.ALAMAT1 || ' ' || F.ALAMAT2 AS ALAMAT, F.KELURAHAN || ' ' || F.KECAMATAN AS KEL_KEC, " +
+				"  F.VNOKTP, G.VDESKRIPSI AS KOTA, H.FINANCE_COMPANY , F.KELURAHAN, F.KECAMATAN, H.STATUS_PW, H.NO_APPROVAL_PW , " +
+				" CASE " +
+				" WHEN (I.VNORANGKA1 IS NULL) THEN " +
+				" CASE WHEN (SUBSTR(I.KD_TIPE,1,2) = 'FA' OR SUBSTR(I.KD_TIPE,1,2) = 'DG' OR SUBSTR(I.KD_TIPE,1,2) = 'DH' OR SUBSTR(I.KD_TIPE,1,2) = 'DJ') THEN 'MLH'|| '' || D.NO_RANGKA " +
+				" ELSE 'MH1'|| '' || D.NO_RANGKA END " +
+				" ELSE I.VNORANGKA1 || '' || D.NO_RANGKA " +
+				" END AS NOMERRANGKA " +
+				" FROM HONDA_H100_FAKDOS A, " +
+				" HONDA_H000_DEALERS B, " +
+				" HONDA_H100_SJALANS C, " +
+				" HONDA_H100_DTLSJALANS D, " +
+				" HONDA_H100_ITEMCUSTS E, " +
+				" HONDA_H100_CUSTOMERS F, " +
+				" HONDA_H000_PROPINS G, " +
+				" TRIO_H100_STDETAILS H, " +
+				" HONDA_H100_DTLSHIPLISTS I " +
+				" WHERE " +
+				" D.NO_MESIN = H.NO_MESIN AND " +
+				" F.KOTA = G.VKODE AND " +
+				" E.CUST_KONSUMEN_ID = F.KONSUMEN_ID AND " +
+				" D.NO_MESIN = E.NO_MESIN AND " +
+				" C.NO_SJ = D.SJALAN_NO_SJ AND " +
+				" A.NO_DO = C.NO_DO AND " +
+				" A.KD_DLR = B.KD_DLR AND " +
+				" A.STATUS <> 'X' AND " +
+				" C.STATUS <> 'X' AND " +
+				" D.NO_MESIN = I.NO_MESIN AND " +
+				" D.NO_MESIN = :noMesin";
+		
+		List list = new ArrayList();
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(str);
+		q.setString("noMesin", noMesin);
+		return q.list();
+	}
+	
+	@Transactional(readOnly=true) 
+	public BigDecimal getSumHargaDOLogistisByKdDlr(String kdDlr){
+		String str = "select sum(harga) from HondaH100Fakdos where status = 'N' and hondaH000Dealers.kdDlr = :kdDlr";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("kdDlr", kdDlr);
+		Object obj = q.uniqueResult();
+		BigDecimal sumHarga = null;
+		if (obj == null){
+			sumHarga = new BigDecimal(0);
+		}else{
+			sumHarga = (BigDecimal) obj; 
+		}
+		return sumHarga;
+	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public void save(HondaH100Fakdos domain, String user) {
+		
+		domain.getUserTrailing().setVcreaby(user);
+		domain.getUserTrailing().setDcrea(TrioDateUtil.getLongSysDateOracle());
+		getHibernateTemplate().save(domain);
+	}
+
+	@Override
+	public void update(HondaH100Fakdos domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HondaH100Fakdos findByPrimaryKey(HondaH100Fakdos domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	@Transactional(readOnly=false)
+	public String saveTransaction(HondaH100Fakdos domain,String noDOLogistik,  String user) {
+		
+		HondaH100Stglobals stGlobal;
+		Long qtyBook = 0L;
+		
+		Set<HondaH100Dtlfakdos> dtlFakdosSet = new HashSet<HondaH100Dtlfakdos>();
+		dtlFakdosSet = domain.getHondaH100DtlfakdosSet();
+		
+		if (dtlFakdosSet.size() < 1){
+			return "Error tidak ada data detail";
+		}
+		
+		BigDecimal harga = new BigDecimal(0);
+		for (HondaH100Dtlfakdos dtl : dtlFakdosSet){
+			harga = harga.add(dtl.getHargaNetto().multiply(new BigDecimal(dtl.getQty())));
+		}
+		System.out.println("harga total akhir "+harga);
+		String str = getMasterFacade().getHondaH000SetupsDao().getRunningNumber("H1_DO_T10", TrioDateConv.format(new Date(),"yyyy"), user);
+        String noDO = TrioStringUtil.getFormattedRunno(Integer.valueOf(str),"DO-T10");
+        
+        domain.setNoDo(noDO);
+        domain.setDoRunno(str);
+        domain.setDoBulan(TrioDateConv.format(new Date(), "MM"));
+        domain.setTglDo(TrioDateUtil.getLongSysDateOracle());
+        domain.getUserTrailing().setVcreaby(user);
+		domain.getUserTrailing().setDcrea(TrioDateUtil.getLongSysDateOracle());
+		domain.setDoTahun(TrioDateConv.format(new Date(),"yyyy"));
+		domain.setHarga(harga);
+		getHibernateTemplate().save(domain);
+        
+        for (HondaH100Dtlfakdos dtl : dtlFakdosSet){
+        	dtl.setFakdoNoDo(noDO);
+        	dtl.getUserTrailing().setVcreaby(user);
+        	dtl.getUserTrailing().setDcrea(TrioDateUtil.getLongSysDateOracle());
+        	getHibernateTemplate().save(dtl);
+        	
+        	String sQuery = "from HondaH100Stglobals where lokasi = :lokasi and kdItem = :kdItem";
+        	Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(sQuery);
+        	q.setString("lokasi", domain.getLokasiAsal());
+        	q.setString("kdItem", dtl.getKdItem());
+        	
+        	stGlobal = (HondaH100Stglobals) q.uniqueResult();
+        	
+        	qtyBook = stGlobal.getQtyBook()+ dtl.getQty();
+        	
+        	stGlobal.setQtyBook(qtyBook);
+        	
+        	getHibernateTemplate().update(stGlobal);
+        	
+        }
+        
+        TrioH100Dologs doLogistik = new TrioH100Dologs(noDOLogistik);
+        doLogistik.setStatus("A");
+        
+        getHibernateTemplate().update(doLogistik);
+        
+		return noDO;
+	}
+	
+	
+}

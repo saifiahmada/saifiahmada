@@ -1,0 +1,32 @@
+package com.trio.view.ctrl;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Popup;
+import org.zkoss.zul.Textbox;
+
+import com.trio.base.TrioBasePage;
+
+public class KoreksiPwCtrl extends TrioBasePage {
+	
+	private Textbox tbNoApproval;
+	private String noApproval;
+	private Button btLov;
+	private Button btTampil;
+	private Listbox lbPelangWil;
+	
+	private Popup popNoApproval;
+	private Listbox lbPopNoApproval;
+	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+	}
+	
+	public void onClick$btLov() throws InterruptedException{
+		
+	}
+
+}

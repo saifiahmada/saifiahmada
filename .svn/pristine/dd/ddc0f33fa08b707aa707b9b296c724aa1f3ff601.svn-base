@@ -1,0 +1,12 @@
+<?page title="Trio Help" contentType="text/html;charset=UTF-8"?>
+<?init class="com.trio.util.Interceptors" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon"?>
+
+<zk>
+<window id="win" title="Trio Help" border="normal" apply="com.trio.component.TrioHelp">
+	<!--  <iframe style="width:99%; height:700px;border:3px inset;" src="@{win$composer.helpPath}" />-->
+	<!-- <iframe style="width:99%; height:700px;border:3px inset;" src="T10NTWADM002.pdf" />  -->
+	<iframe style="width:99%; height:700px;border:3px inset;" src="@{win$composer.helpPath}" />
+</window>
+</zk>

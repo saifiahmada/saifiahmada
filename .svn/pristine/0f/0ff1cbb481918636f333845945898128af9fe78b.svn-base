@@ -1,0 +1,8 @@
+package com.trio.dao.h000;
+
+import com.trio.bean.h000.HondaH000Items;
+import com.trio.hibernate.TrioGenericDao;
+
+public interface HondaH000ItemsDao extends TrioGenericDao<HondaH000Items> {
+
+}

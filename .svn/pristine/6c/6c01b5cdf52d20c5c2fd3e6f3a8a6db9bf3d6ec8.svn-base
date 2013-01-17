@@ -1,0 +1,99 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.TrioH100Stdetails;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class TrioH100StdetailsDaoImpl extends TrioHibernateDaoSupport implements TrioH100StdetailsDao {
+	
+	@Transactional
+	public void saveOrUpdate(TrioH100Stdetails stdetail, String user){
+		getHibernateTemplate().saveOrUpdate(stdetail);
+	}
+	
+	@Transactional
+	public void delete(TrioH100Stdetails stdetail) throws DataAccessException {
+		getHibernateTemplate().delete(stdetail);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<TrioH100Stdetails> findAll(Class<TrioH100Stdetails> clazz) throws DataAccessException {
+		List<TrioH100Stdetails> list = getHibernateTemplate().find("from " + clazz.getName());
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<TrioH100Stdetails> getStdetailByCriteria(TrioH100Stdetails clazz, final int firstResult, final int maxResults) throws DataAccessException {
+		DetachedCriteria criteria = DetachedCriteria.forClass(TrioH100Stdetails.class);
+		
+		List<TrioH100Stdetails> list = getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<TrioH100Stdetails> getStdetailByCriteria(TrioH100Stdetails stdetail) throws DataAccessException {
+		DetachedCriteria criteria = DetachedCriteria.forClass(TrioH100Stdetails.class);
+		if (stdetail.getKdDlr() != null){
+			criteria = criteria.add(Restrictions.eq("kdDlr", stdetail.getKdDlr()));
+		}
+		System.out.println("status pw on dao "+stdetail.getStatusPw()); 
+		criteria.add(Restrictions.eq("statusPw", stdetail.getStatusPw()));
+		List<TrioH100Stdetails> list = getHibernateTemplate().findByCriteria(criteria);
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<TrioH100Stdetails> findByExample(TrioH100Stdetails stdetail) throws DataAccessException {
+		
+		List<TrioH100Stdetails> list = getHibernateTemplate().findByExample(stdetail);
+		
+		return list;
+	}
+
+	@Override
+	@Transactional
+	public TrioH100Stdetails findByNomesin(String noMesin) {
+		String stringQuery = "from TrioH100Stdetails a where a.noMesin = :noMesin";
+		Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(stringQuery);
+		query.setParameter("noMesin", noMesin);
+		TrioH100Stdetails st = (TrioH100Stdetails) query.uniqueResult();
+		return st;
+	}
+
+	@SuppressWarnings({ "unused", "unchecked" })
+	@Override
+	@Transactional(readOnly = true) 
+	public List<TrioH100Stdetails> findAll() {
+		List<TrioH100Stdetails> list = getHibernateTemplate().find("from TrioH100Stdetails");
+		return null;
+	}
+
+	@Override
+	public List<TrioH100Stdetails> findByCriteria(TrioH100Stdetails domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Transactional(readOnly = true)
+	public TrioH100Stdetails findByNomesinAndStatusPW(String noMesin, String statusPw){
+		String strQ = "from TrioH100Stdetails a where a.noMesin = :noMesin and a.statusPw = :statusPw";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(strQ);
+		q.setString("noMesin", noMesin);
+		q.setString("statusPw", statusPw);
+		return (TrioH100Stdetails) q.uniqueResult();
+	}
+
+}

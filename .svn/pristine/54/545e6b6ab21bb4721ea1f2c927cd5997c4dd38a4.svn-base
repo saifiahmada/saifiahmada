@@ -1,0 +1,188 @@
+package com.trio.bean.h100;
+
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name = "TRIO_H100_DOLOGS")
+public class TrioH100Dologs extends TrioEntityUserTrail implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name="NO_DOLOG", length=30, nullable=false)
+	private String noDolog;
+	
+	@Column(name="KD_DLR", length=10) 
+	private String kdDlr;
+	
+	@Column(name="PODLR_NO_POINT", length=30)
+	private String poDlrNoPont;
+	
+	@Column(name="TGL_DOLOG")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date tglDolog;
+	
+	@Column(name="KODE_SALESMAN", length=30)
+	private String kodeSalesman;
+	
+	@Column(name="NAMA_SALESMAN", length=30)
+	private String namaSalesman;
+	
+	@Column(name="LOKASI_ASAL", length=10)
+	private String lokasiAsal;
+	
+	@Column(name="ALAMAT_LOKASI", length=30)
+	private String alamatLokasi;
+	
+	@Column(name="STATUS", length = 1)
+	private String status;
+	
+	@Column(name="HARGA")
+	private BigInteger harga;
+	
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="trioH100Dologs")
+	private Set<TrioH100Dtldologs> trioH100DtldologsSet;
+	
+	public TrioH100Dologs() {
+		this.setTrioH100DtldologsSet(new HashSet<TrioH100Dtldologs>());
+	}
+	
+	
+	public TrioH100Dologs(String noDolog) {
+		this.noDolog = noDolog; 
+	}
+
+	public String getNoDolog() {
+		return noDolog;
+	}
+
+	public void setNoDolog(String noDolog) {
+		this.noDolog = noDolog;
+	}
+
+	public String getKdDlr() {
+		return kdDlr;
+	}
+
+	public void setKdDlr(String kdDlr) {
+		this.kdDlr = kdDlr;
+	}
+
+	public String getPoDlrNoPont() {
+		return poDlrNoPont;
+	}
+
+	public void setPoDlrNoPont(String poDlrNoPont) {
+		this.poDlrNoPont = poDlrNoPont;
+	}
+
+	public Date getTglDolog() {
+		return tglDolog;
+	}
+
+	public void setTglDolog(Date tglDolog) {
+		this.tglDolog = tglDolog;
+	}
+
+	public String getKodeSalesman() {
+		return kodeSalesman;
+	}
+
+	public void setKodeSalesman(String kodeSalesman) {
+		this.kodeSalesman = kodeSalesman;
+	}
+
+	public String getNamaSalesman() {
+		return namaSalesman;
+	}
+
+	public void setNamaSalesman(String namaSalesman) {
+		this.namaSalesman = namaSalesman;
+	}
+
+	public String getLokasiAsal() {
+		return lokasiAsal;
+	}
+
+	public void setLokasiAsal(String lokasiAsal) {
+		this.lokasiAsal = lokasiAsal;
+	}
+
+	public String getAlamatLokasi() {
+		return alamatLokasi;
+	}
+
+	public void setAlamatLokasi(String alamatLokasi) {
+		this.alamatLokasi = alamatLokasi;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public BigInteger getHarga() {
+		return harga;
+	}
+
+	public void setHarga(BigInteger harga) {
+		this.harga = harga;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((noDolog == null) ? 0 : noDolog.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TrioH100Dologs other = (TrioH100Dologs) obj;
+		if (noDolog == null) {
+			if (other.noDolog != null)
+				return false;
+		} else if (!noDolog.equals(other.noDolog))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "TrioH100Dologs [noDolog=" + noDolog + "]";
+	}
+
+	public Set<TrioH100Dtldologs> getTrioH100DtldologsSet() {
+		return trioH100DtldologsSet;
+	}
+
+	public void setTrioH100DtldologsSet(Set<TrioH100Dtldologs> trioH100DtldologsSet) {
+		this.trioH100DtldologsSet = trioH100DtldologsSet;
+	}
+	
+}

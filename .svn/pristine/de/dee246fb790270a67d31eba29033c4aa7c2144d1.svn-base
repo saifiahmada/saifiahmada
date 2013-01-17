@@ -1,0 +1,203 @@
+package com.trio.dao.h100;
+
+import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.HondaH100Dtlpicklists;
+import com.trio.bean.h100.HondaH100Dtlsublokasi;
+import com.trio.bean.h100.HondaH100Stdetails;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+import com.trio.util.TrioDateUtil;
+
+public class HondaH100DtlpicklistsDaoImpl extends TrioHibernateDaoSupport implements HondaH100DtlpicklistsDao {
+
+	@Override
+	public void saveOrUpdate(HondaH100Dtlpicklists domain , String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(HondaH100Dtlpicklists domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<HondaH100Dtlpicklists> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Dtlpicklists> findByExample(
+			HondaH100Dtlpicklists domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Dtlpicklists> findByCriteria(
+			HondaH100Dtlpicklists domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
+	public List<HondaH100Dtlpicklists> findByVnopicklist(String vnopicklist) {
+		String str = "from HondaH100Dtlpicklists o where o.vnopicklist = :vnopicklist";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("vnopicklist", vnopicklist);
+		return q.list();
+	}
+	
+	@Override
+	@Transactional(readOnly = false) 
+	public void updateDtlpicklistStdetailDtlsublokasi(List<HondaH100Dtlpicklists> listDtlPicklistAsal, List<HondaH100Dtlpicklists> listDtlPicklistBaru, String user){
+		
+		int i = 0;
+		/*
+		for (HondaH100Dtlpicklists d2 : listDtlPicklistBaru){
+			HondaH100Dtlpicklists d1 = listDtlPicklistAsal.get(i);
+			
+			String update1 = "update HondaH100Dtlpicklists set vnomesin = ?, vsel = ? " +
+					" , vmodiby = ? , dmodi = ? " +
+					" where vnomesin = ? and vnopicklist = ?";
+			Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(update1);
+			q.setString(0, d2.getVnomesin());
+			q.setString(1, d2.getVsel());
+			q.setString(2, user);
+			q.setDate(3, TrioDateUtil.getLongSysDateOracle());
+			q.setString(4, d1.getVnomesin());
+			q.setString(5, d1.getVnopicklist());
+			int iq = q.executeUpdate();
+			System.out.println("iq ="+iq);
+			String update2 = "update HondaH100Stdetails set vnopicklist = null, dstartpick = null, vstatpick = 'N', vmodiby = :vmodiby, dmodi = :dmodi where no_mesin = :no_mesin";
+			Query q2 = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(update2);
+			q2.setString("vmodiby", user);
+			q2.setDate("dmodi", TrioDateUtil.getLongSysDateOracle());
+			q2.setString("no_mesin", d1.getVsel());
+			int iq2 = q2.executeUpdate();
+			System.out.println("iq2 ="+iq2);
+			String update3 = "update HondaH100Stdetails set vnopicklist = :vnopicklist , dstartpick = :dstartpick, vstatpick = '0', vmodiby = :vmodiby, dmodi = :dmodi where no_mesin = :no_mesin";
+			Query q3 = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(update3);
+			q3.setString("vmodiby", user);
+			q3.setDate("dmodi", TrioDateUtil.getLongSysDateOracle());
+			q3.setString("no_mesin", d2.getVnomesin());
+			q3.setString("vnopicklist", d1.getVnopicklist());
+			q3.setDate("dstartpick", TrioDateUtil.getLongSysDateOracle());
+			int iq3 = q3.executeUpdate();
+			System.out.println("iq3 ="+iq3);
+			String update4 = "update HondaH100Dtlsublokasi set vstatus = 'A', vmodiby = :vmodiby, dmodi = :dmodi where vnomesin = :vnomesin and vsel = :vsel";
+			Query q4 = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(update4);
+			q4.setString("vmodiby", user);
+			q4.setDate("dmodi", TrioDateUtil.getLongSysDateOracle());
+			q4.setString("vnomesin", d1.getVnomesin());
+			q4.setString("vsel", d1.getVsel());
+			int iq4 = q4.executeUpdate();
+			System.out.println("iq4 ="+iq4);
+			String update5 = "update HondaH100Dtlsublokasi set vstatus = 'P', vmodiby = :vmodiby, dmodi = :dmodi where vnomesin = :vnomesin and vsel = :vsel";
+			Query q5 = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(update5);
+			q5.setString("vmodiby", user);
+			q5.setDate("dmodi", TrioDateUtil.getLongSysDateOracle());
+			q5.setString("vnomesin", d2.getVnomesin());
+			q5.setString("vsel", d2.getVsel());
+			int iq5 = q5.executeUpdate();
+			System.out.println("iq5 ="+iq5);
+			i++;
+		}
+		*/
+		
+		for (HondaH100Dtlpicklists d2 : listDtlPicklistBaru){
+			HondaH100Dtlpicklists d1 = listDtlPicklistAsal.get(i);
+			
+			String update1 = "update HondaH100Dtlpicklists set vnomesin = ?, vsel = ? " +
+					" , vmodiby = ? , dmodi = ? " +
+					" where vnomesin = ? and vnopicklist = ?";
+			
+			//HondaH100Dtlpicklists dtlPicklists = new HondaH100Dtlpicklists();
+			Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(update1);
+			q.setString(0, d2.getVnomesin());
+			q.setString(1, d2.getVsel());
+			q.setString(2, user);
+			q.setDate(3, TrioDateUtil.getLongSysDateOracle());
+			q.setString(4, d1.getVnomesin());
+			q.setString(5, d1.getVnopicklist());
+			int iq = q.executeUpdate();
+			System.out.println("iq = "+iq);
+			
+			getHibernateTemplate().flush();
+			getHibernateTemplate().clear();
+			String update2 = "update HondaH100Stdetails set vnopicklist = null, dstartpick = null, vstatpick = 'N', vmodiby = :vmodiby, dmodi = :dmodi where noMesin = :no_mesin";
+			Query q2 = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(update2);
+			q2.setString("vmodiby", user);
+			q2.setDate("dmodi", TrioDateUtil.getLongSysDateOracle());
+			q2.setString("no_mesin", d1.getVnomesin());
+			int iq2 = q2.executeUpdate();
+			System.out.println("iq2 ="+iq2); 
+			getHibernateTemplate().flush();
+			getHibernateTemplate().clear();
+			
+			String update3 = "update HondaH100Stdetails set vnopicklist = :vnopicklist , dstartpick = :dstartpick, vstatpick = '0', vmodiby = :vmodiby, dmodi = :dmodi where noMesin = :no_mesin";
+			Query q3 = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(update3);
+			q3.setString("vmodiby", user);
+			q3.setDate("dmodi", TrioDateUtil.getLongSysDateOracle());
+			q3.setString("no_mesin", d2.getVnomesin());
+			q3.setString("vnopicklist", d1.getVnopicklist());
+			q3.setDate("dstartpick", TrioDateUtil.getLongSysDateOracle());
+			int iq3 = q3.executeUpdate();
+			System.out.println("iq3 ="+iq3);
+			getHibernateTemplate().flush();
+			getHibernateTemplate().clear();
+			
+			String update4 = "update HondaH100Dtlsublokasi set vstatus = 'A', vmodiby = :vmodiby, dmodi = :dmodi where vnomesin = :vnomesin and vsel = :vsel";
+			Query q4 = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(update4);
+			q4.setString("vmodiby", user);
+			q4.setDate("dmodi", TrioDateUtil.getLongSysDateOracle());
+			q4.setString("vnomesin", d1.getVnomesin());
+			q4.setString("vsel", d1.getVsel());
+			int iq4 = q4.executeUpdate();
+			System.out.println("iq4 ="+iq4);
+			System.out.println("vnomesin = "+d1.getVnomesin());
+			System.out.println("vsel = "+d1.getVsel()); 
+			getHibernateTemplate().flush();
+			getHibernateTemplate().clear();
+			
+			String update5 = "update HondaH100Dtlsublokasi set vstatus = 'P', vmodiby = :vmodiby, dmodi = :dmodi where vnomesin = :vnomesin and vsel = :vsel";
+			Query q5 = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(update5);
+			q5.setString("vmodiby", user);
+			q5.setDate("dmodi", TrioDateUtil.getLongSysDateOracle());
+			q5.setString("vnomesin", d2.getVnomesin());
+			q5.setString("vsel", d2.getVsel());
+			int iq5 = q5.executeUpdate();
+			System.out.println("iq5 ="+iq5);
+			getHibernateTemplate().flush();
+			getHibernateTemplate().clear();
+			i++;
+		}
+	}
+
+	@Override
+	public void save(HondaH100Dtlpicklists domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(HondaH100Dtlpicklists domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HondaH100Dtlpicklists findByPrimaryKey(HondaH100Dtlpicklists domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

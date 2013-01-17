@@ -1,0 +1,37 @@
+package com.trio.test;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.trio.bean.bsc.AhmdsbscDtlsetting;
+import com.trio.bean.bsc.DbaRolePrivs;
+import com.trio.bean.h000.HondaH000Dealers;
+import com.trio.bean.h000.TrioH000Mstmenu;
+import com.trio.bean.h000.TrioH000Mstroleaccess;
+import com.trio.bean.h100.HondaH100Stglobals;
+import com.trio.facade.MasterFacade;
+
+public class Test1 {
+	
+	public static void main (String [] args){
+		
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+		
+		MasterFacade mf = (MasterFacade) ac.getBean("masterFacade");
+		
+		TrioH000Mstmenu mm = new TrioH000Mstmenu();
+		mm.setVlocation("mastermenu.zul");
+		String vmenuid = null;
+		List<TrioH000Mstmenu> listMenu = mf.getTrioH000MstmenuDao().findByCriteria(mm);
+		 
+		System.out.println("vmenuid = "+listMenu.size());
+		System.out.println("done!"+listMenu.get(0).getVmenuid());
+	}
+}

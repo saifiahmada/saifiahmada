@@ -1,0 +1,15 @@
+package com.trio.dao.h100;
+
+import com.trio.bean.h100.TrioH100Kelurahans;
+import com.trio.hibernate.TrioGenericDao;
+
+public interface TrioH100KelurahansDao extends TrioGenericDao<TrioH100Kelurahans> { 
+	
+//	public void saveOrUpdate(Kelurahan kelurahan);
+//	
+//	public void delete(Kelurahan kelurahan);
+//	
+//	public List<Kelurahan> findAll();
+//	
+//	public List<Kelurahan> getKelurahanByCriteria(Kelurahan kelurahan);	
+}

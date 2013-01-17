@@ -1,0 +1,157 @@
+package com.trio.bean.h100;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="TRIO_H100_KELURAHANS")
+public class TrioH100Kelurahans extends TrioEntityUserTrail  implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @Column(name="KD_KEL" , length=10, nullable=false)
+    private String kdKel;
+    
+    @Column(name="KD_KEC", length=10)
+    private String kdKec;
+    
+    @Column(name="KD_KOTA", length=10)
+    private String kdKota;
+    
+    @Column(name="PROPINSI", length=30)
+    private String propinsi;
+    
+    @Column(name="KOTA", length=40)
+    private String kota;
+    
+    @Column(name="KECAMATAN", length=40)
+    private String kecamatan;
+    
+    @Column(name="KODE_POS", length=10)
+    private String kodePos;
+    
+    @Column(name="STATUS", length=1)
+    private String status;
+    
+    @Column(name="KELURAHAN", length=50)
+    private String kelurahan;
+
+    public TrioH100Kelurahans() {
+        
+    }
+    
+    public TrioH100Kelurahans(String kdKel) {
+        this.kdKel = kdKel;
+    }
+
+	public String getKdKel() {
+		return kdKel;
+	}
+
+	public void setKdKel(String kdKel) {
+		this.kdKel = kdKel;
+	}
+
+	public String getKdKec() {
+		return kdKec;
+	}
+
+	public void setKdKec(String kdKec) {
+		this.kdKec = kdKec;
+	}
+
+	public String getKdKota() {
+		return kdKota;
+	}
+
+	public void setKdKota(String kdKota) {
+		this.kdKota = kdKota;
+	}
+
+	public String getPropinsi() {
+		return propinsi;
+	}
+
+	public void setPropinsi(String propinsi) {
+		this.propinsi = propinsi;
+	}
+
+	public String getKota() {
+		return kota;
+	}
+
+	public void setKota(String kota) {
+		this.kota = kota;
+	}
+
+	public String getKecamatan() {
+		return kecamatan;
+	}
+
+	public void setKecamatan(String kecamatan) {
+		this.kecamatan = kecamatan;
+	}
+
+	public String getKodePos() {
+		return kodePos;
+	}
+
+	public void setKodePos(String kodePos) {
+		this.kodePos = kodePos;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getKelurahan() {
+		return kelurahan;
+	}
+
+	public void setKelurahan(String kelurahan) {
+		this.kelurahan = kelurahan;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((kdKel == null) ? 0 : kdKel.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TrioH100Kelurahans other = (TrioH100Kelurahans) obj;
+		if (kdKel == null) {
+			if (other.kdKel != null)
+				return false;
+		} else if (!kdKel.equals(other.kdKel))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Kelurahan [kdKel=" + kdKel + "]";
+	}
+    
+}
+

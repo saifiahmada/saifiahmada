@@ -1,0 +1,13 @@
+package com.trio.dao.h100;
+
+import com.trio.bean.h100.TrioH100Dologs;
+import com.trio.hibernate.TrioGenericDao;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 12, 2012
+ */
+public interface TrioH100DologsDao extends TrioGenericDao<TrioH100Dologs> { 
+
+}

@@ -1,0 +1,55 @@
+<?page title="New WMS" contentType="text/html;charset=UTF-8"?>
+<?init class="com.trio.util.Interceptors" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon"?>
+
+<zk>
+	<window title="Master Kelurahan">
+	<div id="kelurahanDiv" apply="com.trio.view.ctrl.KelurahanCtrl">
+		<vbox>
+			<grid id="editKelurahanGrid" width="100%">
+				<auxhead>
+					<auxheader colspan="2" label="Master Kelurahan" />
+				</auxhead>
+				<columns visible="false">
+					<column width="100px" />
+					<column width="200px" />
+					<column width="350px" />
+				</columns>
+				<rows>
+					<row>
+						<cell width="150">Kode Kelurahan</cell>
+						<cell><textbox cols="6" value="@{kelurahanDiv$composer.kelurahan.kdKel}" /></cell>
+					</row>
+					<row>
+						<cell width="150">Nama Kelurahan</cell>
+						<cell><textbox cols="30" value="@{kelurahanDiv$composer.kelurahan.kelurahan}" /></cell>
+					</row>
+					<row>
+						<cell width="150">Kota</cell>
+						<cell><textbox cols="50" value="@{kelurahanDiv$composer.kelurahan.kota}" /></cell>
+					</row>
+					<row>
+						<cell colspan="4" align="left">
+							<button id="createKelurahan" label="Simpan" /><space spacing="10px"/>
+							<button id="updateKelurahan" label="Update" disabled="true"/><space spacing="10px"/>
+							<button id="deleteKelurahan" label="Hapus" disabled="true"/>
+							<button id="resetKelurahan" label="Bersihkan" />
+							<button id="searchKelurahan" label="Cari" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<separator />
+			<listbox id="kelurahanList" width="100%" height="350px" mold="paging" pageSize="10">
+				<listhead>
+					<listheader width="100px" label="Kode Kelurahan" sort="auto(kdKel)" />
+					<listheader width="200px" label="Nama Kelurahan" sort="auto(kelurahan)" />
+					<listheader width="350px" label="Alamat" sort="auto(kota)" />
+				</listhead>
+			</listbox>
+			
+		</vbox>
+	</div>
+	</window>
+</zk>

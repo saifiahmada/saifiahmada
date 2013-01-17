@@ -1,0 +1,226 @@
+<?page title="New WMS" contentType="text/html;charset=UTF-8"?>
+<?init class="com.trio.util.Interceptors" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon"?>
+
+<zk>
+	
+	<style>
+	
+    .z-textbox-disd {
+        background:transparent;
+        color: black !important;
+    }
+    
+    .z-intbox-disd {
+        background:transparent;
+        color: black !important;
+    }
+    
+	.z-decimalbox-disd {
+        background:transparent;
+        color: black !important;
+    }
+    
+    .z-datebox-disd {
+        background:transparent;
+        color: black !important;
+    }
+	
+    .aa.z-datebox-text-disd {
+        background:transparent;
+        color: black !important;
+    }
+    
+    .aa.z-datebox-disd .z-datebox-inp {
+        color: black !important; 
+        cursor: default !important; opacity: .6;
+        -moz-opacity: .6;
+        filter: alpha(opacity=60);
+    }
+    
+    .aa.z-datebox-disd {
+        opacity: 1;
+	-moz-opacity: 1;
+	filter: alpha(opacity=100);
+    }
+    
+    .aa.z-decimalbox-text-disd {
+        background:transparent;
+        color: black !important;
+    }
+    
+    </style>
+
+	<window id="win" title="Approve DO Logistik" border="normal" width="100%" height="100%"
+	apply="com.trio.view.ctrl.ApproveDoLogistikCtrl">
+		<grid id="editGrid">
+			<columns visible="false">
+				<column width="100px" />
+				<column width="170px" />
+				<column width="100px" />
+				<column width="100px" />
+				<column width="100px" />
+				<column width="100px" />
+				<column width="25px" />
+				<column width="100px" />
+				<column width="150px" />
+			</columns>
+			<rows>
+				<row>
+					<cell>No PO Internal</cell>
+					<cell><textbox id="tbNoPOInternal" cols="20" value="@{win$composer.dologs.poDlrNoPont}" disabled="true" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>No PO Dealer</cell>
+					<cell><textbox id="tbNoPODealer" value="@{win$composer.dologs.hondaH100Mstpodlrs.noPodlr}" disabled="true" /></cell>
+				</row>
+				
+				<row>
+					<cell>No DO Logistik</cell>
+					<cell><textbox id="tbNoDOLogistik" value="@{win$composer.dologs.noDolog}" disabled="true" /></cell>
+					<cell><button id="btnLOVDOLogistik" label="LOV" image="/image/iconcrud/btn_lov.gif" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>Tgl DO Logistik</cell>
+					<cell><datebox cols="12" format="dd/MM/yyyy"  value="@{win$composer.dologs.tglDolog}" mold="rounded" disabled="true" /></cell>
+				</row>
+				
+				<row>
+					<cell>No DO</cell>
+					<cell><textbox id="tbNoDO" disabled="true" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>Tgl DO</cell>
+					<cell><datebox cols="12" format="dd/MM/yyyy" onCreate="self.value= new Date()" mold="rounded" disabled="true" /></cell>
+				</row>
+				
+				<row>
+					<cell>Dealer</cell>
+					<cell><textbox id="tbKdDealer" value="@{win$composer.dologs.hondaH100Mstpodlrs.dealerKdDlr.kdDlr}" disabled="true" /></cell>
+					<cell><textbox id="tbNamaDealer" value="@{win$composer.dologs.hondaH100Mstpodlrs.dealerKdDlr.dlrNama}" disabled="true" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>NPWP</cell>
+					<cell><textbox id="npwp" value="@{win$composer.dologs.hondaH100Mstpodlrs.dealerKdDlr.dlrNpwp}" disabled="true" /></cell>
+				</row>
+				
+				<row>
+					<cell>Cara Pembayaran</cell>
+					<cell><textbox id="tbValTag" value="@{win$composer.setup.valTag}" disabled="true" /></cell>
+					<cell><button id="btnLOVValTag" label="LOV" disabled="true" image="/image/iconcrud/btn_lov.gif" /></cell>
+					<cell><textbox id="valChar" value="@{win$composer.setup.valChar}" disabled="true" /></cell>
+					<cell>Discount</cell>
+					<cell><decimalbox id="dbDiskonPersen" cols="5" constraint="no negative,no empty" disabled="true" />%</cell>
+					<cell />
+					<cell>TOP</cell>
+					<cell><intbox id="ibTop" disabled="true" /></cell>
+				</row>
+				
+				<row>
+					<cell>Kode Salesman</cell>
+					<cell><textbox id="tbKodeSaleman" value="@{win$composer.dologs.kodeSalesman}" disabled="true" /></cell>
+					<cell><textbox id="tbNamaSalesman" value="@{win$composer.dologs.namaSalesman}" disabled="true" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>Plafon</cell>
+					<cell><decimalbox id="dbPlafon" cols="5" constraint="no negative,no empty" disabled="true" /></cell>
+				</row>
+				
+				<row>
+					<cell>Lokasi Asal</cell>
+					<cell><textbox id="tbLokasiAsal" value="@{win$composer.dologs.lokasiAsal}" disabled="true" /></cell>
+					<cell><textbox id="tbAlamatLokasi" value="@{win$composer.dologs.alamatLokasi}" disabled="true" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>AR</cell>
+					<cell><decimalbox id="dbAR" cols="5" constraint="no negative,no empty" disabled="true" /></cell>
+				</row>
+				
+				<row>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>Open Plafon</cell>
+					<cell><decimalbox id="dbOpenPlafon" cols="5" disabled="true" /></cell>
+				</row>
+			</rows>
+		</grid>
+		<separator />
+		
+		<listbox id="lbDtldologs" width="100%" height="200px" mold="paging" pageSize="10">
+			<listhead>
+				<listheader width="100px" label="Kode Item" sort="auto(kdItem)" />
+				<listheader width="50px" label="Qty DO" sort="auto(qty)" />
+				<listheader width="100px" label="Qty App" sort="auto(qty)" />
+				<listheader width="200px" label="Harga"  />
+				<listheader width="200px" label="Discount"  />
+				<listheader width="200px" label="Harga Netto"  />
+				<listheader width="200px" label="Jumlah"  />
+			</listhead>
+		</listbox>
+		
+		<grid>
+			<columns>
+				<column width="100px" />
+				<column width="50px"/>
+				<column width="100px"/>
+				<column width="200px"/>
+				<column width="200px"/>
+				<column width="200px"/>
+				<column width="200px"/>
+			</columns>
+			<rows>
+				<row>
+					<label />
+					<label />
+					<label />
+					<label value="Jumlah" />
+					<decimalbox id="dbTotalDiskon" format="###,###.##" disabled="true" />
+					<decimalbox id="dbTotalHargaNetto" format="###,###.##" disabled="true" />
+					<decimalbox id="dbTotalHarga" format="###,###.##" disabled="true" />
+				</row>
+				<row>
+					<label />
+					<label />
+					<label />
+					<label value="PPN" />
+					<label />
+					<decimalbox id="dbTotalPPN" format="###,###.##" disabled="true" />
+					<label />
+				</row>
+				<row>
+					<label />
+					<label />
+					<label />
+					<label value="Total" />
+					<label />
+					<decimalbox id="dbGrandTotal" format="###,###.##" disabled="true" />
+					<label />
+				</row>
+			</rows>
+		</grid>
+		
+		<separator />
+		<button id="btnSimpan" label="Simpan" image="/image/iconcrud/btn_save.gif" />
+		<button id="btnReset" label="Bersihkan" image="/image/iconcrud/btn_reset.gif" />
+	</window>
+</zk>

@@ -1,0 +1,86 @@
+package com.trio.dao.h000;
+
+import java.util.List;
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h000.TrioH000Mstroleaccess;
+import com.trio.bean.h000.TrioH000Mstroleaccess;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Nov 1, 2012
+ */
+public class TrioH000MstroleaccessDaoImpl extends TrioHibernateDaoSupport implements TrioH000MstroleaccessDao {
+
+	@Override
+	public void saveOrUpdate(TrioH000Mstroleaccess domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(TrioH000Mstroleaccess domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly=true) 
+	public List<TrioH000Mstroleaccess> findAll() {
+		List<TrioH000Mstroleaccess> list = getHibernateTemplate().find("from TrioH000Mstroleaccess");
+		return list;
+	}
+
+	@Override
+	public List<TrioH000Mstroleaccess> findByExample(
+			TrioH000Mstroleaccess domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly=true)
+	public List<TrioH000Mstroleaccess> findByCriteria(
+			TrioH000Mstroleaccess domain) {
+
+		DetachedCriteria criteria = DetachedCriteria.forClass(TrioH000Mstroleaccess.class);
+		if (domain.getVroleid() != null){
+			criteria = criteria.add(Restrictions.eq("vroleid", domain.getVroleid()));
+		}
+		if (domain.getVmenuid() != null){
+			criteria = criteria.add(Restrictions.eq("vmenuid", domain.getVmenuid()));
+		}
+		if (domain.getVstatus() != null){
+			criteria = criteria.add(Restrictions.eq("vstatus", domain.getVstatus()));
+		}
+		List<TrioH000Mstroleaccess> list = getHibernateTemplate().findByCriteria(criteria);
+		
+		return list;
+	}
+
+	@Override
+	public void save(TrioH000Mstroleaccess domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(TrioH000Mstroleaccess domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public TrioH000Mstroleaccess findByPrimaryKey(TrioH000Mstroleaccess domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

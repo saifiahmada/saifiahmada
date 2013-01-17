@@ -1,0 +1,38 @@
+<?page title="test button" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="test button" border="normal">
+
+<listbox >
+	<listhead>
+		<listheader label="Kd Dlr" sort="auto" />
+		<listheader label="Nama Dlr" sort="auto" />
+		<listheader label="Action" sort="auto" />
+	</listhead>
+	<listitem>
+		<listcell><textbox id="text1" /></listcell>
+		<listcell><textbox id="text2" /></listcell>
+		<listcell>
+			<hbox>
+				<button id="delete" label="Delete"/>
+				<button id="update" label="Update"/>
+			</hbox>
+		</listcell>
+	</listitem>
+	<listitem>
+		<listcell><textbox id="text3" /></listcell>
+		<listcell><textbox id="text4" /></listcell>
+		<listcell>
+			<hbox>
+				<button id="delete_id" label="Delete"/>
+				<button id="update_id" label="Update"/>
+			</hbox>
+		</listcell>
+	</listitem>
+	
+</listbox>
+
+	
+
+
+</window>
+</zk>

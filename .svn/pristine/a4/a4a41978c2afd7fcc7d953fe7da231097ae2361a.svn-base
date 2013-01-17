@@ -1,0 +1,25 @@
+<?page title="New WMS" contentType="text/html;charset=UTF-8"?>
+<?init class="com.trio.util.Interceptors" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon"?>
+
+<zk>
+<window id="winReportes" title="Cetak Faktur" border="normal" width="100%" height="100%"
+apply="com.trio.view.ctrl.CetakSTNKCtrl">
+
+
+<hbox>
+No mesin<textbox id="noMesin" />
+Format Faktur<radiogroup id="radioFaktur">
+							<radio id="r1" label="Besar" value="0" checked="true" />
+							<radio id="r2" label="Kecil" value="1" />
+						</radiogroup>
+<button id="btnReportes" label="Print" />
+</hbox>
+<separator />
+<jasperreport id="report" />
+
+
+
+</window>
+</zk>

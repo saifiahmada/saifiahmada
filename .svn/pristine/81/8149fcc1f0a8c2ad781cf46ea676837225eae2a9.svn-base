@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- Database dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle9iDialect</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+
+
+		<!-- mapping resources h000 -->
+
+		<mapping class="com.trio.bean.h000.HondaH000Dealers" />
+		<mapping class="com.trio.bean.h000.HondaH000Gates" />
+		<mapping class="com.trio.bean.h000.HondaH000Setups" />
+		<mapping class="com.trio.bean.h000.MasterRunnum" />
+		<mapping class="com.trio.bean.h000.HondaH000Items" />
+		<mapping class="com.trio.bean.h000.HondaH000Setdlrs" />
+		<mapping class="com.trio.bean.h000.TrioH000Mstmenu" />
+		<mapping class="com.trio.bean.h000.TrioH000Mstroleaccess" />
+		<!-- mapping resources h100 -->
+
+		<mapping class="com.trio.bean.h100.TrioH100DtlAreaDealers" />
+		<mapping class="com.trio.bean.h100.TrioH100Kecamatans" />
+		<mapping class="com.trio.bean.h100.TrioH100Kelurahans" />
+		<mapping class="com.trio.bean.h100.HondaH100Customers" />
+		<mapping class="com.trio.bean.h100.TrioH100PelangWils" />
+		<mapping class="com.trio.bean.h100.TrioH100Stdetails" />
+		<mapping class="com.trio.bean.h100.HondaH100Dtlfakdos" />
+		<mapping class="com.trio.bean.h100.HondaH100Dtlpicklists" />
+		<mapping class="com.trio.bean.h100.HondaH100Fakdos" />
+		<mapping class="com.trio.bean.h100.HondaH100Hdrpicklists" />
+		<mapping class="com.trio.bean.h100.HondaH100Gudangs" />
+		<mapping class="com.trio.bean.h100.HondaH100Hdrsublokasi" />
+		<mapping class="com.trio.bean.h100.HondaH100Dtlsublokasi" />
+		<mapping class="com.trio.bean.h100.HondaH100Stdetails" />
+		<mapping class="com.trio.bean.h100.HondaH100Mstpodlrs" />
+		<mapping class="com.trio.bean.h100.HondaH100Dtlpodlrfixes" />
+		<mapping class="com.trio.bean.h100.TrioH100Dologs" />
+		<mapping class="com.trio.bean.h100.TrioH100Dtldologs" />
+		<mapping class="com.trio.bean.h100.HondaH100Stglobals" />
+		<mapping class="com.trio.bean.h100.HondaH100Ars" />
+		<mapping class="com.trio.bean.h100.HondaH100Hargas" />
+		<mapping class="com.trio.bean.h100.TrioH100Ars"/>
+		<mapping class="com.trio.bean.h100.TrioH100Dtlars"/>
+		
+		<!-- mapping resources h300 -->
+		<mapping class="com.trio.bean.h300.HondaH300Salesman" />
+
+		<!-- mapping resources bsc -->
+		<mapping class="com.trio.bean.bsc.DbaRolePrivs" />
+		<mapping class="com.trio.bean.bsc.AhmdsbscHdrsetting" />
+		<mapping class="com.trio.bean.bsc.AhmdsbscDtlsetting" />
+
+	</session-factory>
+</hibernate-configuration>

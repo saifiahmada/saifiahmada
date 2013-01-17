@@ -1,0 +1,89 @@
+package com.trio.test;
+
+import java.io.File;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+import com.trio.bean.h000.HondaH000Dealers;
+import com.trio.bean.h000.HondaH000Gates;
+import com.trio.bean.h000.HondaH000Setups;
+import com.trio.bean.h100.HondaH100Fakdos;
+import com.trio.bean.h100.HondaH100Hdrpicklists;
+import com.trio.bean.h100.HondaH100Stdetails;
+import com.trio.bean.h100.TrioH100Kecamatans;
+import com.trio.bean.h100.TrioH100PelangWils;
+import com.trio.dao.h000.HondaH000GatesDao;
+import com.trio.dao.h000.HondaH000SetupsDao;
+import com.trio.dao.h000.MasterRunnumDao;
+import com.trio.dao.h100.TrioH100PelangWilsDao;
+import com.trio.facade.MasterFacade;
+import com.trio.util.TrioDateConv;
+import com.trio.util.TrioStringUtil;
+
+public class Test1 {
+	
+	public static void main (String [] args){
+		
+//		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		
+//		MasterFacade mf = (MasterFacade) ac.getBean("masterFacade");
+//		
+//		List list = mf.getHondaH100FakdosDao().getDataStnk("234");
+//		
+//		System.out.println("Ukuran "+list.size());
+		
+		tesDrive("zkreport.jasper"); 
+		
+	}
+		
+		public static String tesDrive(String fileJrxml){
+	        Properties systemProp = System.getProperties();
+
+	        // Ambil current dir
+	        String currentDir = systemProp.getProperty("user.dir");
+	        String reportDirName = "Report";
+	        System.out.println("Current Dir = "+currentDir);
+	        System.out.println("Nama File = "+fileJrxml);
+	        File dir = new File(currentDir);
+	        String reportName = fileJrxml;
+	        
+
+	        File fileRpt;
+	        String fullPath = "";
+	        if (dir.isDirectory()) {
+	            String[] isiDir = dir.list();
+	            for (int i = 0; i < isiDir.length; i++) {
+	                fileRpt = new File(currentDir + File.separatorChar + isiDir[i] + File.separatorChar +
+	                         File.separatorChar + reportName);
+
+	                if (fileRpt.isFile()) { 
+	                    fullPath = fileRpt.toString();
+	                    //System.out.println("Found Report File at : " + fullPath);
+	                } 
+	            } 
+	        } 
+
+	        // Ambil Direktori tempat file RptMaster.jrxml berada
+	        String[] subRptDir = fullPath.split(reportName);
+	        System.out.println("Found Report File at : " + fullPath);
+	        String reportDir = subRptDir[0];
+	        System.out.println("Report Directory at : " + reportDir);
+	            return fullPath;
+	    }
+		
+		public String getPath(String file){
+			String path = "/home/glassfish/WMS/Report";
+			String report = "T10mdmun004_2.jasper";
+			
+			String fileReport = path + report;
+			
+			
+			return "";
+		}
+		
+}

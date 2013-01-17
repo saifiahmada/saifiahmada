@@ -1,0 +1,96 @@
+package com.trio.bean.bsc;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="dba_role_privs")
+public class DbaRolePrivs extends TrioEntityUserTrail implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	@Id
+	@Column(name="GRANTEE")
+	private String grantee;
+
+	@Column(name="GRANTED_ROLE")
+	private String granted_role;
+
+	@Column(name="ADMIN_OPTION")
+	private String admin_option;
+
+	@Column(name="DEFAULT_ROLE")
+	private String default_role;
+
+	public String getGrantee() {
+		return grantee;
+	}
+
+	public void setGrantee(String grantee) {
+		this.grantee = grantee;
+	}
+
+	public String getGranted_role() {
+		return granted_role;
+	}
+
+	public void setGranted_role(String granted_role) {
+		this.granted_role = granted_role;
+	}
+
+	public String getAdmin_option() {
+		return admin_option;
+	}
+
+	public void setAdmin_option(String admin_option) {
+		this.admin_option = admin_option;
+	}
+
+	public String getDefault_role() {
+		return default_role;
+	}
+
+	public void setDefault_role(String default_role) {
+		this.default_role = default_role;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((grantee == null) ? 0 : grantee.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DbaRolePrivs other = (DbaRolePrivs) obj;
+		if (grantee == null) {
+			if (other.grantee != null)
+				return false;
+		} else if (!grantee.equals(other.grantee))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "DbaRolePrivs [grantee=" + grantee + "]";
+	}
+}

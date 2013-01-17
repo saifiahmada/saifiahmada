@@ -1,0 +1,9 @@
+package com.trio.dao.h000;
+
+public interface MasterRunnumDao {
+	
+	public abstract Integer getRunningNumberCommit(String viddoc, String vreset, String userId);
+
+	public abstract Integer getRunningNumber(String viddoc, String vreset, String userId);
+
+}

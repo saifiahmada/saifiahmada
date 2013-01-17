@@ -1,0 +1,94 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h000.HondaH000Dealers;
+import com.trio.bean.h100.HondaH100Mstpodlrs;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 12, 2012
+ */
+public class HondaH100MstpodlrsDaoImpl extends TrioHibernateDaoSupport implements HondaH100MstpodlrsDao {
+
+	@Override
+	public void saveOrUpdate(HondaH100Mstpodlrs domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(HondaH100Mstpodlrs domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<HondaH100Mstpodlrs> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Mstpodlrs> findByExample(HondaH100Mstpodlrs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Mstpodlrs> findByCriteria(HondaH100Mstpodlrs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true) 
+	public List<HondaH000Dealers> findByStatus(String status, String dlrNama){
+		String str = "select distinct a.dealerKdDlr from HondaH100Mstpodlrs a where a.status = :status";
+		if (dlrNama != null){
+			str += " and a.dealerKdDlr.dlrNama like :dlrNama";
+		}
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("status",status);
+		if (dlrNama != null){
+			q.setString("dlrNama", "%"+dlrNama+"%"); 
+		}
+		return q.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true) 
+	public List<HondaH100Mstpodlrs> findByStatusAndKdDlr(String status, String kdDlr){
+		String str = "select a from HondaH100Mstpodlrs a where a.status = :status and a.dealerKdDlr = :kdDlr";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("status",status);
+		q.setString("kdDlr",kdDlr);
+		return q.list();
+	}
+
+	@Override
+	public void save(HondaH100Mstpodlrs domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(HondaH100Mstpodlrs domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HondaH100Mstpodlrs findByPrimaryKey(HondaH100Mstpodlrs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+}
+

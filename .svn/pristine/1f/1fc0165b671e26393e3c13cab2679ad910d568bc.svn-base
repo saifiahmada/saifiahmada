@@ -1,0 +1,71 @@
+package com.trio.dao.h000;
+
+import java.util.List;
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h000.HondaH000Dealers;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class HondaH000DealersDaoImpl extends TrioHibernateDaoSupport implements HondaH000DealersDao {
+	
+	@Transactional
+	public void saveOrUpdate(HondaH000Dealers dealer, String user){
+		getHibernateTemplate().saveOrUpdate(dealer);
+	}
+	@Transactional
+	public void delete(HondaH000Dealers dealer) throws DataAccessException {
+		getHibernateTemplate().delete(dealer);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<HondaH000Dealers> findAll() throws DataAccessException {
+		List<HondaH000Dealers> list = getHibernateTemplate().find("from HondaH000Dealers ");
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<HondaH000Dealers> getDealerByCriteria(HondaH000Dealers clazz, final int firstResult, final int maxResults) throws DataAccessException {
+		DetachedCriteria criteria = DetachedCriteria.forClass(HondaH000Dealers.class);
+		
+		List<HondaH000Dealers> list = getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<HondaH000Dealers> findByCriteria(HondaH000Dealers dealer) throws DataAccessException {
+		DetachedCriteria criteria = DetachedCriteria.forClass(HondaH000Dealers.class);
+		if (dealer.getKdDlr() != null){
+			System.out.println("kdDlr = "+dealer.getKdDlr());
+			criteria = criteria.add(Restrictions.eq("kdDlr", dealer.getKdDlr()));
+		}
+		if (dealer.getDlrNama() != null){
+			System.out.println("dlrNama = "+dealer.getDlrNama());
+			//criteria = criteria.add(Restrictions.eq("dlrNama", dealer.getDlrNama()));
+			criteria = criteria.add(Restrictions.like("dlrNama", "%"+dealer.getDlrNama().toUpperCase()+"%"));
+		}
+		if (dealer.getDlrAlamat1() != null){
+			System.out.println("kdDlr = "+dealer.getDlrAlamat1());
+			criteria = criteria.add(Restrictions.like("dlrAlamat1", "%"+dealer.getDlrAlamat1().toUpperCase()+"%"));
+		}
+		List<HondaH000Dealers> list = getHibernateTemplate().findByCriteria(criteria);
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<HondaH000Dealers> findByExample(HondaH000Dealers dealer) throws DataAccessException {
+		List<HondaH000Dealers> list = getHibernateTemplate().findByExample(dealer);
+		return list;
+	}
+
+}

@@ -1,0 +1,166 @@
+package com.trio.bean.h100;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="TRIO_H100_PELANGWILS")
+public class TrioH100PelangWils extends TrioEntityUserTrail implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @Column(name="NO_APPROVAL_PW", length=16)
+    private String noApprovalPw;
+    
+    @Column(name="KD_DLR", length=10)
+    private String kdDlr;
+    
+    @Column(name="TGL_APPROVAL_PW")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date tglApprovalPw;
+    
+    @Column(name="TGL_TAGIH_PW")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date tglTagihPw;
+    
+    @Column(name="TGL_LUNAS_PW")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date tglLunasPw;
+    
+    @Column(name="NO_PELUNASAN_PW", length=20)
+    private String noPelunasanPw;
+    
+    @Column(name="APPROVED_BY", length=20)
+    private String approvedBy;
+    
+    @Column(name="TOTAL_NILAI_PW", length=15)
+    private Integer totalNilaiPw;
+    
+    
+    @OneToMany(mappedBy="pelangWils")
+    private Set<TrioH100Stdetails> stDetails;
+
+    public Set<TrioH100Stdetails> getStDetails() {
+		return stDetails;
+	}
+
+	public void setStDetails(Set<TrioH100Stdetails> stDetails) {
+		this.stDetails = stDetails;
+	}
+
+	public TrioH100PelangWils() {
+        
+    }
+
+	public TrioH100PelangWils(String noApprovalPw) {
+        this.noApprovalPw = noApprovalPw;
+    }
+
+	public String getNoApprovalPw() {
+		return noApprovalPw;
+	}
+
+	public void setNoApprovalPw(String noApprovalPw) {
+		this.noApprovalPw = noApprovalPw;
+	}
+
+	public String getKdDlr() {
+		return kdDlr;
+	}
+
+	public void setKdDlr(String kdDlr) {
+		this.kdDlr = kdDlr;
+	}
+
+	public Date getTglApprovalPw() {
+		return tglApprovalPw;
+	}
+
+	public void setTglApprovalPw(Date tglApprovalPw) {
+		this.tglApprovalPw = tglApprovalPw;
+	}
+
+	public Date getTglTagihPw() {
+		return tglTagihPw;
+	}
+
+	public void setTglTagihPw(Date tglTagihPw) {
+		this.tglTagihPw = tglTagihPw;
+	}
+
+	public Date getTglLunasPw() {
+		return tglLunasPw;
+	}
+
+	public void setTglLunasPw(Date tglLunasPw) {
+		this.tglLunasPw = tglLunasPw;
+	}
+
+	public String getNoPelunasanPw() {
+		return noPelunasanPw;
+	}
+
+	public void setNoPelunasanPw(String noPelunasanPw) {
+		this.noPelunasanPw = noPelunasanPw;
+	}
+
+	public String getApprovedBy() {
+		return approvedBy;
+	}
+
+	public void setApprovedBy(String approvedBy) {
+		this.approvedBy = approvedBy;
+	}
+
+	public Integer getTotalNilaiPw() {
+		return totalNilaiPw;
+	}
+
+	public void setTotalNilaiPw(Integer totalNilaiPw) {
+		this.totalNilaiPw = totalNilaiPw;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((noApprovalPw == null) ? 0 : noApprovalPw.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TrioH100PelangWils other = (TrioH100PelangWils) obj;
+		if (noApprovalPw == null) {
+			if (other.noApprovalPw != null)
+				return false;
+		} else if (!noApprovalPw.equals(other.noApprovalPw))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "PelangWils [noApprovalPw=" + noApprovalPw + "]";
+	}
+    
+}
+

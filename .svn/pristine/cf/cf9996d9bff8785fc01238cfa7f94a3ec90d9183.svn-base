@@ -1,0 +1,154 @@
+package com.trio.dao.h000;
+
+import java.util.List;
+
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h000.HondaH000Setups;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+import com.trio.util.TrioDateUtil;
+
+public class HondaH000SetupsDaoImpl extends TrioHibernateDaoSupport implements HondaH000SetupsDao {
+	
+	/*
+	 * Script insert H1_CONFIG
+	 * insert into HONDA_H000_SETUPS (val_id, val_tag, val_char) values ('H1_CONFIG','NOMINAL_PELANG_WIL','300000');
+	 * @see com.trio.model.dao.HondaH000SetupsDao#findByValId(java.lang.String)
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
+	public List<HondaH000Setups> findByValId(String valId) {
+		String query = "select a from HondaH000Setups a where a.valId = :valId";
+		Query q =  getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(query);
+		q.setParameter("valId", valId);
+		//HondaH000Setups h = (HondaH000Setups) q.uniqueResult();
+		return q.list(); 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<HondaH000Setups> findByValTag(String valTag) {
+		String query = "from HondaH000Setups a where a.valTag = :valTag";
+		Query q =  getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(query);
+		q.setParameter("valTag", valTag);
+		List<HondaH000Setups> list =  q.list();
+		return list; 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<HondaH000Setups> findByValChar(String valChar) {
+		String query = "from HondaH000Setups a where a.valChar = valChar";
+		Query q =  getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(query);
+		q.setParameter("valChar", valChar);
+		List<HondaH000Setups> list = q.list();
+		return list;
+	}
+
+	@Transactional(readOnly = true)
+	public HondaH000Setups findByValIdValTag(String valId, String valTag) {
+		String query = "from HondaH000Setups a where a.valId = :valId and a.valTag = :valTag";
+		Query q =  getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(query);
+		q.setParameter("valId", valId);
+		q.setParameter("valTag", valTag);
+		HondaH000Setups h = (HondaH000Setups) q.uniqueResult();
+		return h;
+	}
+
+	@Override
+	public void saveOrUpdate(HondaH000Setups domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(HondaH000Setups domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<HondaH000Setups> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH000Setups> findByExample(HondaH000Setups domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH000Setups> findByCriteria(HondaH000Setups domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Transactional
+	public String getRunningNumberCommit(String valId, String valTag, String userId) {
+		return getRunnoEnggine(valId, valTag, userId);
+	}
+
+	@Transactional
+	public String getRunningNumber(String valId, String valTag, String userId) {
+		return getRunnoEnggine(valId, valTag, userId);
+	}
+	  
+	@Transactional
+	private String getRunnoEnggine(String valId, String valTag, String userId) {
+		
+	    String sQuery = "from HondaH000Setups s where s.valId = :valId and s.valTag = :valTag";
+	    Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(sQuery);
+	    q.setParameter("valId", valId);
+	    q.setParameter("valTag", valTag);
+	    List<HondaH000Setups> result = q.list();
+	    HondaH000Setups objRunno;
+	    if (result.size() == 0) {
+	      objRunno = new HondaH000Setups(valId, valTag);
+	      objRunno.setValChar("0");
+	      
+	      objRunno.getUserTrailing().setVcreaby(userId);
+	      objRunno.getUserTrailing().setDcrea(TrioDateUtil.getLongSysDate());
+	    } else {
+	      objRunno = (HondaH000Setups)result.get(0);
+	      getHibernateTemplate().refresh(objRunno);
+	      objRunno.getUserTrailing().setVmodiby(userId);
+	      objRunno.getUserTrailing().setDmodi(TrioDateUtil.getLongSysDate());
+	    }
+	    
+	    Integer tempValchar = Integer.valueOf(0);
+	    tempValchar = Integer.valueOf(objRunno.getValChar());
+	    //Integer localInteger1 = tempValchar; 
+	    //Integer localInteger2 = tempValchar = Integer.valueOf(tempValchar.intValue() + 1);
+	    tempValchar = Integer.valueOf(tempValchar.intValue() + 1);
+	    objRunno.setValChar(tempValchar.toString());
+
+	    getHibernateTemplate().saveOrUpdate(objRunno);
+	    return objRunno.getValChar();
+	  }
+
+	@Override
+	public void save(HondaH000Setups domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(HondaH000Setups domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HondaH000Setups findByPrimaryKey(HondaH000Setups domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+}

@@ -1,0 +1,18 @@
+package com.trio.dao.h000;
+
+import java.util.List;
+
+import com.trio.bean.h000.HondaH000Setups;
+import com.trio.hibernate.TrioGenericDao;
+
+public interface HondaH000SetupsDao extends TrioGenericDao<HondaH000Setups> { 
+	
+	//public HondaH000Setups findByValId(String valId);
+	public List<HondaH000Setups> findByValId(String valId);
+	public List<HondaH000Setups> findByValTag(String valTag);
+	public List<HondaH000Setups> findByValChar(String valChar);
+	public HondaH000Setups findByValIdValTag(String valId, String valTag);
+	public abstract String getRunningNumberCommit(String valId, String valTag, String userId);
+	public abstract String getRunningNumber(String valId, String valTag, String userId);
+
+}

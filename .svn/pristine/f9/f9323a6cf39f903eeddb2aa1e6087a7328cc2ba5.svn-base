@@ -1,0 +1,8 @@
+package com.trio.dao.h100;
+
+import com.trio.bean.h100.HondaH100Hdrsublokasi;
+import com.trio.hibernate.TrioGenericDao;
+
+public interface HondaH100HdrsublokasiDao extends TrioGenericDao<HondaH100Hdrsublokasi> { 
+
+}

@@ -1,0 +1,150 @@
+package com.trio.bean.h100;
+
+
+import java.io.Serializable;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.trio.bean.h000.HondaH000Items;
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="HONDA_H100_STGLOBALS")
+public class HondaH100Stglobals extends TrioEntityUserTrail  implements Serializable {
+  private static final long serialVersionUID = 1L;
+
+  @Id
+  @Basic(optional=false)
+  @Column(name="LOKASI", nullable=false, length=10)
+  private String lokasi;
+
+  @Id
+  @Basic(optional=false)
+  @Column(name="KD_ITEM", nullable=false, length=25)
+  private String kdItem;
+
+  @Column(name="QTY_BOOK")
+  private Long qtyBook;
+
+  @Column(name="QTY_ONHAND")
+  private Long qtyOnhand;
+
+  @Column(name="QTY_RUSAK")
+  private Long qtyRusak;
+
+  @Column(name="QTY_INTRANSIT")
+  private Long qtyIntransit;
+
+//  @JoinColumn(name="KD_ITEM", referencedColumnName="KD_ITEM", nullable=false, insertable=false, updatable=false)
+//  @ManyToOne(optional=false)
+//  private HondaH000Items hondaH000Items;
+
+  public HondaH100Stglobals()  {
+    
+  }
+
+  public HondaH100Stglobals(String lokasi, String kdItem) {
+    this.lokasi = lokasi;
+    this.kdItem = kdItem;
+  }
+
+	public String getLokasi() {
+		return lokasi;
+	}
+	
+	public void setLokasi(String lokasi) {
+		this.lokasi = lokasi;
+	}
+	
+	public String getKdItem() {
+		return kdItem;
+	}
+	
+	public void setKdItem(String kdItem) {
+		this.kdItem = kdItem;
+	}
+	
+	public Long getQtyBook() {
+		return qtyBook;
+	}
+	
+	public void setQtyBook(Long qtyBook) {
+		this.qtyBook = qtyBook;
+	}
+	
+	public Long getQtyOnhand() {
+		return qtyOnhand;
+	}
+	
+	public void setQtyOnhand(Long qtyOnhand) {
+		this.qtyOnhand = qtyOnhand;
+	}
+	
+	public Long getQtyRusak() {
+		return qtyRusak;
+	}
+	
+	public void setQtyRusak(Long qtyRusak) {
+		this.qtyRusak = qtyRusak;
+	}
+	
+	public Long getQtyIntransit() {
+		return qtyIntransit;
+	}
+	
+	public void setQtyIntransit(Long qtyIntransit) {
+		this.qtyIntransit = qtyIntransit;
+	}
+	
+//	public HondaH000Items getHondaH000Items() {
+//		return hondaH000Items;
+//	}
+//	
+//	public void setHondaH000Items(HondaH000Items hondaH000Items) {
+//		this.hondaH000Items = hondaH000Items;
+//	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((kdItem == null) ? 0 : kdItem.hashCode());
+		result = prime * result + ((lokasi == null) ? 0 : lokasi.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HondaH100Stglobals other = (HondaH100Stglobals) obj;
+		if (kdItem == null) {
+			if (other.kdItem != null)
+				return false;
+		} else if (!kdItem.equals(other.kdItem))
+			return false;
+		if (lokasi == null) {
+			if (other.lokasi != null)
+				return false;
+		} else if (!lokasi.equals(other.lokasi))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "HondaH100Stglobals [lokasi=" + lokasi + ", kdItem=" + kdItem
+				+ "]";
+	}
+	
+}

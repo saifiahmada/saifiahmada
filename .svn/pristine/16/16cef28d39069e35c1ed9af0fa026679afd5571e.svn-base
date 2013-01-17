@@ -1,0 +1,144 @@
+package com.trio.test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.Menu;
+import org.zkoss.zul.Menubar;
+import org.zkoss.zul.Menuitem;
+import org.zkoss.zul.Menupopup;
+import org.zkoss.zul.Window;
+
+public class MenubarCtrl extends GenericForwardComposer {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Window win;
+	
+	private Menubar menubar;
+	private Menuitem item;
+	private Menupopup menupopup;
+	private Menu menu;
+	
+	private List<String> listMenuUtama;
+	private List<MenuTrio> listMenuTrio;
+	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		// TODO Auto-generated method stub
+		super.doAfterCompose(comp);
+		
+		createMenu2();
+		
+	}
+	
+	public void createMenu(){
+		
+		menu = new Menu();
+		menubar = new Menubar();
+		menupopup = new Menupopup();
+		
+		menu.setLabel("Menu1");
+		item = new Menuitem();
+		item.setLabel("M1 Satu");
+		item.setParent(menupopup);
+		
+		item = new Menuitem();
+		item.setLabel("M1 Dua");
+		item.setParent(menupopup);
+		
+		item = new Menuitem();
+		item.setLabel("M1 Tiga");
+		item.setParent(menupopup);
+		
+		menupopup.setParent(menu);
+		menu.setParent(menubar);
+		
+		menu = new Menu();
+		
+		menupopup = new Menupopup();
+		
+		menu.setLabel("Menu2");
+		
+		item = new Menuitem();
+		item.setLabel("M2 Satu");
+		item.setParent(menupopup);
+		
+		item = new Menuitem();
+		item.setLabel("M2  Dua");
+		item.setParent(menupopup);
+		
+		item = new Menuitem();
+		item.setLabel("M2 Tiga");
+		item.setParent(menupopup);
+		menupopup.setParent(menu);
+		menu.setParent(menubar);
+		
+		menu = new Menu();
+		
+		menupopup = new Menupopup();
+		
+		menu.setLabel("Menu3");
+		
+		item = new Menuitem();
+		item.setLabel("M3 Satu");
+		item.setParent(menupopup);
+		menupopup.setParent(menu);
+		
+		menu.setParent(menubar);
+		
+		menubar.setParent(win);
+		
+	}
+	
+	public void createMenu2(){
+		
+		listMenuUtama = new ArrayList<String>();
+		listMenuUtama.add("Accounting");
+		listMenuUtama.add("Pajak");
+		
+		listMenuTrio = new ArrayList<MenuTrio>();
+		//listMenuTrio.add(new MenuTrio("Pajak", "Pajak 1"));
+		listMenuTrio.add(new MenuTrio("Pajak", "Pajak 2"));
+		listMenuTrio.add(new MenuTrio("Accounting", "Acc"));
+		listMenuTrio.add(new MenuTrio("Accountingss", "Acc"));
+		
+		//menu = new Menu();
+		menubar = new Menubar();
+		//menupopup = new Menupopup();
+		
+		for (String st : listMenuUtama){
+			
+			System.out.println("st "+st); 
+			for (MenuTrio mt : listMenuTrio){
+				menu = new Menu();
+				menu.setLabel(st);
+				System.out.println(""+mt.getParent()); 
+				if (mt.getParent().equalsIgnoreCase(st)){
+					item = new Menuitem();
+					menupopup = new Menupopup();
+					item.setLabel(mt.getTitle());
+					item.setParent(menupopup);
+					menupopup.setParent(menu);
+				}
+				
+			}
+			
+			
+			menu.setParent(menubar);
+			
+		}
+				
+		menubar.setParent(win);
+		
+	}
+
+	
+	
+
+}

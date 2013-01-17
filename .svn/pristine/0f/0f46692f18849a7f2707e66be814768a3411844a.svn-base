@@ -1,0 +1,36 @@
+package com.trio.test;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.trio.bean.bsc.AhmdsbscDtlsetting;
+import com.trio.bean.bsc.DbaRolePrivs;
+import com.trio.bean.h000.HondaH000Dealers;
+import com.trio.bean.h000.HondaH000Setups;
+import com.trio.bean.h000.TrioH000Mstmenu;
+import com.trio.bean.h000.TrioH000Mstroleaccess;
+import com.trio.bean.h100.HondaH100Stglobals;
+import com.trio.bean.h100.TrioH100Dologs;
+import com.trio.facade.MasterFacade;
+import com.trio.util.TrioDateUtil;
+
+public class Test1 {
+	
+	public static void main (String [] args){
+		
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+		
+		MasterFacade mf = (MasterFacade) ac.getBean("masterFacade");
+		
+		String st = mf.getHondaH000SetupsDao().findValCharByValIdValTag("H1_CONFIG", "PPN");
+		
+		System.out.println("PPN persen "+st);
+	}
+}

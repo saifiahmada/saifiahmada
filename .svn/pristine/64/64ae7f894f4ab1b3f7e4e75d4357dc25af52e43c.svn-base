@@ -1,0 +1,122 @@
+package com.trio.view.ctrl;
+
+import java.util.List;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zul.Iframe;
+import org.zkoss.zul.Label;
+import org.zkoss.zul.Menuitem;
+
+import com.trio.base.TrioBasePage;
+import com.trio.bean.bsc.DbaRolePrivs;
+import com.trio.util.LoginManager;
+
+public class IndexCtrl extends TrioBasePage{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Label lblid, lblrole;
+	Iframe iframe;
+	private Menuitem mAppDo, mKorDo, mEntryDo, mAsterAreaPjl, mMonitoring, mKorNilai, mPickList,
+	mCtkStnk, mMasterDealer, back, mLogOut;
+	
+	private List<DbaRolePrivs> roles;
+
+
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+
+		LoginManager lm = LoginManager.getIntance(Sessions.getCurrent());
+		lblid.setValue(lm.getUser().getDblist());
+		//iframe.setSrc("awal.zul");
+		
+		roles = getMasterFacade().getDbaRolePrivsDao().getRoleByGrantee(getUserSession());
+
+		if(!roles.contains("H1_MKT_MGR")){
+			mAsterAreaPjl.setDisabled(true);
+		}
+
+		if(!roles.contains("H1_MKT_MGR") &&
+				!roles.contains("H1_MKT_SPV")){
+			mMonitoring.setDisabled(true);
+		}
+
+		if(!roles.contains("H1_KOREKSI_PW")){
+			mKorNilai.setDisabled(true);
+		}
+		
+		if(!roles.contains("H1_STNK_BPKB")){
+			mCtkStnk.setDisabled(true);
+		}
+
+	}
+	public void onClick$mAppDo(){
+		iframe.setSrc("dealer.zul");
+	}
+
+	public void onClick$mLogOut(){
+		logOut();
+	}
+
+
+	public void onClick$mAsterAreaPjl(){
+		iframe.setSrc("dtlareadealers.zul");
+	}
+
+	//	public void onClik$mMasterDealer() throws InterruptedException {
+	//		iframe.setSrc("dealer.zul");
+	//	}
+
+	public void onPickList(){
+		iframe.setSrc("gantinomesinpicklist.zul");
+	}
+
+	public void onMaster(){
+		iframe.setSrc("dealer.zul");
+	}
+
+	public void onMasterKecamatan(){
+		iframe.setSrc("kecamatan.zul");
+	}
+
+	public void onMasterKelurahan(){
+		iframe.setSrc("kelurahan.zul");
+	}
+
+	public void onMonitoring(){
+		iframe.setSrc("pelangwil.zul");
+	}
+
+	public void onKoreksipw(){
+		iframe.setSrc("koreksipw.zul");
+	}
+
+	public void onCetakSTNK(){
+		iframe.setSrc("cetakSTNK.zul");
+	}
+
+	public void onClick$back(){
+		iframe.setSrc("");
+	}
+
+	public void onEntryDo(){
+		iframe.setSrc("entrydologistik.zul");
+	}
+
+	public void onMstmenu(){
+		iframe.setSrc("mastermenu.zul");
+	}
+
+	public void logOut(){
+		LoginManager lm = LoginManager.getIntance(Sessions.getCurrent());
+		lm.logOff();
+		Executions.sendRedirect("login.zul");
+
+	}
+}

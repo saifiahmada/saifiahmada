@@ -1,0 +1,58 @@
+<?page title="New WMS" contentType="text/html;charset=UTF-8"?>
+<?init class="com.trio.util.Interceptors" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon"?>
+
+<zk>
+
+	<window id="win" title="Korek Nilai Pelangggaran Wilayah" apply="com.trio.view.ctrl.KoreksiPwCtrl">
+	
+	<div>
+		<vbox>
+		<separator />
+			<grid>
+				<columns visible="false">
+					<column width="100px"></column>
+					<column width="100px"></column>
+					<column width="100px"></column>
+				</columns>
+				<rows>
+					<row>
+					<cell>No Approval</cell>
+					<cell><textbox id="tbNoApproval" value="@{win$composer.noApproval} }" /></cell>
+					<cell><button id="btLov" label="Lov" onClick="popNoApproval.open(self)" /></cell>
+					</row>
+					<row>
+						<cell><button id="btTampil" label="Tampilkan" /></cell>	
+					</row>
+				</rows>
+			</grid>
+			
+			<separator />
+			<listbox id="lbPelangWil" mold="paging" pageSize="10">
+				<listhead>
+					<listheader label="No Mesin"/>
+					<listheader label="Nama Dealer"/>
+					<listheader label="Nama Konsumen"/>
+					<listheader label="Alamat Konsumen"/>
+					<listheader label="Kota"/>
+					<listheader label="Kecamatan"/>
+					<listheader label="Kelurahan"/>
+					<listheader label="Nilai Pelanggaran"/>
+				</listhead>
+			</listbox>
+					
+		</vbox>
+	</div>
+	
+	<popup id="popNoApproval">
+		<listbox id="lbPopNoApproval" width="650px" height="350px" mold="paging" pageSize="10">
+				<listhead>
+					<listheader width="100px" label="No Approval" sort="auto(kdDlr)" />
+					<listheader width="200px" label="Nama Dealer" sort="auto(dlrNama)" />
+				</listhead>
+		</listbox>
+	</popup>
+	
+	</window>
+</zk>

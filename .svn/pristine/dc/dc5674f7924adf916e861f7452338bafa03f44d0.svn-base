@@ -1,0 +1,15 @@
+package com.trio.dao.h100;
+
+import com.trio.bean.h100.HondaH100Dtlpodlrfixes;
+import com.trio.hibernate.TrioGenericDao;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 12, 2012
+ */
+public interface HondaH100DtlpodlrfixesDao extends TrioGenericDao<HondaH100Dtlpodlrfixes> {
+	
+	public Long getQtyOrderByPoIntAndKdItem(String noPoInt, String kdItem);
+
+}

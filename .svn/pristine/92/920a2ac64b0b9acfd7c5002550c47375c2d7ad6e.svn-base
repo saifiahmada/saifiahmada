@@ -1,0 +1,9 @@
+<?page title="Parent" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Parent" border="normal" apply="com.trio.view.ctrl.ParentCtrl">
+
+<button id="btnTest" label="Open" />
+
+</window>
+
+</zk>

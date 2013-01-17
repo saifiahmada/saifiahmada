@@ -1,0 +1,116 @@
+package com.trio.dao.h100;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.HondaH100Dtlfakdos;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+import com.trio.util.TrioDateUtil;
+
+public class HondaH100DtlfakdosDaoImpl extends TrioHibernateDaoSupport implements HondaH100DtlfakdosDao {
+
+	@Override
+	@Transactional(readOnly= false) 
+	public void saveOrUpdate(HondaH100Dtlfakdos domain, String user) {
+		getHibernateTemplate().saveOrUpdate(domain);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void delete(HondaH100Dtlfakdos domain) {
+		getHibernateTemplate().delete(domain);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true) 
+	public List<HondaH100Dtlfakdos> findAll() {
+		List<HondaH100Dtlfakdos> list = getHibernateTemplate().find("from HondaH100Dtlfakdos");
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<HondaH100Dtlfakdos> findByExample(HondaH100Dtlfakdos domain) {
+		List<HondaH100Dtlfakdos> list = getHibernateTemplate().findByExample(domain);
+		return list;
+	}
+
+	@Override
+	public List<HondaH100Dtlfakdos> findByCriteria(HondaH100Dtlfakdos domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Transactional(readOnly=true)
+	public Long getQtyPoOpenByPoIntAndKdItem(String noPoInt, String kdItem){
+		/*
+		 * select QTY from HONDA_H100_FAKDOS a, HONDA_H100_DTLFAKDOS b
+		   where a.NO_DO = b.FAKDO_NO_DO and a.STATUS <> 'X' 
+		   and a.PODLR_NO_POINT = '001/PO-T8/2009' and KD_ITEM= 'CK0-BK'
+		 */
+		String str = "select qty from HondaH100Dtlfakdos a where a.hondaH100Fakdos.status <> 'X'" +
+				" and a.hondaH100Fakdos.podlrNoPoint.noPoint = :noPoInt and a.hondaH000Items.kdItem = :kdItem ";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("noPoInt", noPoInt);
+		q.setString("kdItem", kdItem);
+		Object obj = q.uniqueResult();
+		return obj != null ? (Long) obj : 0L;
+	}
+
+	@Override
+	public void save(HondaH100Dtlfakdos domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(HondaH100Dtlfakdos domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HondaH100Dtlfakdos findByPrimaryKey(HondaH100Dtlfakdos domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public List<HondaH100Dtlfakdos> findBynoDo(String noDo){
+		
+		String str = "select a from HondaH100Dtlfakdos a where fakdoNoDo = :noDo";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("noDo", noDo);
+		return  q.list();
+		
+	}
+	
+	@Transactional(readOnly=false)
+	@Override
+	public void updateTransaction(HondaH100Dtlfakdos dtlFakdos, String user){
+		dtlFakdos.getUserTrailing().setVcreaby(user);
+		dtlFakdos.getUserTrailing().setDcrea(TrioDateUtil.getLongSysDateOracle());
+		getHibernateTemplate().update(dtlFakdos);
+		
+	}
+	
+	@Transactional(readOnly=true)
+	@Override
+	public BigDecimal getNilaiDppByNoDo(String fakdoNoDo){
+		
+		String str = "select sum(hargaNetto*qty) from HondaH100Dtlfakdos a where a.fakdoNoDo = :fakdoNoDo";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("fakdoNoDo", fakdoNoDo);
+		return (BigDecimal) q.uniqueResult();
+		
+		
+		
+	}
+}

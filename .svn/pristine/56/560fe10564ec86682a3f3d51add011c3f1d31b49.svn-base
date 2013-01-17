@@ -1,0 +1,444 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.trio.bean.h000;
+
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.trio.bean.h100.HondaH100Fakdos;
+import com.trio.usertrail.TrioEntityUserTrail;
+
+/**
+ *
+ * @author glassfish | Saipi Ramli
+ */
+@Entity
+@Table(name="HONDA_H000_DEALERS")
+public class HondaH000Dealers extends TrioEntityUserTrail implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @Column(name="KD_DLR", nullable=false, length=10)
+    private String kdDlr;
+
+      @Column(name="DLR_TIPE", length=10)
+      private String dlrTipe;
+
+      @Column(name="DLR_EMAIL", length=50)
+      private String dlrEmail;
+
+      @Column(name="DLR_TELEPON1", length=20)
+      private String dlrTelepon1;
+
+      @Column(name="DLR_AREA", length=10)
+      private String dlrArea;
+
+      @Column(name="DLR_ALAMAT2", length=50)
+      private String dlrAlamat2;
+
+      @Column(name="DLR_PROPINSI", length=30)
+      private String dlrPropinsi;
+
+      @Column(name="DLR_NPWP", length=30)
+      private String dlrNpwp;
+
+      @Column(name="DLR_TELEPON2", length=20)
+      private String dlrTelepon2;
+
+      @Column(name="DLR_RULE", length=10)
+      private String dlrRule;
+
+      @Column(name="PKP", length=1)
+      private String pkp;
+
+      @Column(name="DLR_FAX", length=20)
+      private String dlrFax;
+
+      @Column(name="DLR_NOSK", length=30)
+      private String dlrNosk;
+
+      @Column(name="DLR_PEMILIK", length=20)
+      private String dlrPemilik;
+
+      @Column(name="CABANG", length=1)
+      private String cabang;
+
+      @Column(name="KD_DLR_AHM", length=10)
+      private String kdDlrAhm;
+
+      @Column(name="DLR_TELEPON3", length=20)
+      private String dlrTelepon3;
+
+      @Column(name="DLR_AWALAN", length=10)
+      private String dlrAwalan;
+
+      @Column(name="DLR_STATUS", length=1)
+      private String dlrStatus;
+
+      @Column(name="DLR_KPOS", length=10)
+      private String dlrKpos;
+
+      @Column(name="DLR_KOTA", length=30)
+      private String dlrKota;
+
+      @Column(name="AV_SALES", length=1)
+      private String avSales;
+
+      @Column(name="DLR_TGLANGKAT", length=11)
+      @Temporal(TemporalType.DATE)
+      private Date dlrTglangkat;
+
+      @Column(name="DLR_CPERSON", length=30)
+      private String dlrCperson;
+
+      @Column(name="DLR_HTTP", length=50)
+      private String dlrHttp;
+
+      @Column(name="PART_DISC", length=15)
+      private Double partDisc;
+
+      @Column(name="DLR_ALAMAT1", length=50)
+      private String dlrAlamat1;
+
+      @Column(name="DLR_NAMA", length=50)
+      private String dlrNama;
+
+      @Column(name="DLR_PLAFON", length=20)
+      private BigInteger dlrPlafon;
+
+      @Column(name="GROUP_DEALER", length=10)
+      private String groupDealer;
+
+      @Column(name="DLR_AREAWSH", length=10)
+      private String dlrAreawsh;
+
+      @Column(name="DLR_AREASP", length=10)
+      private String dlrAreasp;
+
+      @Column(name="DLR_FACILITY", length=40)
+      private String dlrFacility;
+      
+      @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Dealers")
+      private Set<HondaH100Fakdos> hondaH100FakdosSet;
+
+      public HondaH000Dealers(){
+
+      }
+
+      public HondaH000Dealers(String kdDlr){
+        this.kdDlr = kdDlr;
+      }
+      
+    public Set<HondaH100Fakdos> getHondaH100FakdosSet() {
+		return hondaH100FakdosSet;
+	}
+
+	public void setHondaH100FakdosSet(Set<HondaH100Fakdos> hondaH100FakdosSet) {
+		this.hondaH100FakdosSet = hondaH100FakdosSet;
+	}
+
+	public String getKdDlr() {
+        return kdDlr;
+    }
+
+    public void setKdDlr(String kdDlr) {
+        this.kdDlr = kdDlr;
+    }
+
+      public String getDlrTipe() {
+        return this.dlrTipe;
+      }
+
+      public void setDlrTipe(String dlrTipe) {
+        this.dlrTipe = dlrTipe;
+      }
+
+      public String getDlrEmail() {
+        return this.dlrEmail;
+      }
+
+      public void setDlrEmail(String dlrEmail) {
+        this.dlrEmail = dlrEmail;
+      }
+
+      public String getDlrTelepon1() {
+        return this.dlrTelepon1;
+      }
+
+      public void setDlrTelepon1(String dlrTelepon1) {
+        this.dlrTelepon1 = dlrTelepon1;
+      }
+
+      public String getDlrArea() {
+        return this.dlrArea;
+      }
+
+      public void setDlrArea(String dlrArea) {
+        this.dlrArea = dlrArea;
+      }
+
+      public String getDlrAlamat2() {
+        return this.dlrAlamat2;
+      }
+
+      public void setDlrAlamat2(String dlrAlamat2) {
+        this.dlrAlamat2 = dlrAlamat2;
+      }
+
+      public String getDlrPropinsi() {
+        return this.dlrPropinsi;
+      }
+
+      public void setDlrPropinsi(String dlrPropinsi) {
+        this.dlrPropinsi = dlrPropinsi;
+      }
+
+      public String getDlrNpwp() {
+        return this.dlrNpwp;
+      }
+
+      public void setDlrNpwp(String dlrNpwp) {
+        this.dlrNpwp = dlrNpwp;
+      }
+
+      public String getDlrTelepon2() {
+        return this.dlrTelepon2;
+      }
+
+      public void setDlrTelepon2(String dlrTelepon2) {
+        this.dlrTelepon2 = dlrTelepon2;
+      }
+
+      public String getDlrRule() {
+        return this.dlrRule;
+      }
+
+      public void setDlrRule(String dlrRule) {
+        this.dlrRule = dlrRule;
+      }
+
+      public String getPkp() {
+        return this.pkp;
+      }
+
+      public void setPkp(String pkp) {
+        this.pkp = pkp;
+      }
+
+      public String getDlrFax() {
+        return this.dlrFax;
+      }
+
+      public void setDlrFax(String dlrFax) {
+        this.dlrFax = dlrFax;
+      }
+
+      public String getDlrNosk() {
+        return this.dlrNosk;
+      }
+
+      public void setDlrNosk(String dlrNosk) {
+        this.dlrNosk = dlrNosk;
+      }
+
+      public String getDlrPemilik() {
+        return this.dlrPemilik;
+      }
+
+      public void setDlrPemilik(String dlrPemilik) {
+        this.dlrPemilik = dlrPemilik;
+      }
+
+      public String getCabang() {
+        return this.cabang;
+      }
+
+      public void setCabang(String cabang) {
+        this.cabang = cabang;
+      }
+
+      public String getKdDlrAhm() {
+        return this.kdDlrAhm;
+      }
+
+      public void setKdDlrAhm(String kdDlrAhm) {
+        this.kdDlrAhm = kdDlrAhm;
+      }
+
+      public String getDlrTelepon3() {
+        return this.dlrTelepon3;
+      }
+
+      public void setDlrTelepon3(String dlrTelepon3) {
+        this.dlrTelepon3 = dlrTelepon3;
+      }
+
+      public String getDlrAwalan() {
+        return this.dlrAwalan;
+      }
+
+      public void setDlrAwalan(String dlrAwalan) {
+        this.dlrAwalan = dlrAwalan;
+      }
+
+      public String getDlrStatus() {
+        return this.dlrStatus;
+      }
+
+      public void setDlrStatus(String dlrStatus) {
+        this.dlrStatus = dlrStatus;
+      }
+
+      public String getDlrKpos() {
+        return this.dlrKpos;
+      }
+
+      public void setDlrKpos(String dlrKpos) {
+        this.dlrKpos = dlrKpos;
+      }
+
+      public String getDlrKota() {
+        return this.dlrKota;
+      }
+
+      public void setDlrKota(String dlrKota) {
+        this.dlrKota = dlrKota;
+      }
+
+      public String getAvSales() {
+        return this.avSales;
+      }
+
+      public void setAvSales(String avSales) {
+        this.avSales = avSales;
+      }
+
+      public Date getDlrTglangkat() {
+        return this.dlrTglangkat;
+      }
+
+      public void setDlrTglangkat(Date dlrTglangkat) {
+        this.dlrTglangkat = dlrTglangkat;
+      }
+
+      public String getDlrCperson() {
+        return this.dlrCperson;
+      }
+
+      public void setDlrCperson(String dlrCperson) {
+        this.dlrCperson = dlrCperson;
+      }
+
+      public String getDlrHttp() {
+        return this.dlrHttp;
+      }
+
+      public void setDlrHttp(String dlrHttp) {
+        this.dlrHttp = dlrHttp;
+      }
+
+      public Double getPartDisc() {
+        return this.partDisc;
+      }
+
+      public void setPartDisc(Double partDisc) {
+        this.partDisc = partDisc;
+      }
+
+      public String getDlrAlamat1() {
+        return this.dlrAlamat1;
+      }
+
+      public void setDlrAlamat1(String dlrAlamat1) {
+        this.dlrAlamat1 = dlrAlamat1;
+      }
+
+      public String getDlrNama() {
+        return this.dlrNama;
+      }
+
+      public void setDlrNama(String dlrNama) {
+        this.dlrNama = dlrNama;
+      }
+
+      public BigInteger getDlrPlafon() {
+        return this.dlrPlafon;
+      }
+
+      public void setDlrPlafon(BigInteger dlrPlafon) {
+        this.dlrPlafon = dlrPlafon;
+      }
+
+      public String getGroupDealer() {
+        return this.groupDealer;
+      }
+
+      public void setGroupDealer(String groupDealer) {
+        this.groupDealer = groupDealer;
+      }
+
+      public String getDlrAreawsh() {
+        return this.dlrAreawsh;
+      }
+
+      public void setDlrAreawsh(String dlrAreawsh) {
+        this.dlrAreawsh = dlrAreawsh;
+      }
+
+      public String getDlrAreasp() {
+        return this.dlrAreasp;
+      }
+
+      public void setDlrAreasp(String dlrAreasp) {
+        this.dlrAreasp = dlrAreasp;
+      }
+
+      public String getDlrFacility() {
+        return this.dlrFacility;
+      }
+
+      public void setDlrFacility(String dlrFacility) {
+        this.dlrFacility = dlrFacility;
+      }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final HondaH000Dealers other = (HondaH000Dealers) obj;
+        if ((this.kdDlr == null) ? (other.kdDlr != null) : !this.kdDlr.equals(other.kdDlr)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + (this.kdDlr != null ? this.kdDlr.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Dealer{" + "kdDlr=" + kdDlr + '}';
+    }
+
+}

@@ -1,0 +1,178 @@
+package com.trio.bean.h300;
+
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="HONDA_H300_SALESMAN")
+public class HondaH300Salesman extends TrioEntityUserTrail implements Serializable {
+
+	  private static final long serialVersionUID = 1L;
+	
+	  @Id
+	  @Column(name="KODE_SALES", nullable=false, length=10)
+	  private String kodeSales;
+
+	  @Column(name="BUSSINESS", length=5)
+	  private String bussiness;
+	
+	  @Column(name="ALAMAT_SALES1", length=30)
+	  private String alamatSales1;
+	
+	  @Column(name="ALAMAT_SALES3", length=30)
+	  private String alamatSales3;
+	
+	  @Basic(optional=false)
+	  @Column(name="KODE_AREA", nullable=false, length=10)
+	  private String kodeArea;
+	
+	  @Column(name="NO_TELP", length=15)
+	  private String noTelp;
+	
+	  @Column(name="STATUS", length=1)
+	  private String status;
+	
+	  @Basic(optional=false)
+	  @Column(name="NAMA_SALES", nullable=false, length=30)
+	  private String namaSales;
+	
+	  @Column(name="ALAMAT_SALES2", length=30)
+	  private String alamatSales2;
+	
+	  @Column(name="E_MAIL", length=50)
+	  private String eMail;
+	
+	  public HondaH300Salesman() {
+	    
+	  }
+	
+	  public HondaH300Salesman(String kodeSales) {
+	    this.kodeSales = kodeSales;
+	  }
+	
+	  public String getBussiness() {
+	    return this.bussiness;
+	  }
+	
+	  public void setBussiness(String bussiness) {
+	    this.bussiness = bussiness;
+	  }
+	
+	  public String getAlamatSales1() {
+	    return this.alamatSales1;
+	  }
+	
+	  public void setAlamatSales1(String alamatSales1) {
+	    this.alamatSales1 = alamatSales1;
+	  }
+	
+	  public String getAlamatSales3() {
+	    return this.alamatSales3;
+	  }
+	
+	  public void setAlamatSales3(String alamatSales3) {
+	    this.alamatSales3 = alamatSales3;
+	  }
+	
+	  public String getKodeArea() {
+	    return this.kodeArea;
+	  }
+	
+	  public void setKodeArea(String kodeArea) {
+	    this.kodeArea = kodeArea;
+	  }
+	
+	  public String getNoTelp() {
+	    return this.noTelp;
+	  }
+	
+	  public void setNoTelp(String noTelp) {
+	    this.noTelp = noTelp;
+	  }
+	
+	  public String getStatus() {
+	    return this.status;
+	  }
+	
+	  public void setStatus(String status) {
+	    this.status = status;
+	  }
+	
+	  public String getNamaSales() {
+	    return this.namaSales;
+	  }
+	
+	  public void setNamaSales(String namaSales) {
+	    this.namaSales = namaSales;
+	  }
+	
+	  public String getAlamatSales2() {
+	    return this.alamatSales2;
+	  }
+	
+	  public void setAlamatSales2(String alamatSales2) {
+	    this.alamatSales2 = alamatSales2;
+	  }
+	
+	  public String getEMail() {
+	    return this.eMail;
+	  }
+	
+	  public void setEMail(String eMail) {
+	    this.eMail = eMail;
+	  }
+
+	public String getKodeSales() {
+		return kodeSales;
+	}
+
+	public void setKodeSales(String kodeSales) {
+		this.kodeSales = kodeSales;
+	}
+
+	public String geteMail() {
+		return eMail;
+	}
+
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((kodeSales == null) ? 0 : kodeSales.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HondaH300Salesman other = (HondaH300Salesman) obj;
+		if (kodeSales == null) {
+			if (other.kodeSales != null)
+				return false;
+		} else if (!kodeSales.equals(other.kodeSales))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "HondaH300Salesman [kodeSales=" + kodeSales + "]";
+	}
+	
+}

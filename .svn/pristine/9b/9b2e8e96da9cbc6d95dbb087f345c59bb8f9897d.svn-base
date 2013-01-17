@@ -1,0 +1,201 @@
+package com.trio.bean.h100;
+
+import java.io.Serializable;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="HONDA_H100_DTLPODLRFIXES")
+public class HondaH100Dtlpodlrfixes extends TrioEntityUserTrail implements Serializable {
+  
+	private static final long serialVersionUID = 1L;
+
+	  @Id
+	  @Basic(optional=false)
+	  @Column(name="KD_ITEM", nullable=false, length=25)
+	  private String kdItem;
+
+	  @Id
+	  @Basic(optional=false)
+	  @Column(name="PODLR_NO_POINT", nullable=false, length=30)
+	  private String podlrNoPoint;
+
+	  @Column(name="QTY_T3")
+	  private Long qtyT3;
+	
+	  @Column(name="QTY_ORDER")
+	  private Long qtyOrder;
+	
+	  @Column(name="QTY_T1")
+	  private Long qtyT1;
+	
+	  @Column(name="QTY_T2")
+	  private Long qtyT2;
+	
+	  @Column(name="VALID_PO", length=1)
+	  private String validPo;
+	
+	  @Column(name="QTY_ORDER_TMP")
+	  private Long qtyOrderTmp;
+	
+	  @Column(name="QTY_T1_TMP")
+	  private Long qtyT1Tmp;
+	
+	  @Column(name="QTY_T2_TMP")
+	  private Long qtyT2Tmp;
+	
+	  @JoinColumn(name="PODLR_NO_POINT", referencedColumnName="NO_POINT", nullable=false, insertable=false, updatable=false)
+	  @ManyToOne(optional=false)
+	  private HondaH100Mstpodlrs hondaH100Mstpodlrs;
+	
+	  public HondaH100Dtlpodlrfixes()  {
+	
+	  }
+	
+	  public HondaH100Dtlpodlrfixes(String kdItem, String podlrNoPoint) {
+	    this.kdItem = kdItem;
+	    this.podlrNoPoint = podlrNoPoint;
+	   
+	  }
+	
+	  
+	
+	  public Long getQtyT3() {
+	    return this.qtyT3;
+	  }
+	
+	  public void setQtyT3(Long qtyT3) {
+	    this.qtyT3 = qtyT3;
+	  }
+	
+	  public Long getQtyOrder()
+	  {
+	    return this.qtyOrder;
+	  }
+	
+	  public void setQtyOrder(Long qtyOrder) {
+	    this.qtyOrder = qtyOrder;
+	  }
+	
+	  public Long getQtyT1()
+	  {
+	    return this.qtyT1;
+	  }
+	
+	  public void setQtyT1(Long qtyT1) {
+	    this.qtyT1 = qtyT1;
+	  }
+	
+	  public Long getQtyT2()
+	  {
+	    return this.qtyT2;
+	  }
+	
+	  public void setQtyT2(Long qtyT2) {
+	    this.qtyT2 = qtyT2;
+	  }
+	
+	  public String getValidPo() {
+	    return this.validPo;
+	  }
+	
+	  public void setValidPo(String validPo) {
+	    this.validPo = validPo;
+	  }
+	
+	  public Long getQtyOrderTmp() {
+	    return this.qtyOrderTmp;
+	  }
+	
+	  public void setQtyOrderTmp(Long qtyOrderTmp) {
+	    this.qtyOrderTmp = qtyOrderTmp;
+	  }
+	
+	  public Long getQtyT1Tmp() {
+	    return this.qtyT1Tmp;
+	  }
+	
+	  public void setQtyT1Tmp(Long qtyT1Tmp) {
+	    this.qtyT1Tmp = qtyT1Tmp;
+	  }
+	
+	  public Long getQtyT2Tmp() {
+	    return this.qtyT2Tmp;
+	  }
+	
+	  public void setQtyT2Tmp(Long qtyT2Tmp) {
+	    this.qtyT2Tmp = qtyT2Tmp;
+	  }
+	
+	  public HondaH100Mstpodlrs getHondaH100Mstpodlrs() {
+	    return this.hondaH100Mstpodlrs;
+	  }
+	
+	  public void setHondaH100Mstpodlrs(HondaH100Mstpodlrs hondaH100Mstpodlrs) {
+	    this.hondaH100Mstpodlrs = hondaH100Mstpodlrs;
+	  }
+	
+	public String getKdItem() {
+		return kdItem;
+	}
+	
+	public void setKdItem(String kdItem) {
+		this.kdItem = kdItem;
+	}
+	
+	public String getPodlrNoPoint() {
+		return podlrNoPoint;
+	}
+	
+	public void setPodlrNoPoint(String podlrNoPoint) {
+		this.podlrNoPoint = podlrNoPoint;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((kdItem == null) ? 0 : kdItem.hashCode());
+		result = prime * result
+				+ ((podlrNoPoint == null) ? 0 : podlrNoPoint.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HondaH100Dtlpodlrfixes other = (HondaH100Dtlpodlrfixes) obj;
+		if (kdItem == null) {
+			if (other.kdItem != null)
+				return false;
+		} else if (!kdItem.equals(other.kdItem))
+			return false;
+		if (podlrNoPoint == null) {
+			if (other.podlrNoPoint != null)
+				return false;
+		} else if (!podlrNoPoint.equals(other.podlrNoPoint))
+			return false;
+		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "HondaH100Dtlpodlrfixes [kdItem=" + kdItem + ", podlrNoPoint="
+				+ podlrNoPoint + "]";
+	}
+	
+	  
+}

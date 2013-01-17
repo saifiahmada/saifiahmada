@@ -1,0 +1,324 @@
+package com.trio.bean.h000;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.trio.bean.h100.HondaH100Dtlfakdos;
+import com.trio.bean.h100.HondaH100Dtlpicklists;
+import com.trio.bean.h100.HondaH100Dtlsublokasi;
+import com.trio.bean.h100.HondaH100Stdetails;
+import com.trio.bean.h100.HondaH100Stglobals;
+import com.trio.bean.h100.TrioH100Stdetails;
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="HONDA_H000_ITEMS")
+public class HondaH000Items extends TrioEntityUserTrail implements Serializable {
+  
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name="KD_ITEM", nullable=false, length=25)
+	private String kdItem;
+
+  @Column(name="MERK", length=10)
+  private String merk;
+
+  @Column(name="BGN_EFFD", length=11)
+  @Temporal(TemporalType.DATE)
+  private Date bgnEffd;
+
+  @Column(name="STATUS", length=1)
+  private String status;
+
+  @Column(name="KET_WARNA", length=20)
+  private String ketWarna;
+
+  @Column(name="KD_WARNA", length=5)
+  private String kdWarna;
+
+  @Column(name="KET_1", length=20)
+  private String ket1;
+
+  @Column(name="KET_2", length=30)
+  private String ket2;
+
+  @Column(name="LST_EFFD", length=11)
+  @Temporal(TemporalType.DATE)
+  private Date lstEffd;
+
+  @Column(name="SUB_KATEGORI", length=20)
+  private String subKategori;
+
+  @Column(name="KAPASITAS", length=5)
+  private String kapasitas;
+
+  @Column(name="KATEGORI", length=20)
+  private String kategori;
+
+  @Column(name="KD_TIPE", length=10)
+  private String kdTipe;
+
+//  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+//  private Map<HondaH100AksesItemPK, HondaH100AksesItem> hondaH100AksesItemCollection;
+//
+//  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+//  @MapKey(name="hondaH100DtlpoahmfixesPK")
+//  private Map<HondaH100DtlpoahmfixesPK, HondaH100Dtlpoahmfixes> hondaH100DtlpoahmfixesCollection;
+
+//  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+//  private Set<HondaH100Stglobals> hondaH100StglobalsSet; 
+
+  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+  private Set<HondaH100Stdetails> hondaH100StdetailsSet;
+  
+  @OneToMany(mappedBy="hondaH000Items")
+  private Set<TrioH100Stdetails> stDetailsSet;
+
+//  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+//  @MapKey(name="hondaH100DtlmutasisPK")
+//  private Map<HondaH100DtlmutasisPK, HondaH100Dtlmutasis> hondaH100DtlmutasisCollection;
+
+  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+  private Set<HondaH100Dtlfakdos> hondaH100DtlfakdosSet;
+
+//  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+//  @MapKey(name="hondaH100DtlshiplistsPK")
+//  private Map<HondaH100DtlshiplistsPK, HondaH100Dtlshiplists> hondaH100DtlshiplistsCollection;
+
+//  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+//  @MapKey(name="hondaH100DtlsjalansPK")
+//  private Map<HondaH100DtlsjalansPK, HondaH100Dtlsjalans> hondaH100DtlsjalansCollection;
+
+//  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+//  @MapKey(name="hondaH100DtldoahmsPK")
+//  private Map<HondaH100DtldoahmsPK, HondaH100Dtldoahms> hondaH100DtldoahmsCollection;
+
+  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+  private Set<HondaH100Dtlpicklists> hondaH100DtlpicklistsSet;
+
+//  @OneToMany(cascade={javax.persistence.CascadeType.ALL}, mappedBy="hondaH000Items")
+//  @MapKey(name="hondaH100DtltmpspgPK")
+//  private Map<HondaH100DtltmpspgPK, HondaH100Dtltmpspg> hondaH100DtltmpspgCollection;
+
+  @OneToMany(mappedBy="hondaH000Items")
+  private Set<HondaH100Dtlsublokasi> hondaH100DtlsublokasiSet; 
+
+//  @OneToMany(mappedBy="hondaH000Items")
+//  @MapKey(name="hondaH100DtlspgsPK")
+//  private Map<HondaH100DtlspgsPK, HondaH100Dtlspgs> hondaH100DtlspgsCollection;
+
+//  @OneToMany(mappedBy="hondaH000Items")
+//  @MapKey(name="hondaH100DtlretursjPK")
+//  private Map<HondaH100DtlretursjPK, HondaH100Dtlretursj> HondaH100DtlretursjCollection;
+
+	  public HondaH000Items() {
+	    this.hondaH100DtlfakdosSet = new HashSet<HondaH100Dtlfakdos>();
+	    this.hondaH100DtlpicklistsSet = new HashSet<HondaH100Dtlpicklists>();
+	    this.hondaH100DtlsublokasiSet = new HashSet<HondaH100Dtlsublokasi>();
+	    this.hondaH100StdetailsSet = new HashSet<HondaH100Stdetails>();
+	    //this.hondaH100StglobalsSet = new HashSet<HondaH100Stglobals>();
+	  }
+	
+	  public HondaH000Items(String kdItem) {
+	    this.kdItem = kdItem;
+	  }
+	  
+	public Set<HondaH100Dtlfakdos> getHondaH100DtlfakdosSet() {
+		return hondaH100DtlfakdosSet;
+	}
+
+	public void setHondaH100DtlfakdosSet(
+			Set<HondaH100Dtlfakdos> hondaH100DtlfakdosSet) {
+		this.hondaH100DtlfakdosSet = hondaH100DtlfakdosSet;
+	}
+
+	public Set<HondaH100Dtlpicklists> getHondaH100DtlpicklistsSet() {
+		return hondaH100DtlpicklistsSet;
+	}
+
+	public void setHondaH100DtlpicklistsSet(
+			Set<HondaH100Dtlpicklists> hondaH100DtlpicklistsSet) {
+		this.hondaH100DtlpicklistsSet = hondaH100DtlpicklistsSet;
+	}
+
+	public String getKdItem() {
+		return kdItem;
+	}
+	
+	public void setKdItem(String kdItem) {
+		this.kdItem = kdItem;
+	}
+	
+	public String getMerk() {
+		return merk;
+	}
+	
+	public void setMerk(String merk) {
+		this.merk = merk;
+	}
+	
+	public Date getBgnEffd() {
+		return bgnEffd;
+	}
+	
+	public void setBgnEffd(Date bgnEffd) {
+		this.bgnEffd = bgnEffd;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getKetWarna() {
+		return ketWarna;
+	}
+	
+	public void setKetWarna(String ketWarna) {
+		this.ketWarna = ketWarna;
+	}
+	
+	public String getKdWarna() {
+		return kdWarna;
+	}
+	
+	public void setKdWarna(String kdWarna) {
+		this.kdWarna = kdWarna;
+	}
+	
+	public String getKet1() {
+		return ket1;
+	}
+	
+	public void setKet1(String ket1) {
+		this.ket1 = ket1;
+	}
+	
+	public String getKet2() {
+		return ket2;
+	}
+	
+	public void setKet2(String ket2) {
+		this.ket2 = ket2;
+	}
+	
+	public Date getLstEffd() {
+		return lstEffd;
+	}
+	
+	public void setLstEffd(Date lstEffd) {
+		this.lstEffd = lstEffd;
+	}
+	
+	public String getSubKategori() {
+		return subKategori;
+	}
+	
+	public void setSubKategori(String subKategori) {
+		this.subKategori = subKategori;
+	}
+	
+	public String getKapasitas() {
+		return kapasitas;
+	}
+	
+	public void setKapasitas(String kapasitas) {
+		this.kapasitas = kapasitas;
+	}
+	
+	public String getKategori() {
+		return kategori;
+	}
+	
+	public void setKategori(String kategori) {
+		this.kategori = kategori;
+	}
+	
+	public String getKdTipe() {
+		return kdTipe;
+	}
+	
+	public void setKdTipe(String kdTipe) {
+		this.kdTipe = kdTipe;
+	}
+	
+	public Set<TrioH100Stdetails> getStDetailsSet() {
+		return stDetailsSet;
+	}
+	
+	public void setStDetailsSet(Set<TrioH100Stdetails> stDetailsSet) {
+		this.stDetailsSet = stDetailsSet;
+	}
+
+//	public Set<HondaH100Stglobals> getHondaH100StglobalsSet() {
+//		return hondaH100StglobalsSet;
+//	}
+//
+//	public void setHondaH100StglobalsSet(
+//			Set<HondaH100Stglobals> hondaH100StglobalsSet) {
+//		this.hondaH100StglobalsSet = hondaH100StglobalsSet;
+//	}
+
+	public Set<HondaH100Stdetails> getHondaH100StdetailsSet() {
+		return hondaH100StdetailsSet;
+	}
+
+	public void setHondaH100StdetailsSet(
+			Set<HondaH100Stdetails> hondaH100StdetailsSet) {
+		this.hondaH100StdetailsSet = hondaH100StdetailsSet;
+	}
+
+	public Set<HondaH100Dtlsublokasi> getHondaH100DtlsublokasiSet() {
+		return hondaH100DtlsublokasiSet;
+	}
+
+	public void setHondaH100DtlsublokasiSet(
+			Set<HondaH100Dtlsublokasi> hondaH100DtlsublokasiSet) {
+		this.hondaH100DtlsublokasiSet = hondaH100DtlsublokasiSet;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((kdItem == null) ? 0 : kdItem.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HondaH000Items other = (HondaH000Items) obj;
+		if (kdItem == null) {
+			if (other.kdItem != null)
+				return false;
+		} else if (!kdItem.equals(other.kdItem))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "HondaH000Items [kdItem=" + kdItem + "]";
+	}
+  
+}

@@ -1,0 +1,111 @@
+<?page title="New WMS" contentType="text/html;charset=UTF-8"?>
+<?init class="com.trio.util.Interceptors" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon"?>
+
+<zk>
+
+	<window id="win" title="Monitoring dan Approval Pelangggaran Wilayah" apply="com.trio.view.ctrl.PelangwilCtrl">
+	
+	<div>
+		<vbox>
+			<label id="lblNoApproval" />
+			<grid id="editDealerGrid" width="600px">
+				<auxhead>
+					<auxheader colspan="2" />
+				</auxhead>
+				<columns visible="false">
+					<column width="250px" />
+					<column width="250px" />
+					<column width="100px" />
+				</columns>
+				<rows>
+					<row>
+						<cell width="250">Kode Dealer</cell>
+						<cell><textbox id="kdDlr" cols="6" value="@{win$composer.dealer.kdDlr}" /></cell>
+						<cell width="100"><button id="LOV" label="LOV" onClick="popDealer.open(self)"  /></cell> 
+						
+					</row>
+					<row>
+						<radiogroup id="radioApprove">
+							<radio id="r1" label="Belum" value="A" checked="true" />
+							<radio id="r2" label="Sudah" value="B" />
+						</radiogroup>
+					</row>
+					
+					<row>
+						<cell colspan="4" align="center">
+							<button id="tampil" label="Tampilkan" /><space spacing="10px"/>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<separator />
+			
+			<listbox id="stDetailList" width="1200" height="350px" mold="paging" pageSize="10">
+				<listhead>
+					<listheader width="100" label="Nomer Mesin" sort="auto(noMesin)" />
+					<listheader width="200" label="Kode Dealer" sort="auto(kdDlr)" />
+					<listheader width="200" label="Nama Konsumen" sort="auto(namaKonsumen)" />
+					<listheader width="200" label="Alamat" sort="auto(customer.alamat1)" />
+					<listheader width="200" label="Nilai Pw Config" />
+					<listheader width="200" label="No Approval" sort="auto(noApprovalPw)" />
+					<listheader width="200" label="Approved By" sort="auto(approvedBy)" />
+					<listheader width="200" label="Tgl Tagih" sort="auto(tglTagih)" />
+					<listheader width="200" label="Tgl Lunas" sort="auto(tglLunas)" />
+					<listheader width="200" label="Nilai Pw" />
+					<listheader width="200" label="Check" />
+				</listhead>
+			</listbox>
+			
+			<grid>
+				<rows>
+					<row>
+						<cell colspan="3" align="left">
+							<button id="simpan" label="Simpan" />
+							<button id="reset" label="Bersihkan" />
+							<button id="close" label="Keluar" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			
+		</vbox>
+	</div>
+	
+	<popup id="popDealer" width="600px" >
+		<vbox>
+		<grid width="600px">
+			<columns visible="false">
+				<column width="250px"></column>
+				<column width="250px"></column>
+			</columns>
+			<rows>
+				<row>
+					<cell>Kode Dealer</cell>
+					<cell><textbox id="popKdDlr" value="@{popDealer$composer.popObject.kdDlr}" /></cell>
+				</row>
+				<row>
+					<cell>Nama Dealer</cell>
+					<cell><textbox id="popDlrNama" value="@{popDealer$composer.popObject.dlrNama}"   /></cell>
+				</row>
+				<row >
+					<cell colspan="2">
+						<button id="popSearch" label="Cari" />
+						<button id="popReset" label="Reset" />
+					</cell>
+				</row>
+			</rows>
+		</grid>
+		<listbox id="popDealerList" width="600px" height="350px" mold="paging" pageSize="10">
+				<listhead>
+					<listheader width="50px" label="Kode Dealer" sort="auto(kdDlr)" />
+					<listheader width="200px" label="Nama Dealer" sort="auto(dlrNama)" />
+					<listheader width="350px" label="Alamat" sort="auto(dlrAlamat1)" />
+				</listhead>
+		</listbox>
+		</vbox>
+	</popup>
+	
+	</window>
+</zk>

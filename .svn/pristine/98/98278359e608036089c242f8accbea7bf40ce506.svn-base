@@ -1,0 +1,62 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 12, 2012
+ */
+public class TrioH100DtldologsDaoImpl extends TrioHibernateDaoSupport implements TrioH100DtldologsDao {
+
+	@Override
+	public void saveOrUpdate(TrioH100DtldologsDao domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(TrioH100DtldologsDao domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<TrioH100DtldologsDao> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TrioH100DtldologsDao> findByExample(TrioH100DtldologsDao domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TrioH100DtldologsDao> findByCriteria(TrioH100DtldologsDao domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(TrioH100DtldologsDao domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(TrioH100DtldologsDao domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public TrioH100DtldologsDao findByPrimaryKey(TrioH100DtldologsDao domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

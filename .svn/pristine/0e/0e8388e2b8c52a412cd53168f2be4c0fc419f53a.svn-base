@@ -1,0 +1,50 @@
+package com.trio.dao.h000;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h000.MasterRunnum;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+import com.trio.util.TrioDateUtil;
+
+public class MasterRunnumDaoImpl extends TrioHibernateDaoSupport implements MasterRunnumDao {
+
+	@Transactional
+	  public Integer getRunningNumberCommit(String viddoc, String vreset, String userId) {
+	    return getRunnoEnggine(viddoc, vreset, userId);
+	  }
+
+	  @Transactional
+	  public Integer getRunningNumber(String viddoc, String vreset, String userId) {
+	    return getRunnoEnggine(viddoc, vreset, userId);
+	  }
+
+	  @Transactional
+	  private Integer getRunnoEnggine(String viddoc, String vreset, String userId) {
+	    String sQuery = "from MasterRunnum m where m.viddoc = :viddoc and m.vreset = :vreset";
+	    Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(sQuery);
+	    q.setParameter("viddoc", viddoc);
+	    q.setParameter("vreset", vreset);
+	    List<MasterRunnum> result = (List<MasterRunnum>) q.list();
+	    MasterRunnum objRunno;
+	    if (result.size() == 0) {
+	      objRunno = new MasterRunnum(viddoc, vreset);
+	      objRunno.setNrunnum(Integer.valueOf(0));
+	      objRunno.getUserTrailing().setVcreaby(userId);
+	      objRunno.getUserTrailing().setDcrea(TrioDateUtil.getLongSysDate());
+	    }
+	    else {
+	      objRunno = (MasterRunnum)result.get(0);
+	      //this.em.refresh(objRunno);
+	      objRunno.getUserTrailing().setVmodiby(userId);
+	      objRunno.getUserTrailing().setDmodi(TrioDateUtil.getLongSysDate());
+	    }
+	    objRunno.setNrunnum(Integer.valueOf(objRunno.getNrunnum().intValue() + 1));
+
+	    getHibernateTemplate().saveOrUpdate(objRunno);
+	    return objRunno.getNrunnum();
+	  }
+
+}

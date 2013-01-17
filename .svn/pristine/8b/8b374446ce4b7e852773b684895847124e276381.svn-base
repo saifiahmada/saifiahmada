@@ -1,0 +1,353 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.trio.bean.h100;
+
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+/**
+ *
+ * @author glassfish | Saipi Ramli
+ */
+@Entity
+@Table(name="HONDA_H100_CUSTOMERS")
+public class HondaH100Customers extends TrioEntityUserTrail implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @Column(name="KONSUMEN_ID", length=10, nullable=false)
+    private String konsumenId;
+    
+    @Column(name="SRT_ALAMAT2", length=50)
+    private String srtAlamat2;        
+    @Column(name="NAMA2", length=50)
+    private String nama2;
+    @Column(name="TGL_ENTRY")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date tglEntry; 
+    @Column(name="SRT_TELEPON", length=20)
+    private String srtTelepon;
+    @Column(name="SRT_ALAMAT1", length=50)
+    private String srtAlamat1;
+    @Column(name="KELURAHAN", length=40)
+    private String kelurahan;
+    @Column(name="KECAMATAN", length=40)
+    private String kecamatan;        
+    @Column(name="SRT_KOTA", length=40)
+    private String srtKota;        
+    @Column(name="AGAMA", length=5)
+    private String agama;        
+    @Column(name="SRT_KECAMATAN", length=40)
+    private String srtKecamatan;
+    @Column(name="ALAMAT2", length=50)
+    private String alamat2;
+    @Column(name="ALAMAT1", length=50)
+    private String alamat1;
+    @Column(name="J_KELAMIN", length=5)
+    private String jKelamin;
+    @Column(name="TELEPON", length=20)
+    private String telepon;
+    @Column(name="KOTA", length=40)
+    private String kota;        
+    @Column(name="K_POS", length=10)
+    private String kPos;        
+    @Column(name="SRT_KPOS", length=10)
+    private String srtKpos;
+    @Column(name="TGL_FAKTUR")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date tglFakturl;
+    @Column(name="TGL_LAHIR")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date tglLahir;        
+    @Column(name="NAMA1", length=50)
+    private String nama1;
+    @Column(name="SRT_KELURAHAN", length=40)
+    private String srtKelurahan;        
+    @Column(name="VPROPINSI", length=5)
+    private String vpropinsi;        
+    @Column(name="VSRTPROPINSI", length=5)
+    private String vsrtpropinsi;        
+    @Column(name="VNOKTP", length=50)
+    private String vnoktp;
+    @Column(name="VJNSCUST", length=2)
+    private String vjnscust;        
+    @Column(name="VNAMAPNGJWB", length=50)
+    private String vnamapngjwb;
+    @Column(name="VNOHP", length=20)
+    private String vnohp;
+
+    public HondaH100Customers() {
+
+    }
+    
+    public HondaH100Customers(String konsumenId) {
+		this.konsumenId = konsumenId;
+	}
+
+	public String getKonsumenId() {
+		return konsumenId;
+	}
+
+	public void setKonsumenId(String konsumenId) {
+		this.konsumenId = konsumenId;
+	}
+
+	public String getSrtAlamat2() {
+		return srtAlamat2;
+	}
+
+	public void setSrtAlamat2(String srtAlamat2) {
+		this.srtAlamat2 = srtAlamat2;
+	}
+
+	public String getNama2() {
+		return nama2;
+	}
+
+	public void setNama2(String nama2) {
+		this.nama2 = nama2;
+	}
+
+	public Date getTglEntry() {
+		return tglEntry;
+	}
+
+	public void setTglEntry(Date tglEntry) {
+		this.tglEntry = tglEntry;
+	}
+
+	public String getSrtTelepon() {
+		return srtTelepon;
+	}
+
+	public void setSrtTelepon(String srtTelepon) {
+		this.srtTelepon = srtTelepon;
+	}
+
+	public String getSrtAlamat1() {
+		return srtAlamat1;
+	}
+
+	public void setSrtAlamat1(String srtAlamat1) {
+		this.srtAlamat1 = srtAlamat1;
+	}
+
+	public String getKelurahan() {
+		return kelurahan;
+	}
+
+	public void setKelurahan(String kelurahan) {
+		this.kelurahan = kelurahan;
+	}
+
+	public String getKecamatan() {
+		return kecamatan;
+	}
+
+	public void setKecamatan(String kecamatan) {
+		this.kecamatan = kecamatan;
+	}
+
+	public String getSrtKota() {
+		return srtKota;
+	}
+
+	public void setSrtKota(String srtKota) {
+		this.srtKota = srtKota;
+	}
+
+	public String getAgama() {
+		return agama;
+	}
+
+	public void setAgama(String agama) {
+		this.agama = agama;
+	}
+
+	public String getSrtKecamatan() {
+		return srtKecamatan;
+	}
+
+	public void setSrtKecamatan(String srtKecamatan) {
+		this.srtKecamatan = srtKecamatan;
+	}
+
+	public String getAlamat2() {
+		return alamat2;
+	}
+
+	public void setAlamat2(String alamat2) {
+		this.alamat2 = alamat2;
+	}
+
+	public String getAlamat1() {
+		return alamat1;
+	}
+
+	public void setAlamat1(String alamat1) {
+		this.alamat1 = alamat1;
+	}
+
+	public String getjKelamin() {
+		return jKelamin;
+	}
+
+	public void setjKelamin(String jKelamin) {
+		this.jKelamin = jKelamin;
+	}
+
+	public String getTelepon() {
+		return telepon;
+	}
+
+	public void setTelepon(String telepon) {
+		this.telepon = telepon;
+	}
+
+	public String getKota() {
+		return kota;
+	}
+
+	public void setKota(String kota) {
+		this.kota = kota;
+	}
+
+	public String getkPos() {
+		return kPos;
+	}
+
+	public void setkPos(String kPos) {
+		this.kPos = kPos;
+	}
+
+	public String getSrtKpos() {
+		return srtKpos;
+	}
+
+	public void setSrtKpos(String srtKpos) {
+		this.srtKpos = srtKpos;
+	}
+
+	public Date getTglFakturl() {
+		return tglFakturl;
+	}
+
+	public void setTglFakturl(Date tglFakturl) {
+		this.tglFakturl = tglFakturl;
+	}
+
+	public Date getTglLahir() {
+		return tglLahir;
+	}
+
+	public void setTglLahir(Date tglLahir) {
+		this.tglLahir = tglLahir;
+	}
+
+	public String getNama1() {
+		return nama1;
+	}
+
+	public void setNama1(String nama1) {
+		this.nama1 = nama1;
+	}
+
+	public String getSrtKelurahan() {
+		return srtKelurahan;
+	}
+
+	public void setSrtKelurahan(String srtKelurahan) {
+		this.srtKelurahan = srtKelurahan;
+	}
+
+	public String getVpropinsi() {
+		return vpropinsi;
+	}
+
+	public void setVpropinsi(String vpropinsi) {
+		this.vpropinsi = vpropinsi;
+	}
+
+	public String getVsrtpropinsi() {
+		return vsrtpropinsi;
+	}
+
+	public void setVsrtpropinsi(String vsrtpropinsi) {
+		this.vsrtpropinsi = vsrtpropinsi;
+	}
+
+	public String getVnoktp() {
+		return vnoktp;
+	}
+
+	public void setVnoktp(String vnoktp) {
+		this.vnoktp = vnoktp;
+	}
+
+	public String getVjnscust() {
+		return vjnscust;
+	}
+
+	public void setVjnscust(String vjnscust) {
+		this.vjnscust = vjnscust;
+	}
+
+	public String getVnamapngjwb() {
+		return vnamapngjwb;
+	}
+
+	public void setVnamapngjwb(String vnamapngjwb) {
+		this.vnamapngjwb = vnamapngjwb;
+	}
+
+	public String getVnohp() {
+		return vnohp;
+	}
+
+	public void setVnohp(String vnohp) {
+		this.vnohp = vnohp;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((konsumenId == null) ? 0 : konsumenId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HondaH100Customers other = (HondaH100Customers) obj;
+		if (konsumenId == null) {
+			if (other.konsumenId != null)
+				return false;
+		} else if (!konsumenId.equals(other.konsumenId))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [konsumenId=" + konsumenId + "]";
+	}
+    
+}
+

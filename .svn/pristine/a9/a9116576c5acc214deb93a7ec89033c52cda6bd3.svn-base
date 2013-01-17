@@ -1,0 +1,344 @@
+package com.trio.component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Iframe;
+import org.zkoss.zul.Menu;
+import org.zkoss.zul.Menubar;
+import org.zkoss.zul.Menuitem;
+import org.zkoss.zul.Menupopup;
+import org.zkoss.zul.Window;
+
+import com.trio.base.TrioBasePage;
+import com.trio.bean.h000.TrioH000Mstmenu;
+import com.trio.util.LoginManager;
+
+public class TrioMenubar extends TrioBasePage {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Window win;
+	
+	private Menubar menubar;
+	private Menuitem item;
+	private Menupopup menupopupPMT, menupopupMKT,  menupopupMGD;  
+	private Menupopup menupopupSBP,  menupopupFNC,  menupopupLAP,  menupopupMST,menupopupADM;
+	private Menu menuPMT, menuMKT, menuMGD, menuSBP, menuFNC, menuLAP, menuMST, menuADM; 
+	private Menuitem menuKSG,menuBCK, menuLGT;
+	
+	private Iframe iframe;
+	private String user;
+	
+	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		// TODO Auto-generated method stub
+		super.doAfterCompose(comp);
+		this.user = "Selamat Datang "+getUserSession();
+		createMenu();
+		iframe.setSrc("awal.zul");
+		iframe.setParent(win);
+		
+	}
+	
+	public void createMenu(){
+		
+		/*
+		 * 
+		 * select mm.* from TRIO_H000_MSTROLEACCESS mr
+			join TRIO_H000_MSTMENU mm on mm.VMENUID = mr.VMENUID
+			join DBA_ROLE_PRIVS dba on dba.GRANTED_ROLE = mr.VROLEID
+			where dba.GRANTEE = 'ARIF' and mr.VSTATUS = 'A'
+			order by mm.vparent,mm.norderer asc
+		 */
+		
+		List<TrioH000Mstmenu> listMenu = new ArrayList<TrioH000Mstmenu>(); 
+		listMenu = getMasterFacade().getTrioH000MstmenuDao().getListMenuByUser(getUserSession());
+		
+		iframe = new Iframe();
+		iframe.setHeight("700px");
+		iframe.setWidth("100%");
+		
+		menubar = new Menubar();
+		menupopupPMT = new Menupopup();
+		menupopupMKT = new Menupopup();
+		menupopupMGD = new Menupopup();
+		menupopupSBP = new Menupopup();
+		menupopupFNC = new Menupopup();
+		menupopupLAP = new Menupopup();
+		menupopupMST = new Menupopup();
+		menupopupADM = new Menupopup();
+		
+		menuPMT = new Menu();
+		menuPMT.setLabel("Pengadaan Motor");
+		menuPMT.setImage("/image/stnk.png");
+		
+		menuMKT = new Menu();
+		menuMKT.setLabel("Marketing");
+		menuMKT.setImage("/image/marketing.png");
+		
+		menuMGD = new Menu();
+		menuMGD.setLabel("Manajemen Gudang");
+		menuMGD.setImage("/image/stnk.png");
+		
+		menuSBP = new Menu();
+		menuSBP.setLabel("STNK BPKB");
+		menuSBP.setImage("/image/stnk.png");
+		
+		menuFNC = new Menu();
+		menuFNC.setLabel("Finance");
+		menuFNC.setImage("/image/stnk.png");
+		
+		menuLAP = new Menu();
+		menuLAP.setLabel("Laporan");
+		menuLAP.setImage("/image/stnk.png");
+		
+		menuMST = new Menu();
+		menuMST.setLabel("Master");
+		menuMST.setImage("/image/stnk.png");
+		
+		menuADM = new Menu();
+		menuADM.setLabel("Admin");
+		menuADM.setImage("/image/stnk.png");
+		
+		menuBCK = new Menuitem();
+		menuBCK.setLabel("Home");
+		menuBCK.setImage("/image/back.png");
+		
+		menuLGT = new Menuitem();
+		menuLGT.setLabel("Logout");
+		menuLGT.setImage("/image/logout.png");
+		
+		menuKSG = new Menuitem();
+		
+		menuBCK.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				iframe.setSrc("awal.zul");
+				iframe.setParent(win);
+			}
+		});
+		
+		menuBCK.setParent(menubar);
+		
+			for (final TrioH000Mstmenu mt : listMenu){ 
+				
+				if (mt.getVparent().equalsIgnoreCase("M1PMT")){
+					
+					item = new Menuitem();
+					item.setLabel(mt.getVtitle());
+					item.setParent(menupopupPMT);
+					item.setImage(mt.getVimage());
+					
+					item.addEventListener("onClick", new EventListener() {
+						
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							
+							iframe.setSrc(mt.getVlocation());
+							iframe.setParent(win);
+						}
+					});
+					menupopupPMT.setParent(menuPMT);
+					menuPMT.setParent(menubar);
+				}
+				
+				if (mt.getVparent().equalsIgnoreCase("M2MKT")){
+					
+					item = new Menuitem();
+					item.setLabel(mt.getVtitle());
+					item.setParent(menupopupMKT);
+					item.setImage(mt.getVimage());
+					
+					item.addEventListener("onClick", new EventListener() {
+						
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							
+							iframe.setSrc(mt.getVlocation());
+							iframe.setParent(win);
+						}
+					});
+					
+					menupopupMKT.setParent(menuMKT);
+					menuMKT.setParent(menubar);
+				}
+				
+				if (mt.getVparent().equalsIgnoreCase("M3MGD")){
+					
+					item = new Menuitem();
+					item.setLabel(mt.getVtitle());
+					item.setParent(menupopupMGD);
+					item.setImage(mt.getVimage());
+					
+					item.addEventListener("onClick", new EventListener() {
+						
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							
+							iframe.setSrc(mt.getVlocation());
+							iframe.setParent(win);
+							
+						}
+					});
+					
+					menupopupMGD.setParent(menuMGD);
+					menuMGD.setParent(menubar);
+				}
+				
+				if (mt.getVparent().equalsIgnoreCase("M4SBP")){
+					
+					item = new Menuitem();
+					item.setLabel(mt.getVtitle());
+					item.setParent(menupopupSBP);
+					item.setImage(mt.getVimage());
+					
+					item.addEventListener("onClick", new EventListener() {
+						
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							
+							iframe.setSrc("cetakSTNK.zul");
+							iframe.setParent(win);
+							
+						}
+					});					
+					menupopupSBP.setParent(menuSBP);
+					menuSBP.setParent(menubar);
+				}
+				
+				if (mt.getVparent().equalsIgnoreCase("M5FNC")){
+					
+					item = new Menuitem();
+					item.setLabel(mt.getVtitle());
+					item.setParent(menupopupFNC);
+					item.setImage(mt.getVimage());
+					
+					item.addEventListener("onClick", new EventListener() {
+						
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							
+							iframe.setSrc(mt.getVlocation());
+							iframe.setParent(win);
+							
+						}
+					});					
+					menupopupFNC.setParent(menuFNC);
+					menuFNC.setParent(menubar);
+					
+				}
+				
+				if (mt.getVparent().equalsIgnoreCase("M6LAP")){
+					
+					item = new Menuitem();
+					item.setLabel(mt.getVtitle());
+					item.setParent(menupopupLAP);
+					item.setImage(mt.getVimage());
+					
+					item.addEventListener("onClick", new EventListener() {
+						
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							
+							iframe.setSrc(mt.getVlocation());
+							iframe.setParent(win);
+							
+						}
+					});					
+					menupopupLAP.setParent(menuLAP);
+					menuLAP.setParent(menubar);
+				}
+				
+				if (mt.getVparent().equalsIgnoreCase("M7MST")){
+					
+					item = new Menuitem();
+					item.setLabel(mt.getVtitle());
+					item.setParent(menupopupMST);
+					item.setImage(mt.getVimage());
+					
+					item.addEventListener("onClick", new EventListener() {
+						
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							
+							iframe.setSrc(mt.getVlocation());
+							iframe.setParent(win);
+							
+						}
+					});
+					
+					menupopupMST.setParent(menuMST);
+					menuMST.setParent(menubar);
+				}
+				if (mt.getVparent().equalsIgnoreCase("M8ADM")){
+					
+					item = new Menuitem();
+					item.setLabel(mt.getVtitle());
+					item.setParent(menupopupADM);
+					item.setImage(mt.getVimage());
+					
+					item.addEventListener("onClick", new EventListener() {
+						
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							
+							iframe.setSrc(mt.getVlocation());
+							iframe.setParent(win);
+							
+						}
+					});
+					
+					menupopupADM.setParent(menuADM);
+					menuADM.setParent(menubar);
+				}
+			
+		}
+		
+		menuKSG.setVisible(false);
+		menuKSG.setDisabled(true);
+		
+		menuKSG.setStyle(".dm-menuitem{ width: 100%; }	.dm-menuitem .z-menu-item-cnt{ display : none; }");	
+		menuKSG.setSclass("dm-menuitem");	
+		
+		menuLGT.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				logOut();
+			}
+		});
+		menuLGT.setParent(menubar);
+		
+		menubar.setParent(win);
+		
+	}
+	
+	public void logOut(){
+		LoginManager lm = LoginManager.getIntance(Sessions.getCurrent());
+		lm.logOff();
+		Executions.sendRedirect("login.zul");
+
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	
+
+}

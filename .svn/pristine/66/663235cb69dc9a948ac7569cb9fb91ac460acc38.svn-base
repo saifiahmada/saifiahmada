@@ -1,0 +1,51 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.HondaH100Gudangs;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class HondaH100GudangsDaoImpl extends TrioHibernateDaoSupport implements HondaH100GudangsDao {
+
+	@Override
+	public void saveOrUpdate(HondaH100Gudangs domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(HondaH100Gudangs domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<HondaH100Gudangs> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Gudangs> findByExample(HondaH100Gudangs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Gudangs> findByCriteria(HondaH100Gudangs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Transactional(readOnly=true)
+	public HondaH100Gudangs findByLokasi(String lokasi){
+		String str = "from HondaH100Gudangs where kodeLokasi = :lokasi";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("lokasi", lokasi);
+		return (HondaH100Gudangs) q.uniqueResult();
+	}
+
+}

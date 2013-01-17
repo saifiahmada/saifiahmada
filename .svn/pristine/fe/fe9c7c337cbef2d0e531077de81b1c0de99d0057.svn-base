@@ -1,0 +1,15 @@
+package com.trio.dao.h100;
+
+
+import com.trio.bean.h100.TrioH100DtlAreaDealers;
+import com.trio.hibernate.TrioGenericDao;
+
+public interface TrioH100DtlAreaDealersDao extends TrioGenericDao<TrioH100DtlAreaDealers> {
+	
+	public void save(TrioH100DtlAreaDealers dtl, String user);
+	
+	public void update(TrioH100DtlAreaDealers dtl, String user);
+	
+	public TrioH100DtlAreaDealers findByKdDlrAndKdKec(String kdDlr, String kdKec);
+	
+}

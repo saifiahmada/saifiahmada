@@ -1,0 +1,127 @@
+package com.trio.view.ctrl.renderer;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
+import org.zkoss.zhtml.Messagebox;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zul.Decimalbox;
+import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.ListitemRenderer;
+
+import com.trio.bean.h100.HondaH100Dtlfakdos;
+import com.trio.util.TrioStringUtil;
+
+public class KoreksiDoListRenderer implements ListitemRenderer {
+
+	@Override
+	public void render(Listitem item, Object object) throws Exception {
+
+		HondaH100Dtlfakdos dtlFak = (HondaH100Dtlfakdos) object;
+		item.setValue(dtlFak);
+		new Listcell(dtlFak.getKdItem()).setParent(item);
+		new Listcell(dtlFak.getQty().toString()).setParent(item);
+
+		final Listcell lblHargaStd = new Listcell();
+		lblHargaStd.setLabel(TrioStringUtil.getPemisahRibuan(dtlFak.getHargaStd().doubleValue()));
+		lblHargaStd.setParent(item);
+
+		Listcell lc2 = new Listcell();
+		final Intbox ibDiscount = new Intbox(dtlFak.getDiscount().intValue());
+		ibDiscount.setParent(lc2);
+		lc2.setParent(item);
+
+		Listcell lc3 = new Listcell();
+		final Decimalbox dbDiscountPersen = new Decimalbox(dtlFak.getDiscountPersen());
+		dbDiscountPersen.setParent(lc3);
+		lc3.setParent(item);
+
+		final Listcell lc4 = new Listcell();
+		lc4.setLabel(TrioStringUtil.getPemisahRibuan(dtlFak.getHargaNetto().toString()));
+		lc4.setParent(item);
+
+		ibDiscount.addEventListener(Events.ON_CHANGE, new EventListener() {
+
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+
+				ibDiscount.setValue(ibDiscount.getValue());
+				lblHargaStd.setLabel(lblHargaStd.getLabel());
+
+				String hargaStdStr = lblHargaStd.getLabel();
+				if(hargaStdStr.contains(".")){
+					hargaStdStr = hargaStdStr.replaceAll("\\.", "");
+				}
+				
+				double hargaStd = Double.parseDouble(hargaStdStr);
+				double discHarga = ibDiscount.getValue();
+				
+				if(discHarga > hargaStd) {
+					Messagebox.show("Nilai Discount lebih besar dari pada harga awal");
+					ibDiscount.setValue(Integer.parseInt(hargaStdStr));
+					discHarga = ibDiscount.getValue();
+				}
+				
+				if(discHarga < 0 ){
+					Messagebox.show("Nilai Discount tidak boleh minus");
+					discHarga = 0;
+					ibDiscount.setValue(0);
+				}
+				
+				double hasil = (discHarga/hargaStd) * 100;
+				double hargaNett = hargaStd-discHarga;
+
+				//Untuk ngambil 3 angka dibelakang decimal dan set ke intbox discount
+				String df = new DecimalFormat("##.###").format(hasil);
+				dbDiscountPersen.setValue(new BigDecimal(df));
+
+//				lc4.setLabel(new BigDecimal(hargaNett).toString());
+				lc4.setLabel(TrioStringUtil.getPemisahRibuan(hargaNett));
+
+
+			}
+		});
+
+
+		dbDiscountPersen.addEventListener(Events.ON_CHANGE, new EventListener() {
+
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+
+				dbDiscountPersen.setValue(dbDiscountPersen.getValue());
+
+				String hargaStdStr = lblHargaStd.getLabel();
+				if(hargaStdStr.contains(".")){
+					hargaStdStr = hargaStdStr.replaceAll("\\.", "");
+				}
+				BigDecimal hargaStd = new BigDecimal(hargaStdStr);
+				BigDecimal hargaDiscPersen = dbDiscountPersen.getValue();
+				BigDecimal seratus = new BigDecimal("100.0");
+				
+				if(hargaDiscPersen.compareTo(BigDecimal.valueOf(100)) > 0){
+					Messagebox.show("Nilai discount persen tidak boleh melebihi 100%");
+					dbDiscountPersen.setValue(seratus);
+					hargaDiscPersen = dbDiscountPersen.getValue();
+				}
+				
+				if(hargaDiscPersen.compareTo(BigDecimal.valueOf(0)) < 0){
+					Messagebox.show("Nilai discount persen tidak boleh di bawah 0%");
+					dbDiscountPersen.setValue(new BigDecimal(0));
+					hargaDiscPersen = dbDiscountPersen.getValue();
+					
+				}
+				
+				BigDecimal hasil = (hargaDiscPersen.divide(seratus)).multiply(hargaStd);
+
+				ibDiscount.setValue(hasil.intValue());
+				BigDecimal hargaNett = hargaStd.subtract(hasil);
+				lc4.setLabel(TrioStringUtil.getPemisahRibuan(hargaNett.doubleValue()));
+
+			}
+		});
+	}
+}

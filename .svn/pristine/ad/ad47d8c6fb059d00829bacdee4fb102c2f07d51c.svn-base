@@ -1,0 +1,75 @@
+package com.trio.dao.h000;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+
+import com.jhlabs.image.RescaleFilter;
+import com.trio.bean.h000.HondaH000Dealers;
+import com.trio.bean.h000.HondaH000Propins;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class HondaH000PropinsDaoImpl extends TrioHibernateDaoSupport implements HondaH000PropinsDao {
+
+	@Override
+	public void saveOrUpdate(HondaH000Propins domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(HondaH000Propins domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(HondaH000Propins domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(HondaH000Propins domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<HondaH000Propins> findAll() {
+		String str = "select p from HondaH000Propins p where p.vkodeparent <> '0001'";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		List<HondaH000Propins> list = q.list();
+		return list;
+	}
+
+	@Override
+	public List<HondaH000Propins> findByExample(HondaH000Propins domain) {
+		
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<HondaH000Propins> findByCriteria(HondaH000Propins domain) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(HondaH000Propins.class);
+		if (domain.getVkode() != null){
+			criteria = criteria.add(Restrictions.eq("vkode", domain.getVkode()));
+		}
+		if (domain.getVdeskripsi() != null){
+			criteria = criteria.add(Restrictions.like("vdeskripsi", "%"+domain.getVdeskripsi().toUpperCase()+"%"));
+		}
+		List<HondaH000Propins> list = getHibernateTemplate().findByCriteria(criteria);
+		return list;
+	}
+
+	@Override
+	public HondaH000Propins findByPrimaryKey(HondaH000Propins domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

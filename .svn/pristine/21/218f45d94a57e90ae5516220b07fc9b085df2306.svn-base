@@ -1,0 +1,10 @@
+package com.trio.dao.h100;
+
+import com.trio.bean.h100.HondaH100Dtlfakdos;
+import com.trio.hibernate.TrioGenericDao;
+
+
+
+public interface HondaH100DtlfakdosDao extends TrioGenericDao<HondaH100Dtlfakdos>  {
+	
+}

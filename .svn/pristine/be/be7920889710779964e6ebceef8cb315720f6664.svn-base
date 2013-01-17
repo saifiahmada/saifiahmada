@@ -1,0 +1,12 @@
+package com.trio.dao.h100;
+
+import com.trio.bean.h100.HondaH100Stdetails;
+import com.trio.hibernate.TrioGenericDao;
+
+public interface HondaH100StdetailsDao extends TrioGenericDao<HondaH100Stdetails> {
+	
+	public HondaH100Stdetails getNomesinPengganti(String noMesin, String kdItem);
+	
+	public HondaH100Stdetails findByNomesin(String noMesin);
+
+}

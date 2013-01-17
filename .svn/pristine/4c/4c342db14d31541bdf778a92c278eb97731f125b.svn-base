@@ -1,0 +1,85 @@
+package com.trio.dao.h000;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h000.TrioH000Mstmenu;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+import com.trio.util.TrioDateUtil;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 31, 2012
+ */
+public class TrioH000MstmenuDaoImpl extends TrioHibernateDaoSupport implements TrioH000MstmenuDao {
+
+	@Override
+	@Transactional(readOnly=false)
+	public void saveOrUpdate(TrioH000Mstmenu domain, String user) {
+		TrioH000Mstmenu mstMenu = findByPrimaryKey(domain.getVmenuid());
+		if (mstMenu == null){
+			save(domain, user);
+		}else{
+			update(domain, user);
+		}
+	}
+
+	@Override
+	public void delete(TrioH000Mstmenu domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly=true)
+	public List<TrioH000Mstmenu> findAll() {
+		List<TrioH000Mstmenu> list = getHibernateTemplate().find("from TrioH000Mstmenu order by vparent,norderer asc");
+		return list;
+	}
+
+	@Override
+	public List<TrioH000Mstmenu> findByExample(TrioH000Mstmenu domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TrioH000Mstmenu> findByCriteria(TrioH000Mstmenu domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public void save(TrioH000Mstmenu mstMenu, String user) {
+		mstMenu.getUserTrailing().setVcreaby(user);
+		mstMenu.getUserTrailing().setDcrea(TrioDateUtil.getLongSysDateOracle());
+		getHibernateTemplate().persist(mstMenu);
+		getHibernateTemplate().flush();
+		getHibernateTemplate().clear();
+	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public void update(TrioH000Mstmenu mstMenu, String user) {
+		mstMenu.getUserTrailing().setVmodiby(user);
+		mstMenu.getUserTrailing().setDmodi(TrioDateUtil.getLongSysDateOracle());
+		getHibernateTemplate().merge(mstMenu);
+		getHibernateTemplate().flush();
+		getHibernateTemplate().clear();
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public TrioH000Mstmenu findByPrimaryKey(String vmenuid) {
+		String str = "from TrioH000Mstmenu where vmenuid = :vmenuid";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("vmenuid", vmenuid);
+		return (TrioH000Mstmenu) q.uniqueResult();
+	}
+
+}

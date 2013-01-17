@@ -1,0 +1,18 @@
+package com.trio.view.ctrl.renderer;
+
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.ListitemRenderer;
+
+import com.trio.bean.h100.TrioH100PelangWils;
+
+public class LovKoreksiRenderer implements ListitemRenderer {
+
+	@Override
+	public void render(Listitem item, Object object) throws Exception {
+		TrioH100PelangWils pelang = (TrioH100PelangWils) object;
+		item.setValue(pelang);
+		new Listcell(pelang.getNoApprovalPw()).setParent(item);
+		new Listcell(pelang.getKdDlr()).setParent(item);
+	}
+}

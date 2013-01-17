@@ -1,0 +1,51 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<zk>
+	<window title="Master Dealer" border="normal" position="center"  popup="true" closable="true" mode="modal">
+	<div id="dealerDiv" apply="com.trio.view.ctrl.DealerCtrl">
+		<vbox>
+			<grid id="editDealerGrid" width="650px">
+				<auxhead>
+					<auxheader colspan="2" label="Master Dealer" />
+				</auxhead>
+				<columns visible="false">
+					<column width="100px" />
+					<column width="200px" />
+					<column width="350px" />
+				</columns>
+				<rows>
+					<row>
+						<cell width="150">Kode Dealer</cell>
+						<cell><textbox cols="6" value="@{dealerDiv$composer.dealer.kdDlr}" /></cell>
+					</row>
+					<row>
+						<cell width="150">Nama Dealer</cell>
+						<cell><textbox cols="30" value="@{dealerDiv$composer.dealer.dlrNama}" /></cell>
+					</row>
+					<row>
+						<cell width="150">Alamat Dealer</cell>
+						<cell><textbox cols="50" value="@{dealerDiv$composer.dealer.dlrAlamat1}" /></cell>
+					</row>
+					<row>
+						<cell colspan="4" align="center">
+							<button id="createDealer" label="add" /><space spacing="10px"/>
+							<button id="updateDealer" label="update" disabled="true"/><space spacing="10px"/>
+							<button id="deleteDealer" label="delete" disabled="true"/>
+							<button id="resetDealer" label="reset" />
+							<button id="searchDealer" label="Search" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<separator />
+			<listbox id="dealerList" width="650px" height="350px" mold="paging" pageSize="10">
+				<listhead>
+					<listheader width="100px" label="Kode Dealer" sort="auto(kdDlr)" />
+					<listheader width="200px" label="Nama Dealer" sort="auto(dlrNama)" />
+					<listheader width="350px" label="Alamat" sort="auto(dlrAlamat1)" />
+				</listhead>	
+			</listbox>
+			
+		</vbox>
+	</div>
+	</window>
+</zk>

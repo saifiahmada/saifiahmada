@@ -1,0 +1,133 @@
+package com.trio.view.ctrl;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Popup;
+import org.zkoss.zul.Textbox;
+
+import com.trio.base.TrioBasePage;
+import com.trio.bean.h000.HondaH000Dealers;
+import com.trio.bean.h100.TrioH100DtlAreaDealers;
+import com.trio.bean.h100.TrioH100Kecamatans;
+import com.trio.view.ctrl.renderer.DealerListRenderer;
+import com.trio.view.ctrl.renderer.DtlAreaDealersListRenderer;
+import com.trio.view.ctrl.renderer.KecamatanListRenderer;
+
+public class DtlAreaDealersCtrl extends TrioBasePage {
+
+	private static final long serialVersionUID = 1L;
+	private AnnotateDataBinder binder;
+	private Listbox dealerList;
+	private Grid editDealerGrid;
+	private Button createDealer;
+	
+	private Button searchDealer;
+	
+	private Textbox kdDlr;
+	private Textbox kdKec;
+	
+	private Popup popDealer;
+	private Listbox popDealerList;
+	private Button LOV;
+	
+	private Popup popKecamatan;
+	private Listbox popKecamatanList;
+	private Button LOV2;
+	
+	private TrioH100DtlAreaDealers _dealer;
+	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		binder = (AnnotateDataBinder) page.getAttribute("binder");
+		_dealer = new TrioH100DtlAreaDealers();
+		dealerList.setModel(new ListModelList(
+				getMasterFacade().getTrioH100DtlAreaDealersDao().findAll()));
+		dealerList.setItemRenderer(new DtlAreaDealersListRenderer());
+		
+	}
+	
+	private ListModelList getModel() {
+		return (ListModelList) dealerList.getModel();
+	}
+	
+	public void onClick$resetDealer() {
+		reset();
+	}
+	
+	public void reset(){
+		dealerList.clearSelection();
+		dealerList.setModel(new ListModelList(getMasterFacade().getTrioH100DtlAreaDealersDao().findAll()));
+		_dealer = new TrioH100DtlAreaDealers();
+		binder.loadComponent(editDealerGrid);
+		createDealer.setDisabled(false);
+	}
+	
+	public void onSelect$dealerList() {
+		_dealer = (TrioH100DtlAreaDealers) dealerList.getSelectedItem().getValue();
+		binder.loadComponent(editDealerGrid);
+		//createDealer.setDisabled(true);
+		
+	}
+	
+	public void onClick$createDealer() throws InterruptedException {
+		
+		if (_dealer.getKdDlr() == null && _dealer.getKdKec() == null) {
+			Messagebox.show("Kode dealer dan Kode Kecamatan harus diisi");
+			return;
+		} else {
+			getMasterFacade().getTrioH100DtlAreaDealersDao().saveOrUpdate(_dealer, getUserSession());
+		}
+		reset();
+	}
+	
+	public void onClick$searchDealer() throws InterruptedException {
+
+		dealerList.setModel(new ListModelList(
+				getMasterFacade().getTrioH100DtlAreaDealersDao().findByCriteria(_dealer))); 
+	}
+	
+	public TrioH100DtlAreaDealers getDealer() {
+		return _dealer;
+	}
+	
+	public void setDealer(TrioH100DtlAreaDealers dealer) {
+		_dealer = dealer;
+	}
+	
+	public void onClick$LOV() throws InterruptedException {
+		popDealerList.setModel(new ListModelList(
+				getMasterFacade().getHondaH000DealersDao().findAll()));
+		popDealerList.setItemRenderer(new DealerListRenderer());
+	}
+	
+	public void onSelect$popDealerList(){
+		HondaH000Dealers dlr = (HondaH000Dealers) popDealerList.getSelectedItem().getValue();
+		System.out.println("Kd dler = "+dlr.getKdDlr());
+		_dealer.setKdDlr(dlr.getKdDlr());
+		binder.loadComponent(kdDlr);
+		popDealer.close();
+	}
+	
+	public void onClick$LOV2() throws InterruptedException {
+		popKecamatanList.setModel(new ListModelList(
+				getMasterFacade().getTrioH100KecamatansDao().findAll()));
+		popKecamatanList.setItemRenderer(new KecamatanListRenderer());
+	}
+	
+	public void onSelect$popKecamatanList(){
+		TrioH100Kecamatans kec = (TrioH100Kecamatans) popKecamatanList.getSelectedItem().getValue();
+		
+		_dealer.setKdKec(kec.getKdKec());
+		binder.loadComponent(kdKec);
+		popKecamatan.close();
+	}
+	
+	
+}

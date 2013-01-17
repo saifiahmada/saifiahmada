@@ -1,0 +1,7 @@
+<button upload="true" label="Select File">
+	<attribute name="onUpload"><![CDATA[
+		Object media = event.getMedia();
+		if (media != null)
+			iframe.setContent(media);
+	]]></attribute>
+</button>

@@ -1,0 +1,92 @@
+package com.trio.view.ctrl.renderer;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Checkbox;
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.ListitemRenderer;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
+
+import com.trio.bean.h100.HondaH100Dtlpicklists;
+import com.trio.bean.h100.HondaH100Stdetails;
+import com.trio.facade.MasterFacade;
+
+public class DtlpicklistRenderer implements ListitemRenderer {
+	
+	private ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+	
+	MasterFacade mf = (MasterFacade) applicationContext.getBean("masterFacade");
+
+	@Override
+	public void render(Listitem item, Object data) throws Exception {
+		
+		HondaH100Dtlpicklists dtl = (HondaH100Dtlpicklists) data;
+		
+		new Listcell(dtl.getVnomesin()).setParent(item);
+		new Listcell(dtl.getHondaH000Items().getKdItem()).setParent(item);
+		new Listcell(dtl.getVsel()).setParent(item);
+		new Listcell("2012-09-01").setParent(item);
+		
+		Listcell lc = new Listcell();
+		Textbox tb = new Textbox();
+		tb.setParent(lc);
+		lc.setParent(item);
+		Listcell lc2 = new Listcell();
+		Textbox tb2 = new Textbox();
+		tb2.setParent(lc2);
+		lc2.setParent(item);
+		Listcell lc3 = new Listcell();
+		Checkbox cb = new Checkbox();
+		cb.setParent(lc3);
+		lc3.setParent(item);
+		Listcell lc4 = new Listcell();
+		Button btn = new Button();
+		btn.setLabel("Check");
+		btn.addEventListener("onClick", new InfoClickListener(tb, tb2, dtl.getHondaH000Items().getKdItem()));
+		btn.setParent(lc4);
+		lc4.setParent(item);
+		
+		item.setValue(data);
+	}
+	
+	private final class InfoClickListener implements EventListener {
+		
+		private Textbox tb, tb2;
+		private String kdItem;
+		
+		public InfoClickListener() {
+			// TODO Auto-generated constructor stub
+		}
+		
+		public InfoClickListener(Textbox tb, Textbox tb2, String kdItem) {
+			// TODO Auto-generated constructor stub
+			this.tb = tb;
+			this.tb2 = tb2;
+			this.kdItem = kdItem;
+		}
+
+		@Override
+		public void onEvent(Event event) throws Exception {
+			
+			String noMesin = tb.getValue();
+			HondaH100Stdetails std = mf.getHondaH100StdetailsDao().findByNomesin(noMesin);
+			if (std == null){
+				Messagebox.show("No mesin ["+noMesin+"] tidak ditemukan");
+				return;
+			}
+			std = mf.getHondaH100StdetailsDao().getNomesinPengganti("HB61E1614814", kdItem);
+			if (std == null){
+				Messagebox.show("No mesin ["+noMesin+"] dan Kode Item ["+kdItem+"] tidak ditemukan");
+				return;
+			}
+			tb2.setValue(std.getVsel());
+		}
+		
+	}
+	
+}

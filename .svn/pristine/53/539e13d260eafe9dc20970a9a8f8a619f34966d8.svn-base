@@ -1,0 +1,88 @@
+package com.trio.dao.h100;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.TrioH100Ars;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class TrioH100ArsDaoImpl extends TrioHibernateDaoSupport implements TrioH100ArsDao{
+
+	@Override
+	public void saveOrUpdate(TrioH100Ars domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(TrioH100Ars domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(TrioH100Ars domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(TrioH100Ars domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
+	public List<TrioH100Ars> findAll() {
+		List<TrioH100Ars> lists = getHibernateTemplate().find("from TrioH100Ars");
+		return lists;
+	}
+
+	@Override
+	public List<TrioH100Ars> findByExample(TrioH100Ars domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TrioH100Ars> findByCriteria(TrioH100Ars domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TrioH100Ars findByPrimaryKey(TrioH100Ars domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	public List<TrioH100Ars> findNoDoNoFakturNamaDealer(){
+		String str = "select faktur.* from (select a.noDo, a.noFaktur, b.dlrNama, a.creaDate from HondaH100Fakdos a, HondaH000Dealers b where a.kdDlr=b.kdDlr and a.status<>'X' and a.doTahun>='2012') faktur"
+				+ " left join TrioH100Dtlars ar on faktur.noDo = ar.noDo where ar.noDo is null order by faktur.creaDate desc";
+		
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		List<TrioH100Ars> lists = (List<TrioH100Ars>) q.uniqueResult();
+		
+		return lists;
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void updateSisaUtang(BigDecimal nilaiAr, String noDo){
+		
+		String str= "update TrioH100Ars set sisaUtang = :nilaiAr where noDo = :noDo";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setBigDecimal("nilaiAr", nilaiAr);
+		q.setString("noDo", noDo);
+		q.executeUpdate();
+	}
+	
+}

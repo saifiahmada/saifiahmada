@@ -1,0 +1,98 @@
+package com.trio.util;
+
+import java.util.List;
+
+import org.zkoss.zk.ui.Session;
+import org.zkoss.zk.ui.Sessions;
+
+import com.trio.base.TrioBasePage;
+import com.trio.bean.h000.HondaH000Gates;
+import com.trio.bean.h000.TrioH000Mstmenu;
+
+public class LoginManager extends TrioBasePage {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static final String KEY_USER_MODEL = LoginManager.class
+			.getName()+"_MODEL";
+
+	HondaH000Gates user;
+	
+	
+	private LoginManager () {
+		
+	}
+	
+	public static LoginManager getIntance(){
+		return getIntance(Sessions.getCurrent());
+	}
+	
+	public static LoginManager getIntance(Session zkSession) {
+
+		synchronized (zkSession) {
+			
+			LoginManager loginModel = (LoginManager) zkSession.getAttribute(KEY_USER_MODEL);
+			if(loginModel == null){
+				zkSession.setAttribute(KEY_USER_MODEL, 
+						loginModel = new LoginManager());
+			}
+			return loginModel;
+		}
+	}
+	
+	public synchronized void logIn(String name, String Password){
+		HondaH000Gates tempUser = getMasterFacade().getHondaH000GatesDao().findByHondaH000GatesName(name);
+		
+		if(tempUser != null && tempUser.getDbcode().equals(Password)){
+			user = tempUser;
+		}else{
+			user = null;
+		}
+	}
+	
+	public void logOff(){
+		user = null;
+	}
+	
+	public synchronized HondaH000Gates getUser(){
+		return user;
+	}
+	
+	public synchronized boolean isAuthenticated(){
+		return user != null;
+	}
+	
+	/*
+	 * interceptor untuk handling zul file yang diakses oleh user yang berhak
+	 */
+	
+	/*
+	 * isRight
+	 * @param zulPath String
+	 * @param user String
+	 * @return false jika tidak berhak
+	 * @return tru jika berhak
+	 */
+	public synchronized boolean isRight(String zulPath){
+		
+		boolean bol = false;
+		
+//		List<TrioH000Mstmenu> listMenu = getMasterFacade().getTrioH000MstmenuDao().getListMenuByUser("ADMINMENU");
+		List<TrioH000Mstmenu> listMenu = getMasterFacade().getTrioH000MstmenuDao().getListMenuByUser(getUserSession());
+		listMenu.add(new TrioH000Mstmenu("T10NTWBSC001","","","index.zul","",1)); 
+		listMenu.add(new TrioH000Mstmenu("T10NTWBSC002","","","login.zul","",2));
+		listMenu.add(new TrioH000Mstmenu("T10NTWBSC003","","","menu.zul","",3));
+		listMenu.add(new TrioH000Mstmenu("T10NTWBSC004","","","accessdenied.zul","",4));
+		
+		for (TrioH000Mstmenu mm : listMenu){
+			if (mm.getVlocation().equalsIgnoreCase(zulPath)){ 
+				bol = true;
+			}
+		}
+		return bol;
+	}
+	
+}

@@ -1,0 +1,106 @@
+package com.trio.bean.h000;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.Table;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="AHMDSBSC_MSTRUNNUM")
+@NamedQueries({@javax.persistence.NamedQuery(name="MasterRunnum.findByViddoc", query="SELECT a FROM MasterRunnum a WHERE a.viddoc = :viddoc"), @javax.persistence.NamedQuery(name="MasterRunnum.findByVreset", query="SELECT a FROM MasterRunnum a WHERE a.vreset = :vreset"), @javax.persistence.NamedQuery(name="MasterRunnum.findByVdescription", query="SELECT a FROM MasterRunnum a WHERE a.vdescription = :vdescription"), @javax.persistence.NamedQuery(name="MasterRunnum.findByNrunnum", query="SELECT a FROM MasterRunnum a WHERE a.nrunnum = :nrunnum"), @javax.persistence.NamedQuery(name="MasterRunnum.findByViddocVreset", query="SELECT a FROM MasterRunnum a WHERE a.viddoc = :viddoc and a.vreset = :vreset")})
+public class MasterRunnum extends TrioEntityUserTrail {
+	
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name="VIDDOC", nullable=false, length=20)
+	private String viddoc;
+	@Id
+	@Column(name="VRESET", nullable=false, length=6)
+	private String vreset;
+	
+	@Column(name="VDESCRIPTION", length=30)
+	private String vdescription;
+
+	@Column(name="NRUNNUM", length=15)
+	private Integer nrunnum;
+	 
+	public MasterRunnum() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public MasterRunnum(String viddoc, String vreset) {
+		this.viddoc = viddoc;
+		this.vreset = vreset;
+	}
+
+	public String getViddoc() {
+		return viddoc;
+	}
+
+	public void setViddoc(String viddoc) {
+		this.viddoc = viddoc;
+	}
+
+	public String getVreset() {
+		return vreset;
+	}
+
+	public void setVreset(String vreset) {
+		this.vreset = vreset;
+	}
+
+	public String getVdescription() {
+		return vdescription;
+	}
+
+	public void setVdescription(String vdescription) {
+		this.vdescription = vdescription;
+	}
+
+	public Integer getNrunnum() {
+		return nrunnum;
+	}
+
+	public void setNrunnum(Integer nrunnum) {
+		this.nrunnum = nrunnum;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((viddoc == null) ? 0 : viddoc.hashCode());
+		result = prime * result + ((vreset == null) ? 0 : vreset.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MasterRunnum other = (MasterRunnum) obj;
+		if (viddoc == null) {
+			if (other.viddoc != null)
+				return false;
+		} else if (!viddoc.equals(other.viddoc))
+			return false;
+		if (vreset == null) {
+			if (other.vreset != null)
+				return false;
+		} else if (!vreset.equals(other.vreset))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "MasterRunnum [viddoc=" + viddoc + ", vreset=" + vreset + "]";
+	}
+}

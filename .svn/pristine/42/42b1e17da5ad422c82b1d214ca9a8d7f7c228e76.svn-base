@@ -1,0 +1,19 @@
+package com.trio.view.ctrl.renderer;
+
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.ListitemRenderer;
+
+import com.trio.bean.h100.TrioH100Kelurahans;
+
+public class KelurahanListRenderer implements ListitemRenderer {
+
+	public void render(Listitem item, Object data) throws Exception {
+		TrioH100Kelurahans kelurahan = (TrioH100Kelurahans) data;
+		item.setValue(kelurahan);
+		new Listcell(kelurahan.getKdKel()).setParent(item);
+		new Listcell(kelurahan.getKdKec()).setParent(item);
+		new Listcell(kelurahan.getKelurahan()).setParent(item);
+		new Listcell(kelurahan.getKota()).setParent(item);
+	}
+}

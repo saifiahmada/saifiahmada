@@ -1,0 +1,45 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.HondaH100Dtlfakdos;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class HondaH100DtlfakdosDaoImpl extends TrioHibernateDaoSupport implements HondaH100DtlfakdosDao {
+
+	@Override
+	@Transactional(readOnly= false) 
+	public void saveOrUpdate(HondaH100Dtlfakdos domain, String user) {
+		getHibernateTemplate().saveOrUpdate(domain);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void delete(HondaH100Dtlfakdos domain) {
+		getHibernateTemplate().delete(domain);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true) 
+	public List<HondaH100Dtlfakdos> findAll() {
+		List<HondaH100Dtlfakdos> list = getHibernateTemplate().find("from HondaH100Dtlfakdos");
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<HondaH100Dtlfakdos> findByExample(HondaH100Dtlfakdos domain) {
+		List<HondaH100Dtlfakdos> list = getHibernateTemplate().findByExample(domain);
+		return list;
+	}
+
+	@Override
+	public List<HondaH100Dtlfakdos> findByCriteria(HondaH100Dtlfakdos domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

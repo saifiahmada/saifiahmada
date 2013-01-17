@@ -1,0 +1,89 @@
+<?page title="New WMS" contentType="text/html;charset=UTF-8"?>
+<?init class="com.trio.util.Interceptors" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon"?>
+
+<zk>
+
+	<window id="win" title="Koreksi Nilai Pelangggaran Wilayah"
+		apply="com.trio.view.ctrl.KoreksiPwCtrl">
+
+		<div>
+			<vbox>
+				<separator />
+				<grid>
+					<columns visible="false">
+						<column width="100px"></column>
+						<column width="150px"></column>
+						<column width="100px"></column>
+					</columns>
+					<rows>
+						<row>
+							<cell>No Approval</cell>
+							<cell>
+								<textbox id="noApprovalPw" value=""
+									width="100%" onChange="self.setDisabled(true)"/>
+							</cell>
+							<cell>
+								<button id="btLov" label="LOV"
+									onClick="popNoApproval.open(self)" image="/image/search.png" />
+							</cell>
+						</row>
+						<row>
+							<cell>Kode Dealer</cell>
+							<cell>
+								<textbox id="noKdDlr" width="50%" value="" />
+							</cell>
+						</row>
+					</rows>
+				</grid>
+				<hbox align="center">
+					<button id="btTampil" label="Tampilkan"
+						image="/image/tampil.png" />
+					<button id="btSimpan" label="Simpan"
+						image="/image/save.png" />
+					<button id="btBersihkan" label="Bersihkan"
+						image="/image/iconcrud/btn_reset.gif" />
+				</hbox>
+				<separator />
+				<listbox id="lbPelangWil" mold="paging" pageSize="10">
+					<listhead>
+						<listheader label="No Mesin" />
+						<listheader label="Nama Dealer" />
+						<listheader label="Nama Konsumen" />
+						<listheader label="Alamat Konsumen" /> 
+						<listheader label="Kota" />
+						<listheader label="Kecamatan" />
+						<listheader label="Kelurahan" />
+						<listheader label="Nilai Pelanggaran"/>
+						<listheader label="Nilai Koreksi"/>
+						<listheader label="Konfirm Nilai"/>
+						<!-- <listheader label="Kecamatan" />
+						<listheader label="Kelurahan" />
+						<listheader label="Nilai Pelanggaran" />  -->
+					</listhead>
+				</listbox>
+
+			</vbox>
+		</div>
+
+		<!-- START OF LOV AREA -->
+		<popup id="popNoApproval">
+			<listbox id="lbPopNoApproval" width="650px" height="350px"
+				mold="paging" pageSize="10">
+				<listhead>
+					<listheader width="175px" label="No Approval"
+						sort="auto(kdDlr)" />
+					<listheader width="100px" label="Kode Dealer"
+						sort="auto(kdDlr)" />
+						
+					<!--  <listheader width="200px" label="Nama Dealer"
+						sort="auto(dlrNama)" /> -->
+						
+				</listhead>
+			</listbox>
+		</popup>
+		<!-- END OF LOV AREA -->
+
+	</window>
+</zk>

@@ -1,0 +1,57 @@
+package com.trio.dao.h000;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h000.HondaH000Setdlrs;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 12, 2012
+ */
+public class HondaH000SetdlrsDaoImpl extends TrioHibernateDaoSupport implements HondaH000SetdlrsDao {
+
+	@Override
+	public void saveOrUpdate(HondaH000Setdlrs domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(HondaH000Setdlrs domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<HondaH000Setdlrs> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH000Setdlrs> findByExample(HondaH000Setdlrs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH000Setdlrs> findByCriteria(HondaH000Setdlrs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Transactional(readOnly=true)
+	public HondaH000Setdlrs findByKdDealerAndKodeBisnis(String kdDlr, String kodeBisnis){
+		String str = "from HondaH000Setdlrs where delaerKdDlr = :delaerKdDlr and kdBisnis = :kdBisnis";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("delaerKdDlr", kdDlr);
+		q.setString("kdBisnis", kodeBisnis);
+		return (HondaH000Setdlrs) q.uniqueResult();
+	}
+
+}

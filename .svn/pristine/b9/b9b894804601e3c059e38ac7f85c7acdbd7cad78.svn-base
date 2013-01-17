@@ -1,0 +1,128 @@
+package com.trio.bean.h000;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 31, 2012
+ */
+@Entity
+@Table(name="TRIO_H000_MSTMENU") 
+public class TrioH000Mstmenu extends TrioEntityUserTrail implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name="VMENUID", length=30, nullable=false)
+	private String vmenuid;
+	
+	@Column(name="VPARENT", length=30)
+	private String vparent;
+	
+	@Column(name="VTITLE", length=30)
+	private String vtitle;
+	
+	@Column(name="VLOCATION", length=30)
+	private String vlocation;
+	
+	@Column(name="VIMAGE", length=30)
+	private String vimage;
+	
+	@Column(name="NORDERER", length=3)
+	private int norderer;
+	
+	public TrioH000Mstmenu() {
+
+	}
+	
+	public TrioH000Mstmenu(String vmenuid) {
+		this.vmenuid = vmenuid;
+	}
+
+	public String getVmenuid() {
+		return vmenuid;
+	}
+
+	public void setVmenuid(String vmenuid) {
+		this.vmenuid = vmenuid;
+	}
+
+	public String getVparent() {
+		return vparent;
+	}
+
+	public void setVparent(String vparent) {
+		this.vparent = vparent;
+	}
+
+	public String getVtitle() {
+		return vtitle;
+	}
+
+	public void setVtitle(String vtitle) {
+		this.vtitle = vtitle;
+	}
+
+	public String getVlocation() {
+		return vlocation;
+	}
+
+	public void setVlocation(String vlocation) {
+		this.vlocation = vlocation;
+	}
+
+	public String getVimage() {
+		return vimage;
+	}
+
+	public void setVimage(String vimage) {
+		this.vimage = vimage;
+	}
+
+	public int getNorderer() {
+		return norderer;
+	}
+
+	public void setNorderer(int norderer) {
+		this.norderer = norderer;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((vmenuid == null) ? 0 : vmenuid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TrioH000Mstmenu other = (TrioH000Mstmenu) obj;
+		if (vmenuid == null) {
+			if (other.vmenuid != null)
+				return false;
+		} else if (!vmenuid.equals(other.vmenuid))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "TrioH000Mstmenu [vmenuid=" + vmenuid + "]";
+	}
+	
+}

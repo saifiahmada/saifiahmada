@@ -1,0 +1,157 @@
+<?page title="New WMS" contentType="text/html;charset=UTF-8"?>
+<?init class="com.trio.util.Interceptors" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon"?>
+
+<zk>
+	
+	<style>
+    .aa.z-datebox-text-disd {
+        background:transparent;
+        color: black !important;
+    }
+    
+    .aa.z-datebox-disd .z-datebox-inp {
+        color: black !important; 
+        cursor: default !important; opacity: .6;
+        -moz-opacity: .6;
+        filter: alpha(opacity=60);
+    }
+    
+    .aa.z-datebox-disd {
+        opacity: 1;
+	-moz-opacity: 1;
+	filter: alpha(opacity=100);
+    }
+    
+    </style>
+
+	<window id="win" title="Approve DO Logistik" border="normal" width="100%" height="100%"
+	apply="com.trio.view.ctrl.ApproveDoLogistikCtrl">
+		<grid id="editGrid">
+			<columns visible="false">
+				<column width="100px" />
+				<column width="170px" />
+				<column width="100px" />
+				<column width="100px" />
+				<column width="100px" />
+				<column width="100px" />
+				<column width="25px" />
+				<column width="100px" />
+				<column width="150px" />
+			</columns>
+			<rows>
+				<row>
+					<cell>No PO Internal</cell>
+					<cell><textbox id="tbNoPOInternal" cols="20" value="@{win$composer.dologs.poDlrNoPont}" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>No PO Dealer</cell>
+					<cell><textbox id="tbNoPODealer" value="@{win$composer.dologs.hondaH100Mstpodlrs.noPodlr}" /></cell>
+				</row>
+				
+				<row>
+					<cell>No DO Logistik</cell>
+					<cell><textbox id="tbNoDOLogistik" value="@{win$composer.dologs.noDolog}" /></cell>
+					<cell><button id="btnLOVDOLogistik" label="LOV" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>Tgl DO Logistik</cell>
+					<!--  <cell><textbox id="tglDOLogistik" value="@{win$composer.dologs.tglDolog}" /></cell> -->
+					<cell><datebox cols="12" format="dd/MM/yyyy"  value="@{win$composer.dologs.tglDolog}" mold="rounded" disabled="true" /></cell>
+				</row>
+				
+				<row>
+					<cell>No DO</cell>
+					<cell><textbox id="tbNoDO" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>Tgl DO</cell>
+					<cell><datebox cols="12" format="dd/MM/yyyy" onCreate="self.value= new Date()" mold="rounded" disabled="true" /></cell>
+				</row>
+				
+				<row>
+					<cell>Dealer</cell>
+					<cell><textbox id="tbKdDealer" value="@{win$composer.dologs.hondaH100Mstpodlrs.dealerKdDlr.kdDlr}" /></cell>
+					<cell><textbox id="tbNamaDealer" value="@{win$composer.dologs.hondaH100Mstpodlrs.dealerKdDlr.dlrNama}" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>NPWP</cell>
+					<cell><textbox id="npwp" value="@{win$composer.dologs.hondaH100Mstpodlrs.dealerKdDlr.dlrNpwp}" /></cell>
+				</row>
+				
+				<row>
+					<cell>Cara Pembayaran</cell>
+					<cell><textbox id="valTag" value="@{win$composer.setup.valTag}" /></cell>
+					<cell><button id="btnLOVValTag" label="LOV" disabled="true" /></cell>
+					<cell><textbox id="valChar" value="@{win$composer.setup.valChar}" /></cell>
+					<cell><decimalbox id="dbDiskon" cols="5" constraint="no negative,no empty" /></cell>
+					<cell><decimalbox id="dbDiskonPersen" cols="5" constraint="no negative,no empty" />%</cell>
+					<cell />
+					<cell>TOP</cell>
+					<cell><intbox id="ibTop" /></cell>
+				</row>
+				
+				<row>
+					<cell>Kode Salesman</cell>
+					<cell><textbox id="tbKodeSaleman" value="@{win$composer.dologs.kodeSalesman}" /></cell>
+					<cell><textbox id="tbNamaSalesman" value="@{win$composer.dologs.namaSalesman}" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>Plafon</cell>
+					<cell><decimalbox id="dbPlafon" cols="5" constraint="no negative,no empty" /></cell>
+				</row>
+				
+				<row>
+					<cell>Lokasi Asal</cell>
+					<cell><textbox id="tbLokasiAsal" value="@{win$composer.dologs.lokasiAsal}" /></cell>
+					<cell><textbox id="tbAlamatLokasi" value="@{win$composer.dologs.alamatLokasi}" /></cell>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>AR</cell>
+					<cell><decimalbox id="dbAR" cols="5" constraint="no negative,no empty" /></cell>
+				</row>
+				
+				<row>
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell />
+					<cell>Open Plafon</cell>
+					<cell><decimalbox id="dbOpenPlafon" cols="5" constraint="no negative,no empty" /></cell>
+				</row>
+			</rows>
+		</grid>
+		<separator />
+		
+		<listbox id="lbDtldologs" width="100%" height="200px" mold="paging" pageSize="10">
+			<listhead>
+				<listheader width="200px" label="Kode Item" sort="auto(kdItem)" />
+				<listheader width="200px" label="Qty DO" sort="auto(qty)" />
+				<listheader width="200px" label="Qty App" sort="auto(qty)" />
+				<listheader width="200px" label="Harga"  />
+				<listheader width="200px" label="Discount"  />
+				<listheader width="200px" label="Harga Netto"  />
+				<listheader width="200px" label="Jumlah"  />
+			</listhead>
+		</listbox>
+		
+	</window>
+</zk>

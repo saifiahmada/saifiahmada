@@ -1,0 +1,58 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import com.trio.bean.h100.TrioH100Dtlars;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class TrioH100DtlarsDaoImpl extends TrioHibernateDaoSupport implements TrioH100DtlarsDao{
+
+	@Override
+	public void saveOrUpdate(TrioH100Dtlars domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(TrioH100Dtlars domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(TrioH100Dtlars domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(TrioH100Dtlars domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<TrioH100Dtlars> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TrioH100Dtlars> findByExample(TrioH100Dtlars domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TrioH100Dtlars> findByCriteria(TrioH100Dtlars domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TrioH100Dtlars findByPrimaryKey(TrioH100Dtlars domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

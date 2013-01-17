@@ -1,0 +1,104 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.HondaH100Customers;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class HondaH100CustomersDaoImpl extends TrioHibernateDaoSupport implements HondaH100CustomersDao {
+	
+	private static final long serialVersionUID = 1L;
+
+	@Transactional
+	public void saveOrUpdate(HondaH100Customers customer, String user){
+		getHibernateTemplate().saveOrUpdate(customer);
+	}
+	
+	@Transactional
+	public void delete(HondaH100Customers customer) throws DataAccessException {
+		getHibernateTemplate().delete(customer);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<HondaH100Customers> findAll(Class<HondaH100Customers> clazz) throws DataAccessException {
+		List<HondaH100Customers> list = getHibernateTemplate().find("from " + clazz.getName());
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<HondaH100Customers> getCustomerByCriteria(HondaH100Customers clazz, final int firstResult, final int maxResults) throws DataAccessException {
+		DetachedCriteria criteria = DetachedCriteria.forClass(HondaH100Customers.class);
+		
+		List<HondaH100Customers> list = getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<HondaH100Customers> getCustomerByCriteria(HondaH100Customers customer) throws DataAccessException {
+		DetachedCriteria criteria = DetachedCriteria.forClass(HondaH100Customers.class);
+		if (customer.getKonsumenId() != null){
+			criteria = criteria.add(Restrictions.eq("kdDlr", customer.getKonsumenId()));
+		}
+		if (customer.getNama1() != null){
+			criteria = criteria.add(Restrictions.eq("dlrNama", customer.getNama1()));
+		}
+		if (customer.getAlamat1() != null){
+			
+			criteria = criteria.add(Restrictions.eq("dlrAlamat1", customer.getAlamat1()));
+		}
+		List<HondaH100Customers> list = getHibernateTemplate().findByCriteria(criteria);
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<HondaH100Customers> findByExample(HondaH100Customers customer) throws DataAccessException {
+		List<HondaH100Customers> list = getHibernateTemplate().findByExample(customer);
+		return list;
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
+	public List<HondaH100Customers> findAll() {
+		List<HondaH100Customers> list = getHibernateTemplate().find("from Customer");
+		return list;
+	}
+
+	@Override
+	@Transactional(readOnly = true) 
+	public List<HondaH100Customers> findByCriteria(HondaH100Customers domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(HondaH100Customers domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(HondaH100Customers domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HondaH100Customers findByPrimaryKey(HondaH100Customers domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

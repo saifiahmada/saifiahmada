@@ -1,0 +1,14 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import com.trio.bean.h100.HondaH100Dtlpicklists;
+import com.trio.hibernate.TrioGenericDao;
+
+public interface HondaH100DtlpicklistsDao extends TrioGenericDao<HondaH100Dtlpicklists> {
+	
+	public List<HondaH100Dtlpicklists> findByVnopicklist(String vnopicklist);
+	
+	public void updateDtlpicklistStdetailDtlsublokasi(List<HondaH100Dtlpicklists> listDtlPicklistAsal, List<HondaH100Dtlpicklists> listDtlPicklistBaru, String user);
+
+}

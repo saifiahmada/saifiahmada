@@ -1,0 +1,19 @@
+package com.trio.view.ctrl;
+
+import org.zkoss.zk.ui.WrongValueException;
+import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Messagebox;
+
+public class Testing extends GenericForwardComposer{
+	
+	private Button btnSubmit;
+	
+	private Intbox int1;
+	
+	public void onClick$btnSubmit() throws WrongValueException, InterruptedException{ 
+		Messagebox.show("Intbox value = "+int1.getValue());
+	}
+
+}

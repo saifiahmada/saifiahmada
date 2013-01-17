@@ -1,0 +1,40 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import com.trio.bean.h100.HondaH100Gudangs;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class HondaH100GudangsDaoImpl extends TrioHibernateDaoSupport implements HondaH100GudangsDao {
+
+	@Override
+	public void saveOrUpdate(HondaH100Gudangs domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(HondaH100Gudangs domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<HondaH100Gudangs> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Gudangs> findByExample(HondaH100Gudangs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Gudangs> findByCriteria(HondaH100Gudangs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

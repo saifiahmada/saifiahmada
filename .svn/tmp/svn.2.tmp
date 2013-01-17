@@ -1,0 +1,74 @@
+package com.trio.dao.bsc;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.bsc.DbaRolePrivs;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class DbaRolePrivsDaoImpl extends TrioHibernateDaoSupport implements DbaRolePrivsDao {
+
+	@Override
+	public void saveOrUpdate(DbaRolePrivs domain, String user) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void delete(DbaRolePrivs domain) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<DbaRolePrivs> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DbaRolePrivs> findByExample(DbaRolePrivs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DbaRolePrivs> findByCriteria(DbaRolePrivs domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DbaRolePrivs> getRoleByGrantee(String name) {
+
+		String str = "select a.granted_role from DbaRolePrivs a where a.grantee = :user";
+		Query query = getHibernateTemplate().getSessionFactory().getCurrentSession()
+				.createQuery(str);
+		query.setString("user", name);
+		List<DbaRolePrivs> lists = query.list();
+
+		return lists;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	public boolean isManagerByUserSession(String userSession){
+		
+		boolean mgr = false;
+		
+		String str = "from DbaRolePrivs a where a.grantee = :userSession";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("userSession", userSession);
+		
+		List<DbaRolePrivs> list = q.list();
+		for (DbaRolePrivs dba : list){
+			if (dba.getGranted_role().equalsIgnoreCase("H1_MKT_MGR")){
+				mgr = true;
+			}
+		}
+		return mgr;
+	}
+
+
+}

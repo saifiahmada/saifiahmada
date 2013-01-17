@@ -1,0 +1,138 @@
+package com.trio.bean.h100;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.BatchSize;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="TRIO_H100_ARS")
+public class TrioH100Ars extends TrioEntityUserTrail implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name="NO_DO", length=30, nullable = false)
+	private String noDo;
+	
+	@Column(name="NO_KWITANSI", length=30)
+	private String noKwitansi;
+	
+	@Column(name="JUMLAH_BAYAR")
+	private BigDecimal jumlahBayar;
+	
+	@Column(name="SISA_UTANG")
+	private BigDecimal sisaUtang;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="trioH100Ars")
+	private Set<TrioH100Dtlars> trioH100DtlarsSet;
+	
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="trioH100Ars")
+	@PrimaryKeyJoinColumn
+	private HondaH100Fakdos hondaH100Fakdos;
+	
+	@Override
+	public String toString() {
+		return "TrioH100Ars [noDo=" + noDo + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((noDo == null) ? 0 : noDo.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TrioH100Ars other = (TrioH100Ars) obj;
+		if (noDo == null) {
+			if (other.noDo != null)
+				return false;
+		} else if (!noDo.equals(other.noDo))
+			return false;
+		return true;
+	}
+
+
+	public String getNoDo() {
+		return noDo;
+	}
+
+
+	public void setNoDo(String noDo) {
+		this.noDo = noDo;
+	}
+
+
+	public String getNoKwitansi() {
+		return noKwitansi;
+	}
+
+
+	public void setNoKwitansi(String noKwitansi) {
+		this.noKwitansi = noKwitansi;
+	}
+
+	public BigDecimal getJumlahBayar() {
+		return jumlahBayar;
+	}
+
+	public void setJumlahBayar(BigDecimal jumlahBayar) {
+		this.jumlahBayar = jumlahBayar;
+	}
+
+	public BigDecimal getSisaUtang() {
+		return sisaUtang;
+	}
+
+	public void setSisaUtang(BigDecimal sisaUtang) {
+		this.sisaUtang = sisaUtang;
+	}
+
+	public TrioH100Ars() {
+		
+	}
+
+
+	public Set<TrioH100Dtlars> getTrioH100DtlarsSet() {
+		return trioH100DtlarsSet;
+	}
+
+
+	public void setTrioH100DtlarsSet(Set<TrioH100Dtlars> trioH100DtlarsSet) {
+		this.trioH100DtlarsSet = trioH100DtlarsSet;
+	}
+
+
+	public HondaH100Fakdos getHondaH100Fakdos() {
+		return hondaH100Fakdos;
+	}
+
+	public void setHondaH100Fakdos(HondaH100Fakdos hondaH100Fakdos) {
+		this.hondaH100Fakdos = hondaH100Fakdos;
+	}
+}

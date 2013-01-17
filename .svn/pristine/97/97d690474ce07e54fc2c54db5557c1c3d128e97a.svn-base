@@ -1,0 +1,276 @@
+package com.trio.view.ctrl;
+
+import java.util.List;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listhead;
+import org.zkoss.zul.Listheader;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Radiogroup;
+import org.zkoss.zul.Separator;
+import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
+
+import com.trio.base.TrioBasePage;
+import com.trio.bean.bsc.DbaRolePrivs;
+import com.trio.bean.h000.TrioH000Mstmenu;
+import com.trio.bean.h000.TrioH000Mstroleaccess;
+import com.trio.component.TrioPopup;
+import com.trio.view.ctrl.renderer.DbaRoleRenderer;
+import com.trio.view.ctrl.renderer.MenuListRenderer;
+import com.trio.view.ctrl.renderer.RoleListRenderer;
+
+public class RoleAccessCtrl extends TrioBasePage {
+
+	private static final long serialVersionUID = 1L;
+	private AnnotateDataBinder binder;
+	private Listbox roleList;
+	private Grid editRoleGrid;
+	private Button createRole;
+	private Button searchRole;
+	private Button resetRole;
+	private Combobox cbVparent;
+	private Radiogroup radioStatus;
+	
+	private Button btLOVRole, btLOVMenu;
+	
+	private Window win;
+	
+	private TrioH000Mstroleaccess role;
+
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		binder = (AnnotateDataBinder) page.getAttribute("binder");
+		role = new TrioH000Mstroleaccess();
+		roleList.setModel(new ListModelList(
+				getMasterFacade().getTrioH000MstroleaccessDao().findAll()));
+		roleList.setItemRenderer(new RoleListRenderer());
+	}
+	
+	private ListModelList getModel() {
+		return (ListModelList) roleList.getModel();
+	}
+	
+	public void onClick$resetRole() {
+		reset();
+	}
+	
+	public void reset(){
+		roleList.clearSelection();
+		roleList.setModel(new ListModelList(getMasterFacade().getTrioH000MstroleaccessDao().findAll()));
+		role = new TrioH000Mstroleaccess();
+		binder.loadComponent(editRoleGrid);
+		radioStatus.setSelectedIndex(0);
+	}
+	
+	public void onSelect$roleList() {
+		role = (TrioH000Mstroleaccess) roleList.getSelectedItem().getValue();
+		if (role.getVstatus().equalsIgnoreCase("A")){
+			radioStatus.setSelectedIndex(0);
+		}if (role.getVstatus().equalsIgnoreCase("X")){
+			radioStatus.setSelectedIndex(1);
+		}
+		
+		binder.loadComponent(editRoleGrid);
+	}
+	
+	public void onClick$createRole() throws InterruptedException {
+		
+		String status = radioStatus.getSelectedItem().getValue();
+		role.setVstatus(status);
+		if (role.getVroleid() == null ||  role.getVmenuid() == null
+				|| role.getVstatus() == null ) {
+			Messagebox.show("Data belum lengkap");
+			return;
+		}
+		
+		List<DbaRolePrivs> listDba =  getMasterFacade().getDbaRolePrivsDao().getListByGrantedRole(role.getVroleid());
+		if (listDba.size() < 1){
+			Messagebox.show("Role ["+role.getVroleid()+"] tidak terdaftar"); 
+			return;
+		}
+		
+		TrioH000Mstmenu menu = getMasterFacade().getTrioH000MstmenuDao()
+				.findByPrimaryKey(new TrioH000Mstmenu(role.getVmenuid()));
+		if (menu == null){
+			Messagebox.show("Menu ["+role.getVmenuid()+"] tidak terdaftar");
+			return;
+		}
+		
+		getMasterFacade().getTrioH000MstroleaccessDao().saveOrUpdate(role, getUserSession());
+		getModel().add(role);
+		
+		reset();
+	}
+	
+	public void onClick$searchRole() throws InterruptedException {
+		TrioH000Mstroleaccess ra = new TrioH000Mstroleaccess();
+		ra.setVroleid(role.getVroleid());
+		ra.setVmenuid(role.getVmenuid());
+		ra.setVstatus(radioStatus.getSelectedItem().getValue());
+		
+		roleList.setModel(new ListModelList(getMasterFacade().getTrioH000MstroleaccessDao().findByCriteria(ra)));
+	}
+	
+	public void onClick$btLOVRole(){
+		List<String> list = getMasterFacade().getDbaRolePrivsDao().findRoleByDistinct();
+		final Listbox lb = new Listbox();
+		Listhead listhead = new Listhead(); 
+		final TrioPopup pop = new TrioPopup(list, new DbaRoleRenderer(), lb, "350px", "350px");
+		
+		Listheader listheader;
+		
+		listheader = new Listheader("Role Id"); 
+		listheader.setParent(listhead);
+		listheader.setWidth("350px");
+		
+		listhead.setParent(lb);
+		
+		lb.addEventListener(Events.ON_SELECT, new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				String dba = (String) lb.getSelectedItem().getValue();
+				role.setVroleid(dba); 
+				binder.loadComponent(editRoleGrid);
+				pop.close();
+			}
+		});
+		
+		final Textbox tb = new Textbox();
+		tb.addEventListener(Events.ON_CHANGE, new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				tb.setValue(tb.getValue().toUpperCase().trim());
+			}
+		});
+		Button btCari = new Button("Cari");
+		btCari.addEventListener(Events.ON_CLICK, new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				List<String> ls = getMasterFacade().getDbaRolePrivsDao().findRoleDistinctByRole(tb.getValue());
+				lb.setModel(new ListModelList(ls));
+			}
+		});
+		Button btReset = new Button("Reset");
+		btReset.addEventListener(Events.ON_CLICK, new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				List<String> ls = getMasterFacade().getDbaRolePrivsDao().findRoleByDistinct();
+				lb.setModel(new ListModelList(ls));
+				tb.setValue(null);
+			}
+		});
+		tb.setParent(pop);
+		btCari.setParent(pop);
+		btReset.setParent(pop);
+		
+		Separator sp = new Separator();
+		sp.setParent(pop);
+		
+		lb.setParent(pop);
+		pop.setParent(win);
+		pop.open(self);
+		
+	}
+	
+	public void onClick$btLOVMenu(){
+		List<TrioH000Mstmenu> list = getMasterFacade().getTrioH000MstmenuDao().findAll();
+		final Listbox lb = new Listbox();
+		Listhead listhead = new Listhead(); 
+		final TrioPopup pop = new TrioPopup(list, new MenuListRenderer(), lb, "350px", "800px");
+		
+		Listheader listheader;
+		
+		listheader = new Listheader("Menu Id"); 
+		listheader.setParent(listhead);
+		listheader.setWidth("120px");
+		listheader = new Listheader("Title"); 
+		listheader.setParent(listhead);
+		listheader.setWidth("250px");
+		listheader = new Listheader("Parent"); 
+		listheader.setParent(listhead);
+		listheader.setWidth("70px");
+		listheader = new Listheader("Lokasi"); 
+		listheader.setParent(listhead);
+		listheader.setWidth("150px");
+		listheader = new Listheader("Image"); 
+		listheader.setParent(listhead);
+		listheader.setWidth("150px");
+		listheader = new Listheader("Orderer"); 
+		listheader.setParent(listhead);
+		listheader.setWidth("60px");
+		listhead.setParent(lb);
+		
+		lb.addEventListener(Events.ON_SELECT, new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				TrioH000Mstmenu mm = (TrioH000Mstmenu) lb.getSelectedItem().getValue();
+				role.setVmenuid(mm.getVmenuid());
+				binder.loadComponent(editRoleGrid);
+				pop.close();
+			}
+		});
+		
+		final Textbox tb = new Textbox();
+		tb.addEventListener(Events.ON_CHANGE, new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				tb.setValue(tb.getValue().toUpperCase().trim());
+			}
+		});
+		
+		Button btCari = new Button("Cari");
+		btCari.addEventListener(Events.ON_CLICK, new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				TrioH000Mstmenu mm = new TrioH000Mstmenu();
+				mm.setVtitle(tb.getValue());
+				List<TrioH000Mstmenu> ls = getMasterFacade().getTrioH000MstmenuDao().findByCriteria(mm);
+				lb.setModel(new ListModelList(ls));
+			}
+		});
+		
+		Button btReset = new Button("Reset");
+		btReset.addEventListener(Events.ON_CLICK, new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				List<TrioH000Mstmenu> ls = getMasterFacade().getTrioH000MstmenuDao().findAll();
+				lb.setModel(new ListModelList(ls));
+				tb.setValue(null);
+			}
+		});
+		tb.setParent(pop);
+		btCari.setParent(pop);
+		btReset.setParent(pop);
+		lb.setParent(pop);
+		pop.setParent(win);
+		pop.open(self);
+	}
+
+	public TrioH000Mstroleaccess getRole() {
+		return role;
+	}
+
+	public void setRole(TrioH000Mstroleaccess role) {
+		this.role = role;
+	}
+	
+}

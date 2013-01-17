@@ -1,0 +1,64 @@
+package com.trio.dao.h100;
+
+import java.util.List;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.h100.HondaH100Dtlsublokasi;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+public class HondaH100DtlsublokasiDaoImpl extends TrioHibernateDaoSupport implements HondaH100DtlsublokasiDao {
+
+	@Override
+	@Transactional(readOnly = false) 
+	public void saveOrUpdate(HondaH100Dtlsublokasi domain, String user) {
+		getHibernateTemplate().saveOrUpdate(domain);
+	}
+
+	@Override
+	public void delete(HondaH100Dtlsublokasi domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<HondaH100Dtlsublokasi> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Dtlsublokasi> findByExample(
+			HondaH100Dtlsublokasi domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HondaH100Dtlsublokasi> findByCriteria(
+			HondaH100Dtlsublokasi domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(HondaH100Dtlsublokasi domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(HondaH100Dtlsublokasi domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HondaH100Dtlsublokasi findByPrimaryKey(HondaH100Dtlsublokasi domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

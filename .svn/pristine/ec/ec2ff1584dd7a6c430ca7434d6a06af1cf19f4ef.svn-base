@@ -1,0 +1,12 @@
+package com.trio.dao.bsc;
+
+import java.util.List;
+
+import com.trio.bean.bsc.DbaRolePrivs;
+import com.trio.hibernate.TrioGenericDao;
+
+public interface DbaRolePrivsDao extends TrioGenericDao<DbaRolePrivs> {
+
+	public List<DbaRolePrivs> getRoleByGrantee(String name);
+	
+}

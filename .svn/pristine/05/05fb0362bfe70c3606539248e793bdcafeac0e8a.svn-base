@@ -1,0 +1,41 @@
+package com.trio.test;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+import com.trio.bean.h000.HondaH000Dealers;
+import com.trio.bean.h000.HondaH000Gates;
+import com.trio.bean.h000.HondaH000Setups;
+import com.trio.bean.h100.HondaH100Fakdos;
+import com.trio.bean.h100.HondaH100Hdrpicklists;
+import com.trio.bean.h100.HondaH100Stdetails;
+import com.trio.bean.h100.TrioH100Kecamatans;
+import com.trio.bean.h100.TrioH100PelangWils;
+import com.trio.dao.h000.HondaH000GatesDao;
+import com.trio.dao.h000.HondaH000SetupsDao;
+import com.trio.dao.h000.MasterRunnumDao;
+import com.trio.dao.h100.TrioH100PelangWilsDao;
+import com.trio.facade.MasterFacade;
+import com.trio.util.TrioDateConv;
+import com.trio.util.TrioStringUtil;
+
+public class Test1 {
+	
+	public static void main (String [] args){
+		
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+		
+		MasterFacade mf = (MasterFacade) ac.getBean("masterFacade");
+		
+		List list = mf.getHondaH100FakdosDao().getDataStnk("234");
+		
+		System.out.println("Ukuran "+list.size());
+		
+		
+	}
+
+}

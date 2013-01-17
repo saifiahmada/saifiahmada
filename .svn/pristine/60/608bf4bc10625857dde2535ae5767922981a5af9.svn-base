@@ -1,0 +1,6 @@
+<?page title="pagenotfound" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="pagenotfound" border="normal">
+	<label value="Halaman tidak ditemukan, kembali ke index" />
+</window>
+</zk>

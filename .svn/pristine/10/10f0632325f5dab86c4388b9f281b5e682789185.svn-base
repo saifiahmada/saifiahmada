@@ -1,0 +1,331 @@
+package com.trio.facade;
+
+import com.trio.dao.bsc.DbaRolePrivsDao;
+import com.trio.dao.h000.HondaH000DealersDao;
+import com.trio.dao.h000.HondaH000GatesDao;
+import com.trio.dao.h000.HondaH000ItemsDao;
+import com.trio.dao.h000.HondaH000SetdlrsDao;
+import com.trio.dao.h000.HondaH000SetupsDao;
+import com.trio.dao.h000.MasterRunnumDao;
+import com.trio.dao.h100.HondaH100ArsDao;
+import com.trio.dao.h100.HondaH100CustomersDao;
+import com.trio.dao.h100.HondaH100DtlfakdosDao;
+import com.trio.dao.h100.HondaH100DtlpicklistsDao;
+import com.trio.dao.h100.HondaH100DtlpodlrfixesDao;
+import com.trio.dao.h100.HondaH100DtlsublokasiDao;
+import com.trio.dao.h100.HondaH100FakdosDao;
+import com.trio.dao.h100.HondaH100GudangsDao;
+import com.trio.dao.h100.HondaH100HargasDao;
+import com.trio.dao.h100.HondaH100HdrpicklistsDao;
+import com.trio.dao.h100.HondaH100HdrsublokasiDao;
+import com.trio.dao.h100.HondaH100MstpodlrsDao;
+import com.trio.dao.h100.HondaH100StdetailsDao;
+import com.trio.dao.h100.HondaH100StglobalsDao;
+import com.trio.dao.h100.TrioH100DologsDao;
+import com.trio.dao.h100.TrioH100DtlAreaDealersDao;
+import com.trio.dao.h100.TrioH100DtldologsDao;
+import com.trio.dao.h100.TrioH100KecamatansDao;
+import com.trio.dao.h100.TrioH100KelurahansDao;
+import com.trio.dao.h100.TrioH100PelangWilsDao;
+import com.trio.dao.h100.TrioH100StdetailsDao;
+import com.trio.dao.h300.HondaH300SalesmanDao;
+
+public class MasterFacade {
+	
+	private HondaH000GatesDao hondaH000GatesDao;
+	
+	private HondaH000DealersDao hondaH000DealersDao;
+	
+	private TrioH100DtlAreaDealersDao trioH100DtlAreaDealersDao;
+	
+	private TrioH100KecamatansDao trioH100KecamatansDao;
+	
+	private TrioH100KelurahansDao trioH100KelurahansDao;
+	
+	private HondaH100CustomersDao hondaH100CustomersDao;
+	
+	private TrioH100PelangWilsDao trioH100PelangWilsDao;
+	
+	private TrioH100StdetailsDao trioH100StdetailsDao;
+	
+	private HondaH000SetupsDao hondaH000SetupsDao;
+	
+	private MasterRunnumDao masterRunnumDao;
+	
+	private HondaH100HdrpicklistsDao hondaH100HdrpicklistsDao;
+	
+	private HondaH100DtlpicklistsDao hondaH100DtlpicklistsDao;
+	
+	private HondaH000ItemsDao hondaH000ItemsDao;
+	
+	private HondaH100FakdosDao hondaH100FakdosDao;
+	
+	private HondaH100DtlfakdosDao hondaH100DtlfakdosDao;
+	
+	private HondaH100GudangsDao hondaH100GudangsDao;
+	
+	private HondaH100HdrsublokasiDao hondaH100HdrsublokasiDao;
+	
+	private HondaH100DtlsublokasiDao hondaH100DtlsublokasiDao;
+	
+	private HondaH100StdetailsDao hondaH100StdetailsDao;
+	
+	private DbaRolePrivsDao dbaRolePrivsDao;
+	
+	private HondaH100MstpodlrsDao hondaH100MstpodlrsDao;
+	
+	private HondaH100DtlpodlrfixesDao hondaH100DtlpodlrfixesDao;
+	
+	private TrioH100DologsDao trioH100DologsDao;
+	
+	private TrioH100DtldologsDao trioH100DtldologsDao;
+	
+	private HondaH100StglobalsDao hondaH100StglobalsDao;
+	
+	private HondaH100ArsDao hondaH100ArsDao;
+	
+	private HondaH000SetdlrsDao hondaH000SetdlrsDao;
+	
+	private HondaH300SalesmanDao hondaH300SalesmanDao;
+	
+	private HondaH100HargasDao hondaH100HargasDao;
+
+	public HondaH000GatesDao getHondaH000GatesDao() {
+		return hondaH000GatesDao;
+	}
+
+	public void setHondaH000GatesDao(HondaH000GatesDao hondaH000GatesDao) {
+		this.hondaH000GatesDao = hondaH000GatesDao;
+	}
+
+	public HondaH000DealersDao getHondaH000DealersDao() {
+		return hondaH000DealersDao;
+	}
+
+	public void setHondaH000DealersDao(HondaH000DealersDao hondaH000DealersDao) {
+		this.hondaH000DealersDao = hondaH000DealersDao;
+	}
+
+	public TrioH100DtlAreaDealersDao getTrioH100DtlAreaDealersDao() {
+		return trioH100DtlAreaDealersDao;
+	}
+
+	public void setTrioH100DtlAreaDealersDao(
+			TrioH100DtlAreaDealersDao trioH100DtlAreaDealersDao) {
+		this.trioH100DtlAreaDealersDao = trioH100DtlAreaDealersDao;
+	}
+
+	public TrioH100KecamatansDao getTrioH100KecamatansDao() {
+		return trioH100KecamatansDao;
+	}
+
+	public void setTrioH100KecamatansDao(TrioH100KecamatansDao trioH100KecamatansDao) {
+		this.trioH100KecamatansDao = trioH100KecamatansDao;
+	}
+
+	public TrioH100KelurahansDao getTrioH100KelurahansDao() {
+		return trioH100KelurahansDao;
+	}
+
+	public void setTrioH100KelurahansDao(TrioH100KelurahansDao trioH100KelurahansDao) {
+		this.trioH100KelurahansDao = trioH100KelurahansDao;
+	}
+
+	public HondaH100CustomersDao getHondaH100CustomersDao() {
+		return hondaH100CustomersDao;
+	}
+
+	public void setHondaH100CustomersDao(HondaH100CustomersDao hondaH100CustomersDao) {
+		this.hondaH100CustomersDao = hondaH100CustomersDao;
+	}
+
+	public TrioH100PelangWilsDao getTrioH100PelangWilsDao() {
+		return trioH100PelangWilsDao;
+	}
+
+	public void setTrioH100PelangWilsDao(TrioH100PelangWilsDao trioH100PelangWilsDao) {
+		this.trioH100PelangWilsDao = trioH100PelangWilsDao;
+	}
+
+	public TrioH100StdetailsDao getTrioH100StdetailsDao() {
+		return trioH100StdetailsDao;
+	}
+
+	public void setTrioH100StdetailsDao(TrioH100StdetailsDao trioH100StdetailsDao) {
+		this.trioH100StdetailsDao = trioH100StdetailsDao;
+	}
+
+	public HondaH000SetupsDao getHondaH000SetupsDao() {
+		return hondaH000SetupsDao;
+	}
+
+	public void setHondaH000SetupsDao(HondaH000SetupsDao hondaH000SetupsDao) {
+		this.hondaH000SetupsDao = hondaH000SetupsDao;
+	}
+
+	public MasterRunnumDao getMasterRunnumDao() {
+		return masterRunnumDao;
+	}
+
+	public void setMasterRunnumDao(MasterRunnumDao masterRunnumDao) {
+		this.masterRunnumDao = masterRunnumDao;
+	}
+
+	public HondaH100HdrpicklistsDao getHondaH100HdrpicklistsDao() {
+		return hondaH100HdrpicklistsDao;
+	}
+
+	public void setHondaH100HdrpicklistsDao(
+			HondaH100HdrpicklistsDao hondaH100HdrpicklistsDao) {
+		this.hondaH100HdrpicklistsDao = hondaH100HdrpicklistsDao;
+	}
+
+	public HondaH100DtlpicklistsDao getHondaH100DtlpicklistsDao() {
+		return hondaH100DtlpicklistsDao;
+	}
+
+	public void setHondaH100DtlpicklistsDao(
+			HondaH100DtlpicklistsDao hondaH100DtlpicklistsDao) {
+		this.hondaH100DtlpicklistsDao = hondaH100DtlpicklistsDao;
+	}
+
+	public HondaH100FakdosDao getHondaH100FakdosDao() {
+		return hondaH100FakdosDao;
+	}
+
+	public void setHondaH100FakdosDao(HondaH100FakdosDao hondaH100FakdosDao) {
+		this.hondaH100FakdosDao = hondaH100FakdosDao;
+	}
+
+	public HondaH100DtlfakdosDao getHondaH100DtlfakdosDao() {
+		return hondaH100DtlfakdosDao;
+	}
+
+	public void setHondaH100DtlfakdosDao(HondaH100DtlfakdosDao hondaH100DtlfakdosDao) {
+		this.hondaH100DtlfakdosDao = hondaH100DtlfakdosDao;
+	}
+
+	public HondaH100GudangsDao getHondaH100GudangsDao() {
+		return hondaH100GudangsDao;
+	}
+
+	public void setHondaH100GudangsDao(HondaH100GudangsDao hondaH100GudangsDao) {
+		this.hondaH100GudangsDao = hondaH100GudangsDao;
+	}
+
+	public HondaH100HdrsublokasiDao getHondaH100HdrsublokasiDao() {
+		return hondaH100HdrsublokasiDao;
+	}
+
+	public void setHondaH100HdrsublokasiDao(
+			HondaH100HdrsublokasiDao hondaH100HdrsublokasiDao) {
+		this.hondaH100HdrsublokasiDao = hondaH100HdrsublokasiDao;
+	}
+
+	public HondaH100DtlsublokasiDao getHondaH100DtlsublokasiDao() {
+		return hondaH100DtlsublokasiDao;
+	}
+
+	public void setHondaH100DtlsublokasiDao(
+			HondaH100DtlsublokasiDao hondaH100DtlsublokasiDao) {
+		this.hondaH100DtlsublokasiDao = hondaH100DtlsublokasiDao;
+	}
+
+	public HondaH000ItemsDao getHondaH000ItemsDao() {
+		return hondaH000ItemsDao;
+	}
+
+	public void setHondaH000ItemsDao(HondaH000ItemsDao hondaH000ItemsDao) {
+		this.hondaH000ItemsDao = hondaH000ItemsDao;
+	}
+
+	public HondaH100StdetailsDao getHondaH100StdetailsDao() {
+		return hondaH100StdetailsDao;
+	}
+
+	public void setHondaH100StdetailsDao(HondaH100StdetailsDao hondaH100StdetailsDao) {
+		this.hondaH100StdetailsDao = hondaH100StdetailsDao;
+	}
+
+	public DbaRolePrivsDao getDbaRolePrivsDao() {
+		return dbaRolePrivsDao;
+	}
+
+	public void setDbaRolePrivsDao(DbaRolePrivsDao dbaRolePrivsDao) {
+		this.dbaRolePrivsDao = dbaRolePrivsDao;
+	}
+
+	public HondaH100MstpodlrsDao getHondaH100MstpodlrsDao() {
+		return hondaH100MstpodlrsDao;
+	}
+
+	public void setHondaH100MstpodlrsDao(HondaH100MstpodlrsDao hondaH100MstpodlrsDao) {
+		this.hondaH100MstpodlrsDao = hondaH100MstpodlrsDao;
+	}
+
+	public HondaH100DtlpodlrfixesDao getHondaH100DtlpodlrfixesDao() {
+		return hondaH100DtlpodlrfixesDao;
+	}
+
+	public void setHondaH100DtlpodlrfixesDao(
+			HondaH100DtlpodlrfixesDao hondaH100DtlpodlrfixesDao) {
+		this.hondaH100DtlpodlrfixesDao = hondaH100DtlpodlrfixesDao;
+	}
+
+	public TrioH100DologsDao getTrioH100DologsDao() {
+		return trioH100DologsDao;
+	}
+
+	public void setTrioH100DologsDao(TrioH100DologsDao trioH100DologsDao) {
+		this.trioH100DologsDao = trioH100DologsDao;
+	}
+
+	public TrioH100DtldologsDao getTrioH100DtldologsDao() {
+		return trioH100DtldologsDao;
+	}
+
+	public void setTrioH100DtldologsDao(TrioH100DtldologsDao trioH100DtldologsDao) {
+		this.trioH100DtldologsDao = trioH100DtldologsDao;
+	}
+
+	public HondaH100StglobalsDao getHondaH100StglobalsDao() {
+		return hondaH100StglobalsDao;
+	}
+
+	public void setHondaH100StglobalsDao(HondaH100StglobalsDao hondaH100StglobalsDao) {
+		this.hondaH100StglobalsDao = hondaH100StglobalsDao;
+	}
+
+	public HondaH100ArsDao getHondaH100ArsDao() {
+		return hondaH100ArsDao;
+	}
+
+	public void setHondaH100ArsDao(HondaH100ArsDao hondaH100ArsDao) {
+		this.hondaH100ArsDao = hondaH100ArsDao;
+	}
+
+	public HondaH000SetdlrsDao getHondaH000SetdlrsDao() {
+		return hondaH000SetdlrsDao;
+	}
+
+	public void setHondaH000SetdlrsDao(HondaH000SetdlrsDao hondaH000SetdlrsDao) {
+		this.hondaH000SetdlrsDao = hondaH000SetdlrsDao;
+	}
+
+	public HondaH300SalesmanDao getHondaH300SalesmanDao() {
+		return hondaH300SalesmanDao;
+	}
+
+	public void setHondaH300SalesmanDao(HondaH300SalesmanDao hondaH300SalesmanDao) {
+		this.hondaH300SalesmanDao = hondaH300SalesmanDao;
+	}
+
+	public HondaH100HargasDao getHondaH100HargasDao() {
+		return hondaH100HargasDao;
+	}
+
+	public void setHondaH100HargasDao(HondaH100HargasDao hondaH100HargasDao) {
+		this.hondaH100HargasDao = hondaH100HargasDao;
+	}
+	
+}

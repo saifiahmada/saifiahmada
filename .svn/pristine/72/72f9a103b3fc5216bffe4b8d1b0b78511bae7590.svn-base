@@ -1,0 +1,101 @@
+package com.trio.bean.h000;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.Table;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="HONDA_H000_SETUPS")
+//@NamedQueries({@javax.persistence.NamedQuery(name="HondaH000Setups.findByValId", query="SELECT a FROM HondaH000Setups a WHERE a.hondaH000SetupsPK.valId = :valId"), @javax.persistence.NamedQuery(name="HondaH000Setups.findByValTag", query="SELECT a FROM HondaH000Setups a WHERE a.hondaH000SetupsPK.valTag = :valTag"), @javax.persistence.NamedQuery(name="HondaH000Setups.findByValChar", query="SELECT a FROM HondaH000Setups a WHERE a.valChar = :valChar"), @javax.persistence.NamedQuery(name="HondaH000Setups.findByValIdValTag", query="SELECT a FROM HondaH000Setups a WHERE a.hondaH000SetupsPK.valId = :valId and a.hondaH000SetupsPK.valTag = :valTag")})
+public class HondaH000Setups extends TrioEntityUserTrail implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name="VAL_ID", nullable=false)
+	private String valId;
+	
+	@Id
+	@Column(name="VAL_TAG", nullable=false)
+	private String valTag;
+	
+	@Column(name="VAL_CHAR")
+	private String valChar;
+	
+	public HondaH000Setups() {
+
+	}
+	
+	public HondaH000Setups(String valId, String valTag) {
+		this.valId = valId;
+		this.valTag = valTag;
+	}
+
+	public String getValId() {
+		return valId;
+	}
+
+	public void setValId(String valId) {
+		this.valId = valId;
+	}
+
+	public String getValTag() {
+		return valTag;
+	}
+
+	public void setValTag(String valTag) {
+		this.valTag = valTag;
+	}
+
+	public String getValChar() {
+		return valChar;
+	}
+
+	public void setValChar(String valChar) {
+		this.valChar = valChar;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((valId == null) ? 0 : valId.hashCode());
+		result = prime * result + ((valTag == null) ? 0 : valTag.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HondaH000Setups other = (HondaH000Setups) obj;
+		if (valId == null) {
+			if (other.valId != null)
+				return false;
+		} else if (!valId.equals(other.valId))
+			return false;
+		if (valTag == null) {
+			if (other.valTag != null)
+				return false;
+		} else if (!valTag.equals(other.valTag))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "HondaH100Setups [valId=" + valId + ", valTag=" + valTag
+				+ ", valChar=" + valChar + "]";
+	}
+	
+}

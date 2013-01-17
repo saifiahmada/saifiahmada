@@ -1,0 +1,113 @@
+package com.trio.bean.h000;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.trio.usertrail.TrioEntityUserTrail;
+
+@Entity
+@Table(name="HONDA_H000_PROPINS")
+public class HondaH000Propins extends TrioEntityUserTrail implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name="VKODEPARENT", length=5, nullable=false)
+	private String vkodeparent; 
+	@Id
+	@Column(name="VKODE", length= 5, nullable=false)
+	private String vkode;
+	
+	@Column(name="VDESKRIPSI", length=30)
+	private String vdeskripsi;
+	
+	@Column(name="CHG_TGL_FAKTUR")
+	private Integer chgTglFaktur;
+	
+	public HondaH000Propins() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public HondaH000Propins(String vkodeparent,String vkode) {
+		this.vkodeparent = vkodeparent;
+		this.vkode = vkode;
+	}
+
+	public String getVkodeparent() {
+		return vkodeparent;
+	}
+
+	public void setVkodeparent(String vkodeparent) {
+		this.vkodeparent = vkodeparent;
+	}
+
+	public String getVkode() {
+		return vkode;
+	}
+
+	public void setVkode(String vkode) {
+		this.vkode = vkode;
+	}
+
+	public String getVdeskripsi() {
+		return vdeskripsi;
+	}
+
+	public void setVdeskripsi(String vdeskripsi) {
+		this.vdeskripsi = vdeskripsi;
+	}
+
+	public Integer getChgTglFaktur() {
+		return chgTglFaktur;
+	}
+
+	public void setChgTglFaktur(Integer chgTglFaktur) {
+		this.chgTglFaktur = chgTglFaktur;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((vkode == null) ? 0 : vkode.hashCode());
+		result = prime * result
+				+ ((vkodeparent == null) ? 0 : vkodeparent.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HondaH000Propins other = (HondaH000Propins) obj;
+		if (vkode == null) {
+			if (other.vkode != null)
+				return false;
+		} else if (!vkode.equals(other.vkode))
+			return false;
+		if (vkodeparent == null) {
+			if (other.vkodeparent != null)
+				return false;
+		} else if (!vkodeparent.equals(other.vkodeparent))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "HondaH000Propins [vkodeparent=" + vkodeparent + ", vkode="
+				+ vkode + "]";
+	}
+	
+}

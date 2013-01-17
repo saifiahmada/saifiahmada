@@ -1,0 +1,58 @@
+package com.trio.dao.bsc;
+
+import java.util.List;
+
+
+import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.trio.bean.bsc.AhmdsbscDtlsetting;
+import com.trio.hibernate.TrioHibernateDaoSupport;
+
+/**
+ * @author glassfish | Saipi Ramli
+ *
+ * Oct 19, 2012
+ */
+public class AhmdsbscDtlsettingDaoImpl extends TrioHibernateDaoSupport implements AhmdsbscDtlsettingDao {
+
+	@Override
+	public void saveOrUpdate(AhmdsbscDtlsetting domain, String user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(AhmdsbscDtlsetting domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<AhmdsbscDtlsetting> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AhmdsbscDtlsetting> findByExample(AhmdsbscDtlsetting domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AhmdsbscDtlsetting> findByCriteria(AhmdsbscDtlsetting domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Transactional(readOnly=true)
+	public AhmdsbscDtlsetting findByVidAndVitemcode(String vid, String vitemcode){
+		String str = "from AhmdsbscDtlsetting where vid = :vid and vitemcode = :vitemcode";
+		Query q = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(str);
+		q.setString("vid", vid);
+		q.setString("vitemcode", vitemcode);
+		return (AhmdsbscDtlsetting) q.uniqueResult(); 
+	}
+
+}
