@@ -64,13 +64,12 @@
 	<bean id="mstBarangDao" class="com.saifiahmada.dao.MstBarangDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-<<<<<<< HEAD
+
 	
 	<bean id="mstCustomerDao" class="com.saifiahmada.dao.MstCustomerDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-=======
->>>>>>> e37656a971c71bc464e493ddf6b6f04c1c7501e4
+
 
 
 	<!-- master facade beans -->

@@ -16,10 +16,9 @@
 		<mapping class="com.saifiahmada.model.HdrPenjualan"/>
 		<mapping class="com.saifiahmada.model.DtlPenjualan"/>
 		<mapping class="com.saifiahmada.model.MstBarang"/>
-<<<<<<< HEAD
+
 		<mapping class="com.saifiahmada.model.MstCustomer"/> 
-=======
->>>>>>> e37656a971c71bc464e493ddf6b6f04c1c7501e4
+
 		
 	</session-factory>
 </hibernate-configuration>
