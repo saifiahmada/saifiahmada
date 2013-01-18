@@ -1,10 +1,12 @@
 package com.saifiahmada.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /** @author Saifi Ahmada Jan 15, 2013 10:11:35 PM  **/
@@ -22,12 +24,23 @@ public class MstBarang implements Serializable {
 	@Column(name="HARGA")
 	private Integer harga;
 	
+	@OneToMany(mappedBy="mstBarang") 
+	private Set<DtlPenjualan> dtlPenjualans;
+	
 	public MstBarang() {
 	
 	}
 	
 	public MstBarang(String idBarang) {
 		this.mstBarangPK = new MstBarangPK(idBarang);
+	}
+
+	public Set<DtlPenjualan> getDtlPenjualans() {
+		return dtlPenjualans;
+	}
+
+	public void setDtlPenjualans(Set<DtlPenjualan> dtlPenjualans) {
+		this.dtlPenjualans = dtlPenjualans;
 	}
 
 	public MstBarangPK getMstBarangPK() {

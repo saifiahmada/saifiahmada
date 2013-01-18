@@ -26,9 +26,9 @@ public class TestModel {
 
 		System.out.println("mulai");
 
-		MstBarang barang = new MstBarang("IDB003");
+		MstBarang barang = new MstBarang("IDB004");
 		barang.setHarga(3000);
-		barang.setNamaBarang("Pepsodent");
+		barang.setNamaBarang("Close Up");
 		dao.save(barang, "user");
 
 		System.out.println("end");

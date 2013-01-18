@@ -18,10 +18,10 @@ public class TesModelCustomer {
 		
 		System.out.println("Mulai");
 		
-		MstCustomer customer = new MstCustomer("IDC001");
-		customer.setAlamat("Kandangan");
-		customer.setNama("Ahmada");
-		customer.setNoKontak("085 751 635 XXX");
+		MstCustomer customer = new MstCustomer("IDC008");
+		customer.setAlamat("Banjar");
+		customer.setNama("Dion");
+		customer.setNoKontak("081 555 456 XXX");
 		
 		dao.save(customer, "user");
 		
