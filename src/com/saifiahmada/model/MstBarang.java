@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 /** @author Saifi Ahmada Jan 15, 2013 10:11:35 PM  **/
 
 @Entity
@@ -27,12 +28,23 @@ public class MstBarang implements Serializable {
 	@OneToMany(mappedBy="mstBarang") 
 	private Set<DtlPenjualan> dtlPenjualans;
 	
+	@OneToMany(mappedBy="mstBarang")
+	private Set<MstStok> mstStoks;
+	
 	public MstBarang() {
 	
 	}
 	
 	public MstBarang(String idBarang) {
 		this.mstBarangPK = new MstBarangPK(idBarang);
+	}
+
+	public Set<MstStok> getMstStoks() {
+		return mstStoks;
+	}
+
+	public void setMstStoks(Set<MstStok> mstStoks) {
+		this.mstStoks = mstStoks;
 	}
 
 	public Set<DtlPenjualan> getDtlPenjualans() {
@@ -97,7 +109,6 @@ public class MstBarang implements Serializable {
 	public String toString() {
 		return "MstBarang [mstBarangPK=" + mstBarangPK + "]";
 	}
-	
 	
 }
 

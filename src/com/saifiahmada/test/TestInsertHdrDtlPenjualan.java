@@ -22,7 +22,7 @@ public static void main (String [] args){
 		HdrPenjualanDao dao = (HdrPenjualanDao) ac.getBean("hdrPenjualanDao");
 		
 		System.out.println("Awal");
-		String idPenjualan = "J0001";
+		String idPenjualan = "J0002";
 		HdrPenjualan hdr = new HdrPenjualan(idPenjualan);
 		
 		hdr.setDtlPenjualans(new HashSet<DtlPenjualan>());

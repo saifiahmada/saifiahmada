@@ -14,7 +14,7 @@
 
 	    <!-- <property name="hibernate.hbm2ddl.auto">update</property>  -->
 	    <!-- <property name="hibernate.hbm2ddl.auto">create</property>  -->
-	    <!-- <property name="hibernate.hbm2ddl.auto">update</property>  -->
+	    <property name="hibernate.hbm2ddl.auto">update</property> 
 
 		<!-- mapping resources h000 -->
 		
@@ -23,6 +23,8 @@
 		<mapping class="com.saifiahmada.model.MstBarang"/>
 
 		<mapping class="com.saifiahmada.model.MstCustomer"/> 
+		<mapping class="com.saifiahmada.model.MstRak"/> 
+		<mapping class="com.saifiahmada.model.MstStok"/> 
 
 		
 	</session-factory>
