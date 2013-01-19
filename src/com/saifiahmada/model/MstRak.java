@@ -25,12 +25,23 @@ public class MstRak implements Serializable {
 	@OneToMany(mappedBy="mstRak") 
 	private Set<MstStok> mstStoks; 
 	
+	@OneToMany(mappedBy="mstRak") 
+	private Set<DtlPenjualan> dtlPenjualans;
+	
 	public MstRak() {
 	
 	}
 	
 	public MstRak(String idRak) {
 		this.mstRakPK = new MstRakPK(idRak);
+	}
+
+	public Set<DtlPenjualan> getDtlPenjualans() {
+		return dtlPenjualans;
+	}
+
+	public void setDtlPenjualans(Set<DtlPenjualan> dtlPenjualans) {
+		this.dtlPenjualans = dtlPenjualans;
 	}
 
 	public Set<MstStok> getMstStoks() {

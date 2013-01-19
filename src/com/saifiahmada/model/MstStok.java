@@ -1,11 +1,14 @@
 package com.saifiahmada.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -20,6 +23,7 @@ public class MstStok implements Serializable{
 	@EmbeddedId
 	private MstStokPK mstStokPK;
 	
+	@Column(name="QTY",nullable=false , length=6)
 	private int qty;
 	
 	@ManyToOne
@@ -30,12 +34,23 @@ public class MstStok implements Serializable{
 	@JoinColumn(name="ID_RAK", referencedColumnName="ID_RAK", insertable=false, updatable=false)
 	private MstRak mstRak;
 	
+	@OneToMany(mappedBy="mstStok")
+	private Set<DtlPenjualan> dtlPenjualans;
+	
 	public MstStok() {
 	
 	}
 	
 	public MstStok(String idBarang, String idRak) {
 		this.mstStokPK = new MstStokPK(idBarang, idRak);
+	}
+	
+	public Set<DtlPenjualan> getDtlPenjualans() {
+		return dtlPenjualans;
+	}
+
+	public void setDtlPenjualans(Set<DtlPenjualan> dtlPenjualans) {
+		this.dtlPenjualans = dtlPenjualans;
 	}
 
 	public MstRak getMstRak() {

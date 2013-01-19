@@ -67,7 +67,15 @@
 
 	
 	<bean id="mstCustomerDao" class="com.saifiahmada.dao.MstCustomerDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory"></property>
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="mstRakDao" class="com.saifiahmada.dao.MstRakDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="mstStokDao" class="com.saifiahmada.dao.MstStokDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 

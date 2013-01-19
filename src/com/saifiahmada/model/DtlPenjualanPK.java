@@ -18,13 +18,25 @@ public class DtlPenjualanPK implements Serializable {
 	@Column(name="ID_BARANG", nullable=false, length=6)
 	private String idBarang;
 	
+	@Column(name="ID_RAK", nullable=false, length=6)
+	private String idRak;
+	
 	public DtlPenjualanPK() {
 	
 	}
 	
-	public DtlPenjualanPK(String idpenjualan, String idBarang) {
+	public DtlPenjualanPK(String idpenjualan, String idBarang, String idRak) {
 		this.idpenjualan = idpenjualan;
 		this.idBarang = idBarang;
+		this.idRak = idRak;
+	}
+
+	public String getIdRak() {
+		return idRak;
+	}
+
+	public void setIdRak(String idRak) {
+		this.idRak = idRak;
 	}
 
 	public String getIdpenjualan() {

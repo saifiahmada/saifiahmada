@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,6 +25,10 @@ public class DtlPenjualan implements Serializable {
 	@JoinColumn(name="ID_BARANG", referencedColumnName="ID_BARANG", insertable=false, updatable=false)
 	private MstBarang mstBarang;
 	
+	@ManyToOne
+	@JoinColumn(name="ID_RAK", referencedColumnName="ID_RAK", insertable=false, updatable=false)
+	private MstRak mstRak;
+	
 	@Column(name="QTY", length=4, nullable=false)
 	private int qty;
 	
@@ -34,12 +39,33 @@ public class DtlPenjualan implements Serializable {
 	@JoinColumn(name="ID_PENJUALAN", referencedColumnName="ID_PENJUALAN", insertable=false, updatable=false)
 	private HdrPenjualan hdrPenjualan;
 	
+	@ManyToOne
+	@JoinColumns({@JoinColumn(name="ID_BARANG", referencedColumnName="ID_BARANG", nullable=false, insertable=false, updatable=false)
+					,@JoinColumn(name="ID_RAK", referencedColumnName="ID_RAK", nullable=false, insertable=false, updatable=false) })
+	private MstStok mstStok;
+	
 	public DtlPenjualan() {
 
 	}
 	
-	public DtlPenjualan(String idpenjualan, String idBarang) {
-		this.dtlPenjualanPK = new DtlPenjualanPK(idpenjualan, idBarang);
+	public DtlPenjualan(String idpenjualan, String idBarang, String idRak) {
+		this.dtlPenjualanPK = new DtlPenjualanPK(idpenjualan, idBarang, idRak);
+	}
+	
+	public MstRak getMstRak() {
+		return mstRak;
+	}
+
+	public void setMstRak(MstRak mstRak) {
+		this.mstRak = mstRak;
+	}
+
+	public MstStok getMstStok() {
+		return mstStok;
+	}
+
+	public void setMstStok(MstStok mstStok) {
+		this.mstStok = mstStok;
 	}
 
 	public DtlPenjualanPK getDtlPenjualanPK() {

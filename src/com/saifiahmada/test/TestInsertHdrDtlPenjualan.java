@@ -30,21 +30,9 @@ public static void main (String [] args){
 		hdr.setMstCustomer(mCust);
 		hdr.setTglJual(new Date());
 		
-		DtlPenjualan dtl = new DtlPenjualan(idPenjualan, "IDB001");
+		DtlPenjualan dtl = new DtlPenjualan(idPenjualan, "IDB001","RAK001");
 		
 		dtl.setHarga(5000);
-		dtl.setQty(1);
-		
-		hdr.getDtlPenjualans().add(dtl);
-		
-		dtl = new DtlPenjualan(idPenjualan, "IDB002");
-		dtl.setHarga(3000);
-		dtl.setQty(1);
-		
-		hdr.getDtlPenjualans().add(dtl);
-		
-		dtl = new DtlPenjualan(idPenjualan, "IDB003");
-		dtl.setHarga(3000);
 		dtl.setQty(1);
 		
 		hdr.getDtlPenjualans().add(dtl);
